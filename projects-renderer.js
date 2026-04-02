@@ -29,7 +29,7 @@
     // Check if thumbnail is a video
     const isVideo = project.thumbnail && project.thumbnail.endsWith('.mp4');
     const mediaHTML = isVideo
-      ? `<video src="${project.thumbnail}" muted autoplay playsinline loop preload="metadata"></video>`
+      ? `<video src="${project.thumbnail}" muted autoplay playsinline loop preload="metadata" style="display:block; width:100%; height:100%; object-fit:cover;"></video>`
       : `<img src="${project.thumbnail}" alt="${project.title}" loading="lazy">`;
 
     return `
@@ -143,7 +143,7 @@
 
     galleryEl.innerHTML = allMedia.map(item => {
       if (item.type === 'video') {
-        return `<video src="${item.src}" controls playsinline preload="metadata"></video>`;
+        return `<video src="${item.src}" muted controls playsinline preload="metadata" autoplay></video>`;
       }
       return `<img src="${item.src}" alt="${project.title}" loading="lazy">`;
     }).join('');

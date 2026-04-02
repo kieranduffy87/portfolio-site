@@ -11,8 +11,9 @@ window.PROJECTS = [
     location: "Dublin, Ireland",
     services: "Brand Identity, Web Design, Digital Strategy, UX/UI",
     cardSize: "tall",
-    thumbnail: "images/mjflood/asset 1.webp",
+    thumbnail: "images/mjflood/Mjflood-M.mp4",
     gallery: [
+      { type: "video", src: "images/mjflood/Mjflood-M.mp4" },
       { type: "image", src: "images/mjflood/asset 1.webp" },
       { type: "image", src: "images/mjflood/asset 2.webp" },
       { type: "image", src: "images/mjflood/asset 3.webp" },
@@ -32,8 +33,7 @@ window.PROJECTS = [
       { type: "image", src: "images/mjflood/asset 17.webp" },
       { type: "image", src: "images/mjflood/asset 18.webp" },
       { type: "image", src: "images/mjflood/asset 19.webp" },
-      { type: "image", src: "images/mjflood/asset 20.webp" },
-      { type: "video", src: "images/mjflood/Mjflood-M.mp4" }
+      { type: "image", src: "images/mjflood/asset 20.webp" }
     ],
     featured: true
   },
@@ -49,8 +49,11 @@ window.PROJECTS = [
     location: "Dublin, Ireland",
     services: "Web Design, UX Strategy, Development, Content Architecture",
     cardSize: "standard",
-    thumbnail: "images/engineers-ireland/asset 1.webp",
+    thumbnail: "images/engineers-ireland/iPhone-mockup-eng irl.mp4",
     gallery: [
+      { type: "video", src: "images/engineers-ireland/iPhone-mockup-eng irl.mp4" },
+      { type: "video", src: "images/engineers-ireland/engineers-ireland-website.mp4" },
+      { type: "video", src: "images/engineers-ireland/logo engineers.mp4" },
       { type: "image", src: "images/engineers-ireland/asset 1.webp" },
       { type: "image", src: "images/engineers-ireland/asset 2.webp" },
       { type: "image", src: "images/engineers-ireland/asset 3.webp" },
@@ -65,10 +68,7 @@ window.PROJECTS = [
       { type: "image", src: "images/engineers-ireland/asset 12.webp" },
       { type: "image", src: "images/engineers-ireland/asset 13.webp" },
       { type: "image", src: "images/engineers-ireland/asset 14.webp" },
-      { type: "image", src: "images/engineers-ireland/asset 15.webp" },
-      { type: "video", src: "images/engineers-ireland/iPhone-mockup-eng irl.mp4" },
-      { type: "video", src: "images/engineers-ireland/engineers-ireland-website.mp4" },
-      { type: "video", src: "images/engineers-ireland/logo engineers.mp4" }
+      { type: "image", src: "images/engineers-ireland/asset 15.webp" }
     ],
     featured: true
   },
