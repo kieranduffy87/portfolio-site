@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  const grid = document.querySelector('.masonry-grid');
+  const grid = document.querySelector('.projects-grid');
   if (!grid || !window.PROJECTS) return;
 
   const showMode = grid.dataset.show || 'all';
@@ -9,46 +9,61 @@
     ? window.PROJECTS.filter(p => p.featured)
     : window.PROJECTS;
 
+  // ─── HELPERS ───
+
+  function isVideo(src) {
+    return src && src.match(/\.(mp4|webm|mov)(\?|$)/i);
+  }
+
   // ─── BUILD GRID ───
 
   function renderCard(project) {
     const isText = project.cardSize === 'text';
-    const sizeClass = project.cardSize === 'tall' ? 'masonry-card--tall'
-      : project.cardSize === 'text' ? 'masonry-card--text'
-      : 'masonry-card--standard';
 
     if (isText) {
       return `
-        <div class="masonry-card ${sizeClass}" data-project-id="${project.id}" data-category="${project.category}">
-          <div class="masonry-card__tag">${project.tag}</div>
-          <h3 class="masonry-card__title">${project.title}</h3>
-          <p class="masonry-card__desc">${project.shortDesc}</p>
+        <div class="project-card project-card--text" data-project-id="${project.id}" data-category="${project.category}">
+          <div class="project-card__tag">${project.tag}</div>
+          <h3 class="project-card__title">${project.title}</h3>
+          <p class="project-card__desc">${project.shortDesc}</p>
         </div>`;
     }
 
-    // Check if thumbnail is a video
-    const isVideo = project.thumbnail && project.thumbnail.endsWith('.mp4');
-    const mediaHTML = isVideo
-      ? `<video src="${project.thumbnail}" muted autoplay playsinline loop preload="metadata" style="display:block; width:100%; height:100%; object-fit:cover;"></video>`
-      : `<img src="${project.thumbnail}" alt="${project.title}" loading="lazy">`;
+    const sizeClass = project.cardSize === 'tall' ? 'project-card--tall' : '';
+
+    // Use <video> for video thumbnails, <img> for images
+    const mediaSrc = project.thumbnail;
+    const mediaEl = isVideo(mediaSrc)
+      ? `<video src="${mediaSrc}" autoplay loop muted playsinline preload="metadata" style="object-fit: cover;"></video>`
+      : `<img src="${mediaSrc}" alt="${project.title}" loading="lazy">`;
 
     return `
-      <button class="masonry-card ${sizeClass}" data-project-id="${project.id}" data-category="${project.category}" aria-label="View project: ${project.title}">
-        ${mediaHTML}
-        <div class="masonry-card__overlay">
-          <div class="masonry-card__tag">${project.tag}</div>
-          <h3 class="masonry-card__title">${project.title}</h3>
-          <p class="masonry-card__desc">${project.shortDesc}</p>
+      <button class="project-card ${sizeClass}" data-project-id="${project.id}" data-category="${project.category}" aria-label="View project: ${project.title}">
+        ${mediaEl}
+        <div class="project-card__tags">
+          ${project.services ? project.services.split(',').slice(0, 3).map(service =>
+            `<span class="project-card__tag">${service.trim()}</span>`
+          ).join('') : `<span class="project-card__tag">${project.category}</span>`}
+        </div>
+        <div class="project-card__name">
+          <span>${project.title}</span>
+          <div class="project-card__arrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </div>
         </div>
       </button>`;
   }
 
   function renderGrid(projectList) {
-    grid.innerHTML = projectList.map(renderCard).join('');
-    // Trigger reveal animation with stagger
+    // Filter out text cards (Brand Strategy, Digital Craft)
+    const filteredList = projectList.filter(p => p.cardSize !== 'text');
+    grid.innerHTML = filteredList.map(renderCard).join('');
     requestAnimationFrame(() => {
-      grid.querySelectorAll('.masonry-card').forEach((card, i) => {
-        setTimeout(() => card.classList.add('masonry-card--visible'), i * 100);
+      grid.querySelectorAll('.project-card').forEach((card, i) => {
+        setTimeout(() => card.classList.add('visible'), i * 100);
       });
     });
     attachCardListeners();
@@ -73,13 +88,12 @@
         ? baseList
         : baseList.filter(p => p.category === filter);
 
-      // Fade out then re-render
-      grid.querySelectorAll('.masonry-card').forEach(c => c.classList.remove('masonry-card--visible'));
+      grid.querySelectorAll('.project-card').forEach(c => c.classList.remove('visible'));
       setTimeout(() => renderGrid(filtered), 300);
     });
   });
 
-  // ─── MODAL SYSTEM (Ryadovoy-style full-page with horizontal gallery) ───
+  // ─── MODAL SYSTEM (Leo Leo split layout: text left, gallery right) ───
 
   const modal = document.createElement('div');
   modal.className = 'project-modal';
@@ -92,18 +106,12 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
       <div class="project-modal__layout">
-        <!-- Left: Text Content -->
         <div class="project-modal__sidebar">
-          <div class="project-modal__scroll">
-            <div class="project-modal__header">
-              <div class="project-modal__tag"></div>
-              <h2 class="project-modal__title"></h2>
-              <p class="project-modal__intro"></p>
-            </div>
-            <div class="project-modal__meta"></div>
-          </div>
+          <div class="project-modal__tag"></div>
+          <h2 class="project-modal__title"></h2>
+          <p class="project-modal__intro"></p>
+          <div class="project-modal__meta"></div>
         </div>
-        <!-- Right: Gallery -->
         <div class="project-modal__gallery-container">
           <div class="project-modal__gallery"></div>
         </div>
@@ -117,7 +125,7 @@
     const project = window.PROJECTS.find(p => p.id === projectId);
     if (!project || project.cardSize === 'text') return;
 
-    // Populate header
+    // Populate info side
     modal.querySelector('.project-modal__tag').textContent = project.category;
     modal.querySelector('.project-modal__title').textContent = project.title;
     modal.querySelector('.project-modal__intro').textContent = project.fullDesc || project.shortDesc;
@@ -135,7 +143,7 @@
       metaEl.style.display = 'none';
     }
 
-    // Populate horizontal gallery — ALL images including first
+    // Populate gallery — ALL media including first
     const galleryEl = modal.querySelector('.project-modal__gallery');
     const allMedia = project.gallery && project.gallery.length > 0
       ? project.gallery
@@ -143,19 +151,19 @@
 
     galleryEl.innerHTML = allMedia.map(item => {
       if (item.type === 'video') {
-        return `<video src="${item.src}" muted controls playsinline preload="metadata" autoplay></video>`;
+        return `<video src="${item.src}" controls muted playsinline preload="metadata"></video>`;
       }
       return `<img src="${item.src}" alt="${project.title}" loading="lazy">`;
     }).join('');
-    galleryEl.scrollLeft = 0;
+
+    // Reset gallery scroll
+    const galleryContainer = modal.querySelector('.project-modal__gallery-container');
+    galleryContainer.scrollTop = 0;
 
     // Show modal
     modal.classList.add('active');
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
-
-    // Init drag-to-scroll on gallery
-    initGalleryDrag(galleryEl);
   }
 
   function closeModal() {
@@ -167,56 +175,15 @@
     modal.querySelectorAll('video').forEach(v => v.pause());
   }
 
-  // Drag-to-scroll for the horizontal gallery
-  function initGalleryDrag(galleryEl) {
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    // Remove old listeners by cloning
-    const newGallery = galleryEl.cloneNode(true);
-    galleryEl.parentNode.replaceChild(newGallery, galleryEl);
-
-    newGallery.addEventListener('mousedown', (e) => {
-      isDown = true;
-      newGallery.classList.add('dragging');
-      startX = e.pageX - newGallery.offsetLeft;
-      scrollLeft = newGallery.scrollLeft;
-    });
-
-    newGallery.addEventListener('mouseleave', () => {
-      isDown = false;
-      newGallery.classList.remove('dragging');
-    });
-
-    newGallery.addEventListener('mouseup', () => {
-      isDown = false;
-      newGallery.classList.remove('dragging');
-    });
-
-    newGallery.addEventListener('mousemove', (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - newGallery.offsetLeft;
-      const walk = (x - startX) * 1.5;
-      newGallery.scrollLeft = scrollLeft - walk;
-    });
-  }
-
   closeBtn.addEventListener('click', closeModal);
-  // Also close on clicking the background area (outside gallery images)
-  modal.querySelector('.project-modal__content').addEventListener('click', (e) => {
-    if (e.target === e.currentTarget || e.target.classList.contains('project-modal__scroll')) {
-      closeModal();
-    }
-  });
+  modal.querySelector('.project-modal__backdrop').addEventListener('click', closeModal);
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
   });
 
   function attachCardListeners() {
-    grid.querySelectorAll('.masonry-card[data-project-id]').forEach(card => {
-      if (card.classList.contains('masonry-card--text')) return;
+    grid.querySelectorAll('.project-card[data-project-id]').forEach(card => {
+      if (card.classList.contains('project-card--text')) return;
       card.addEventListener('click', () => {
         openModal(card.dataset.projectId);
       });
@@ -228,14 +195,14 @@
   const cardObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('masonry-card--visible');
+        entry.target.classList.add('visible');
         cardObserver.unobserve(entry.target);
       }
     });
   }, { threshold: 0.1, root: null });
 
   function observeCards() {
-    grid.querySelectorAll('.masonry-card:not(.masonry-card--visible)').forEach(card => {
+    grid.querySelectorAll('.project-card:not(.visible)').forEach(card => {
       cardObserver.observe(card);
     });
   }
