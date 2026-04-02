@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KD — Digital Design & Creative Agency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&family=Outfit:wght@200;300;400;500;600&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ─── PAGE BACKGROUND ─── */
+body.home-body {
+  background: #f0f0f0;
+}
+
+/* ─── NAV: light mode (glass pill over dark hero) ─── */
+#navbar.nav-light {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(255,255,255,0.08);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.15);
+}
+#navbar.nav-light .nav-links a {
+  color: rgba(255,255,255,0.75) !important;
+}
+#navbar.nav-light .nav-links a:hover {
+  color: #fff !important;
+  background: rgba(255,255,255,0.1);
+}
+#navbar.nav-light .nav-cta {
+  background: rgba(255,255,255,0.15) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,0.2) !important;
+}
+#navbar.nav-light .nav-cta:hover {
+  background: rgba(255,255,255,0.25) !important;
+}
+#navbar.nav-light .nav-hamburger {
+  border-color: rgba(255,255,255,0.2);
+}
+#navbar.nav-light .nav-hamburger:hover {
+  border-color: rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.1);
+}
+#navbar.nav-light .nav-hamburger svg {
+  stroke: #fff;
+}
+/* Logo swap: dark logo hidden, white logo shown when nav-light */
+#navbar .nav-logo-white { display: none; }
+#navbar.nav-light .nav-logo-dark { display: none; }
+#navbar.nav-light .nav-logo-white { display: block; }
+
+/* ─── HERO VIEWPORT FRAME ─── */
+.hero-viewport {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  padding: 16px;
+  display: flex;
+  align-items: stretch;
+}
+
+.hero-frame {
+  position: relative;
+  flex: 1;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #0339f8;
+}
+
+.hero-gradient-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-gradient-bg canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Subtle vignette overlay */
+.hero-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 100% 80% at 50% 60%, transparent 40%, rgba(0,8,40,0.35) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Hero text — bottom center */
+.hero-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  padding: 0 clamp(40px, 5vw, 80px) clamp(48px, 6vh, 80px);
+  text-align: center;
+}
+
+.hero-title {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: clamp(2.4rem, 5vw, 4.8rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: #fff;
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(24px);
+  animation: mcFadeUp 1s 0.4s forwards;
+}
+
+.hero-sub {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+  font-weight: 400;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.6;
+  max-width: 540px;
+  margin: 0 auto 32px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: mcFadeUp 1s 0.6s forwards;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: mcFadeUp 1s 0.8s forwards;
+}
+
+.hero-btn-primary {
+  background: #fff;
+  color: #111118;
+  padding: 14px 32px;
+  border-radius: 100px;
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.01em;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(255,255,255,0.2);
+}
+
+.hero-btn-secondary {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  padding: 14px 32px;
+  border-radius: 100px;
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.01em;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-btn-secondary:hover {
+  background: rgba(255,255,255,0.2);
+  transform: translateY(-2px);
+}
+
+/* ─── 3-WIDE UNVEIL GRID (ellis.digital style) ─── */
+.projects-unveil {
+  padding: clamp(80px, 10vw, 140px) 0 clamp(40px, 6vw, 80px);
+}
+
+.unveil-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+/* Tall panel spans 2 rows */
+.unveil-panel.unveil-tall {
+  grid-row: span 2;
+}
+
+/* Wide panel spans 2 columns */
+.unveil-panel.unveil-wide {
+  grid-column: span 2;
+}
+
+.unveil-panel {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  display: block;
+  background: #1a1a24;
+  min-height: 240px;
+  /* Unveil animation — starts hidden */
+  opacity: 0;
+  transform: translateY(60px) scale(0.97);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.unveil-panel.unveiled {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Stagger each panel */
+.unveil-panel:nth-child(1) { transition-delay: 0s; }
+.unveil-panel:nth-child(2) { transition-delay: 0.1s; }
+.unveil-panel:nth-child(3) { transition-delay: 0.2s; }
+.unveil-panel:nth-child(4) { transition-delay: 0.15s; }
+.unveil-panel:nth-child(5) { transition-delay: 0.05s; }
+.unveil-panel:nth-child(6) { transition-delay: 0.2s; }
+
+.unveil-panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.unveil-panel:hover img {
+  transform: scale(1.05);
+}
+
+.unveil-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 50%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.unveil-panel:hover .unveil-overlay {
+  opacity: 1;
+}
+
+.unveil-tag {
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 6px;
+}
+
+.unveil-overlay h3 {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 768px) {
+  .unveil-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .unveil-panel.unveil-tall {
+    grid-row: span 1;
+  }
+  .unveil-panel.unveil-wide {
+    grid-column: span 2;
+  }
+  .unveil-panel {
+    min-height: 180px;
+  }
+  .unveil-overlay h3 {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .unveil-grid {
+    grid-template-columns: 1fr;
+  }
+  .unveil-panel.unveil-wide {
+    grid-column: span 1;
+  }
+}
+
+/* ─── KEEP EXISTING BTN STYLES ─── */
+.btn-accent {
+  background: #0339f8;
+  color: #fff;
+}
+.btn-accent:hover {
+  background: #0250ff;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(3, 57, 248, 0.3);
+}
+
+/* ─── PARALLAX SECTIONS ─── */
+.parallax-section {
+  will-change: transform;
+}
+
+.parallax-img {
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+/* Section fade-in on scroll */
+.section-fade {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section-fade.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── BLUE SERVICES SECTION ─── */
+#services .service-row {
+  border-color: rgba(255,255,255,0.15);
+  color: #fff;
+}
+#services .service-row:hover {
+  background: rgba(255,255,255,0.08);
+}
+#services .service-num {
+  color: rgba(255,255,255,0.4);
+}
+#services .service-name {
+  color: #fff;
+}
+#services .service-info {
+  color: rgba(255,255,255,0.6);
+}
+#services .service-arrow svg {
+  stroke: #fff;
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes mcFadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .hero-viewport {
+    padding: 12px;
+  }
+  .hero-frame {
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-viewport {
+    padding: 8px;
+    height: 100svh;
+  }
+  .hero-frame {
+    border-radius: 16px;
+  }
+  .hero-title {
+    font-size: clamp(1.8rem, 8vw, 3rem);
+  }
+  .hero-content {
+    padding: 0 24px 40px;
+  }
+}
+</style>
+</head>
+<body class="home-body">
+
+<!-- Full-screen menu overlay -->
+<div class="menu-overlay" id="menuOverlay">
+  <div class="menu-overlay-close" id="menuClose">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+  </div>
+  <ul class="menu-overlay-links">
+    <li><a href="work.html">Work</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="menu-overlay-bottom">
+    <a href="#">Instagram</a>
+    <a href="#">Dribbble</a>
+    <a href="#">LinkedIn</a>
+    <a href="#">Behance</a>
+  </div>
+</div>
+
+<!-- Sticky nav — same on every page -->
+<nav id="navbar" class="nav-light">
+  <div class="container">
+    <a href="index.html" class="logo">
+      <img src="images/logo.svg" alt="KD" class="nav-logo-img nav-logo-dark">
+      <img src="images/logo-white.svg" alt="KD" class="nav-logo-img nav-logo-white">
+    </a>
+    <ul class="nav-links">
+      <li><a href="work.html">Work</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="contact.html" class="nav-cta">Get in Touch</a></li>
+      <li><button class="nav-hamburger" onclick="document.getElementById('menuOverlay').classList.add('active')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h16M4 16h16"/></svg>
+      </button></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero viewport with rounded frame -->
+<section class="hero-viewport">
+  <div class="hero-frame">
+
+    <!-- 3D Canvas -->
+    <div class="hero-gradient-bg">
+      <canvas id="hero-canvas"></canvas>
+    </div>
+
+    <!-- Title at bottom -->
+    <div class="hero-content">
+      <h1 class="hero-title">Crafting Digital<br>Brilliance.</h1>
+      <p class="hero-sub">We craft bold brands, immersive websites, and digital experiences that captivate audiences and drive measurable growth.</p>
+      <div class="hero-ctas">
+        <a href="work.html" class="btn hero-btn-primary">View Our Work</a>
+        <a href="contact.html" class="btn hero-btn-secondary">Start a Project</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Page content on white background -->
+
+<section class="marquee-section section-fade">
+  <div class="marquee-track">
+    <span>Forbes</span><span>Wired</span><span>Awwwards</span><span>Dezeen</span><span>The Verge</span><span>Fast Company</span><span>Creative Review</span><span>Communication Arts</span>
+    <span>Forbes</span><span>Wired</span><span>Awwwards</span><span>Dezeen</span><span>The Verge</span><span>Fast Company</span><span>Creative Review</span><span>Communication Arts</span>
+  </div>
+</section>
+
+<section class="projects-section-dark" id="projects">
+  <div class="container">
+    <div class="section-header reveal" style="padding-bottom:40px">
+      <div>
+        <div class="section-label">01 — Our Work</div>
+        <h2 class="section-heading">Selected Projects</h2>
+      </div>
+      <p class="section-desc">Case studies showcasing strategy, design, and measurable results for ambitious brands.</p>
+    </div>
+    <div class="masonry-grid" data-show="featured"></div>
+    <div style="text-align:center;padding-top:48px">
+      <a href="work.html" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,0.15);">View All Projects <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:15px;height:15px"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<section class="services section-fade" id="services" style="background:#0339f8;color:#fff;padding:clamp(80px,10vw,140px) 0;margin:0 16px;border-radius:24px;">
+  <div class="container">
+    <div class="section-header reveal">
+      <div><div class="section-label" style="color:rgba(255,255,255,0.6)">02 — Services</div><h2 class="section-heading" style="color:#fff">What We Do</h2></div>
+      <p class="section-desc" style="color:rgba(255,255,255,0.7)">End-to-end digital solutions for ambitious brands.</p>
+    </div>
+    <div class="services-list">
+      <div class="service-row reveal"><span class="service-num">01</span><h3 class="service-name">Brand Identity</h3><p class="service-info">Strategic positioning, visual identity systems, and brand guidelines that resonate.</p><div class="service-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div></div>
+      <div class="service-row reveal reveal-d1"><span class="service-num">02</span><h3 class="service-name">Web Design & Development</h3><p class="service-info">Bespoke websites built with cutting-edge technology and timeless design.</p><div class="service-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div></div>
+      <div class="service-row reveal reveal-d2"><span class="service-num">03</span><h3 class="service-name">Digital Strategy</h3><p class="service-info">Data-driven strategies aligning brand vision with market opportunity.</p><div class="service-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div></div>
+      <div class="service-row reveal reveal-d3"><span class="service-num">04</span><h3 class="service-name">E-Commerce</h3><p class="service-info">High-converting stores blending luxury aesthetics with frictionless journeys.</p><div class="service-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div></div>
+      <div class="service-row reveal reveal-d4"><span class="service-num">05</span><h3 class="service-name">SEO & Performance</h3><p class="service-info">Technical optimization and content strategy to reach the right audiences.</p><div class="service-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="process section-fade" id="process">
+  <div class="container">
+    <div class="section-header reveal"><div><div class="section-label">03 — Process</div><h2 class="section-heading">How We Work</h2></div></div>
+    <div class="process-grid">
+      <div class="process-card reveal"><div class="process-num">01</div><h4>Discovery</h4><p>Deep-dive research, workshops, and competitive analysis to understand your brand and goals.</p></div>
+      <div class="process-card reveal reveal-d1"><div class="process-num">02</div><h4>Strategy</h4><p>Define creative direction, technical architecture, and the strategic framework.</p></div>
+      <div class="process-card reveal reveal-d2"><div class="process-num">03</div><h4>Create</h4><p>Design and build with meticulous attention, iterating through feedback loops.</p></div>
+      <div class="process-card reveal reveal-d3"><div class="process-num">04</div><h4>Launch & Grow</h4><p>Deploy, optimize, and continuously improve based on real-world data.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-break section-fade">
+  <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=1600&h=600&fit=crop&q=80" alt="Workspace" loading="lazy" class="parallax-img">
+  <div class="cta-break-content">
+    <h2>Ready to create something<br>extraordinary?</h2>
+    <a href="contact.html" class="btn btn-accent">Start a Project</a>
+  </div>
+</section>
+
+<section class="contact section-fade" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-left reveal">
+        <div class="section-label">04 — Contact</div>
+        <h3>Let's build something great together.</h3>
+        <p>Every great partnership starts with a conversation. Tell us about your vision and we'll bring it to life.</p>
+        <div class="contact-info">
+          <div class="contact-item"><div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div><div><div class="meta">Email</div><div class="detail">hello@studio.digital</div></div></div>
+          <div class="contact-item"><div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div><div><div class="meta">Phone</div><div class="detail">+44 (0) 20 7946 0958</div></div></div>
+          <div class="contact-item"><div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="meta">Location</div><div class="detail">London & Surrey, UK</div></div></div>
+        </div>
+      </div>
+      <form class="contact-form reveal reveal-d2" onsubmit="event.preventDefault()">
+        <div class="form-field"><label>Name</label><input type="text" placeholder="Your name"></div>
+        <div class="form-field"><label>Email</label><input type="email" placeholder="you@company.com"></div>
+        <div class="form-field"><label>Budget</label><input type="text" placeholder="Project budget range"></div>
+        <div class="form-field"><label>Message</label><textarea placeholder="Tell us about your project..."></textarea></div>
+        <button type="submit" class="btn btn-accent" style="align-self:flex-start">Send Enquiry <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container"><div class="footer-inner">
+    <div class="footer-logo"><img src="images/logo.svg" alt="KD" style="height:18px"></div>
+    <ul class="footer-links"><li><a href="#">Instagram</a></li><li><a href="#">Dribbble</a></li><li><a href="#">LinkedIn</a></li><li><a href="#">Behance</a></li></ul>
+    <div class="footer-copy">&copy; 2026 KD Digital. All rights reserved.</div>
+  </div></div>
+</footer>
+
+<script src="projects-data.js"></script>
+<script src="projects-renderer.js"></script>
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.163.0/build/three.module.js"}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+
+const canvas = document.getElementById('hero-canvas');
+const container = canvas.parentElement;
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.2;
+
+function getSize() {
+  return { w: container.clientWidth, h: container.clientHeight };
+}
+let { w, h } = getSize();
+renderer.setSize(w, h);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0339f8);
+
+const camera = new THREE.PerspectiveCamera(35, w / h, 0.1, 100);
+camera.position.set(0, 0, 12);
+
+// ─── Lighting ───
+scene.add(new THREE.AmbientLight(0x1030a0, 2));
+
+const keyLight = new THREE.DirectionalLight(0x6699ff, 5);
+keyLight.position.set(5, 8, 6);
+scene.add(keyLight);
+
+const fillLight = new THREE.DirectionalLight(0x4477ff, 2.5);
+fillLight.position.set(-6, 3, 4);
+scene.add(fillLight);
+
+const rimLight = new THREE.DirectionalLight(0xffffff, 2);
+rimLight.position.set(0, -3, -6);
+scene.add(rimLight);
+
+const pt1 = new THREE.PointLight(0x0339f8, 80, 25);
+pt1.position.set(4, 3, 5);
+scene.add(pt1);
+
+const pt2 = new THREE.PointLight(0x6688ff, 40, 20);
+pt2.position.set(-5, -2, 4);
+scene.add(pt2);
+
+// ─── Arrow shape builders (from SVG logo) ───
+// Blue chevron: points="23.48 0 11.16 0 0 10.91 11.16 21.82 23.48 21.82 12.32 10.91"
+function makeBlueArrow() {
+  const s = new THREE.Shape();
+  const sc = 0.18; // scale to ~4 units
+  s.moveTo(23.48*sc, 21.82*sc);
+  s.lineTo(11.16*sc, 21.82*sc);
+  s.lineTo(0, 10.91*sc);
+  s.lineTo(11.16*sc, 0);
+  s.lineTo(23.48*sc, 0);
+  s.lineTo(12.32*sc, 10.91*sc);
+  s.closePath();
+  return s;
+}
+
+// White triangle: points="0 0 0 21.81 11.16 10.9"
+function makeWhiteArrow() {
+  const s = new THREE.Shape();
+  const sc = 0.18;
+  s.moveTo(0, 21.81*sc);
+  s.lineTo(0, 0);
+  s.lineTo(11.16*sc, 10.9*sc);
+  s.closePath();
+  return s;
+}
+
+const extrudeSettings = { depth: 1.2, bevelEnabled: true, bevelThickness: 0.08, bevelSize: 0.06, bevelSegments: 3 };
+const extrudeSmall = { depth: 0.5, bevelEnabled: true, bevelThickness: 0.04, bevelSize: 0.03, bevelSegments: 2 };
+
+// ─── Materials ───
+const matBlueBright = new THREE.MeshPhysicalMaterial({
+  color: 0x0339f8, metalness: 0.05, roughness: 0.18,
+  clearcoat: 1.0, clearcoatRoughness: 0.05, reflectivity: 1.0,
+});
+
+const matBlueDark = new THREE.MeshPhysicalMaterial({
+  color: 0x001050, metalness: 0.15, roughness: 0.2,
+  clearcoat: 0.8, clearcoatRoughness: 0.1, reflectivity: 0.8,
+});
+
+const matWhite = new THREE.MeshPhysicalMaterial({
+  color: 0xe8e8f0, metalness: 0.02, roughness: 0.15,
+  clearcoat: 1.0, clearcoatRoughness: 0.05, reflectivity: 1.0,
+});
+
+const matGray = new THREE.MeshPhysicalMaterial({
+  color: 0x8890a8, metalness: 0.1, roughness: 0.25,
+  clearcoat: 0.6, clearcoatRoughness: 0.15,
+});
+
+// ─── Create arrow meshes ───
+const blueShape = makeBlueArrow();
+const whiteShape = makeWhiteArrow();
+const blueGeo = new THREE.ExtrudeGeometry(blueShape, extrudeSettings);
+const whiteGeo = new THREE.ExtrudeGeometry(whiteShape, extrudeSettings);
+const blueGeoSm = new THREE.ExtrudeGeometry(blueShape, extrudeSmall);
+const whiteGeoSm = new THREE.ExtrudeGeometry(whiteShape, extrudeSmall);
+
+// Center geometries
+[blueGeo, whiteGeo, blueGeoSm, whiteGeoSm].forEach(g => {
+  g.computeBoundingBox();
+  g.center();
+});
+
+// Main large blue chevron (center)
+const mainBlue = new THREE.Mesh(blueGeo, matBlueBright);
+mainBlue.scale.set(1.6, 1.6, 1.6);
+mainBlue.position.set(0.5, -0.3, 0);
+mainBlue.rotation.set(0.2, -0.3, 0.05);
+scene.add(mainBlue);
+
+// Main white triangle (overlapping)
+const mainWhite = new THREE.Mesh(whiteGeo, matWhite);
+mainWhite.scale.set(1.6, 1.6, 1.6);
+mainWhite.position.set(-1.2, -0.1, 0.8);
+mainWhite.rotation.set(0.15, -0.2, -0.05);
+scene.add(mainWhite);
+
+// Large dark navy chevron (behind, rotated)
+const bgChevron = new THREE.Mesh(blueGeo, matBlueDark);
+bgChevron.scale.set(2.0, 2.0, 2.0);
+bgChevron.position.set(1.5, 0.8, -2);
+bgChevron.rotation.set(-0.1, 0.4, 0.15);
+scene.add(bgChevron);
+
+// Smaller blue arrow (bottom-left, large)
+const arrow3 = new THREE.Mesh(blueGeo, matBlueBright.clone());
+arrow3.material.color.set(0x1550ff);
+arrow3.scale.set(1.3, 1.3, 1.3);
+arrow3.position.set(-4.5, -2.5, -1);
+arrow3.rotation.set(0.3, 0.5, 0.2);
+scene.add(arrow3);
+
+// White arrow (right side)
+const arrow4 = new THREE.Mesh(whiteGeo, matGray);
+arrow4.scale.set(0.9, 0.9, 0.9);
+arrow4.position.set(4.5, 1.2, -1);
+arrow4.rotation.set(-0.2, -0.6, -0.1);
+scene.add(arrow4);
+
+// ─── Floating cubes ───
+const cubeGeo = new THREE.BoxGeometry(0.55, 0.55, 0.55);
+const cubes = [];
+
+function addCube(pos, mat, sc) {
+  const m = new THREE.Mesh(cubeGeo, mat);
+  m.position.set(...pos);
+  m.scale.set(sc, sc, sc);
+  m.rotation.set(Math.random()*2, Math.random()*2, Math.random()*2);
+  scene.add(m);
+  cubes.push(m);
+  return m;
+}
+
+addCube([-5, 2.5, 0.5], matBlueDark, 1.2);
+addCube([5.2, -1.8, 1], matBlueDark, 0.9);
+addCube([3.8, 3, -1.5], matGray, 0.7);
+addCube([-3.5, -3, 1.5], matBlueBright.clone(), 0.6);
+addCube([5.5, 2.8, -0.5], matWhite.clone(), 0.5);
+addCube([-5.5, -1, -1], matGray.clone(), 0.8);
+
+// Small arrow fragments
+const frag1 = new THREE.Mesh(blueGeoSm, matBlueDark.clone());
+frag1.scale.set(0.5, 0.5, 0.5);
+frag1.position.set(-3, 3.2, 1.5);
+frag1.rotation.set(0.8, 1.2, 0.3);
+scene.add(frag1);
+
+const frag2 = new THREE.Mesh(whiteGeoSm, matGray.clone());
+frag2.scale.set(0.4, 0.4, 0.4);
+frag2.position.set(4, -3, 2);
+frag2.rotation.set(-0.5, 0.7, -0.4);
+scene.add(frag2);
+
+// ─── Mouse tracking ───
+let mx = 0, my = 0, tx = 0, ty = 0;
+document.addEventListener('mousemove', e => {
+  mx = (e.clientX / window.innerWidth) * 2 - 1;
+  my = -(e.clientY / window.innerHeight) * 2 + 1;
+});
+
+// ─── All floating objects for animation ───
+const floaters = [mainBlue, mainWhite, bgChevron, arrow3, arrow4, frag1, frag2, ...cubes];
+const initRots = floaters.map(f => ({ x: f.rotation.x, y: f.rotation.y, z: f.rotation.z }));
+const initPos = floaters.map(f => ({ x: f.position.x, y: f.position.y, z: f.position.z }));
+
+const clock = new THREE.Clock();
+
+function animate() {
+  requestAnimationFrame(animate);
+  const t = clock.getElapsedTime();
+
+  // Smooth mouse follow
+  tx += (mx * 0.25 - tx) * 0.03;
+  ty += (my * 0.2 - ty) * 0.03;
+
+  // Animate each floater with gentle bob + mouse response
+  floaters.forEach((f, i) => {
+    const speed = 0.15 + i * 0.03;
+    const amp = 0.12 + (i % 3) * 0.05;
+    f.position.y = initPos[i].y + Math.sin(t * speed + i) * amp;
+    f.position.x = initPos[i].x + Math.cos(t * speed * 0.7 + i * 0.5) * amp * 0.4;
+    f.rotation.x = initRots[i].x + Math.sin(t * speed * 0.5 + i) * 0.04 + ty * 0.15;
+    f.rotation.y = initRots[i].y + Math.cos(t * speed * 0.4 + i) * 0.04 + tx * 0.2;
+  });
+
+  // Moving lights for dynamic reflections
+  pt1.position.x = 4 + Math.sin(t * 0.3) * 3;
+  pt1.position.y = 3 + Math.cos(t * 0.2) * 2;
+  pt2.position.x = -5 + Math.cos(t * 0.25) * 2;
+
+  // Camera subtle mouse tracking
+  camera.position.x = tx * 0.5;
+  camera.position.y = ty * 0.3;
+  camera.lookAt(0, 0, 0);
+
+  renderer.render(scene, camera);
+}
+
+animate();
+
+window.addEventListener('resize', () => {
+  const s = getSize();
+  camera.aspect = s.w / s.h;
+  camera.updateProjectionMatrix();
+  renderer.setSize(s.w, s.h);
+});
+</script>
+
+<script>
+// ─── Reveal on scroll ───
+const els = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(e => {
+  e.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+}, { threshold: .08, rootMargin: '0px 0px -40px 0px' });
+els.forEach(e => obs.observe(e));
+
+// ─── Section fade-in on scroll ───
+const sections = document.querySelectorAll('.section-fade');
+const sectionObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+      sectionObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.05, rootMargin: '0px 0px -60px 0px' });
+sections.forEach(s => sectionObs.observe(s));
+
+// ─── Nav scroll — Mastercard-style sticky nav ───
+const nav = document.getElementById('navbar');
+const heroViewport = document.querySelector('.hero-viewport');
+window.addEventListener('scroll', () => {
+  const pastHero = heroViewport && heroViewport.getBoundingClientRect().bottom < 64;
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+  // On homepage: white text over hero, dark text once scrolled past
+  if (heroViewport) {
+    nav.classList.toggle('nav-light', !pastHero);
+  }
+}, { passive: true });
+
+// ─── Parallax scroll effects ───
+function handleParallax() {
+  const scrollY = window.scrollY;
+  const vh = window.innerHeight;
+
+  // Parallax on images
+  document.querySelectorAll('.parallax-img').forEach(img => {
+    const rect = img.getBoundingClientRect();
+    if (rect.top < vh && rect.bottom > 0) {
+      const progress = (rect.top + rect.height / 2 - vh / 2) / vh;
+      img.style.transform = `translateY(${progress * -30}px) scale(1.05)`;
+    }
+  });
+
+  // Subtle parallax on project cards, about image, process cards
+  document.querySelectorAll('.project-card, .about-image, .process-card, .value-card').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < vh && rect.bottom > 0) {
+      const center = rect.top + rect.height / 2;
+      const offset = (center - vh / 2) * 0.03;
+      el.style.transform = `translateY(${offset}px)`;
+    }
+  });
+}
+window.addEventListener('scroll', handleParallax, { passive: true });
+
+// ─── Smooth scroll for anchor links ───
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// ─── Menu overlay toggle ───
+const menuOverlay = document.getElementById('menuOverlay');
+const menuClose = document.getElementById('menuClose');
+menuClose.addEventListener('click', () => menuOverlay.classList.remove('active'));
+
+// Close menu on link click
+menuOverlay.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => menuOverlay.classList.remove('active'));
+});
+
+// Close on Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') menuOverlay.classList.remove('active');
+});
+</script>
+</body>
+</html>

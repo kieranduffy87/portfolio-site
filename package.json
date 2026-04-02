@@ -1,0 +1,13 @@
+{
+  "name": "kd-portfolio-sync",
+  "version": "1.0.0",
+  "description": "Automated project media syncing for portfolio site",
+  "main": "project-sync.js",
+  "scripts": {
+    "sync": "node project-sync.js",
+    "sync:once": "node project-sync.js --once"
+  },
+  "keywords": ["portfolio", "automation", "media-sync"],
+  "author": "",
+  "license": "ISC"
+}
