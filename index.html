@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>KD — Digital Design & Creative Direction</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -360,15 +360,19 @@ window.addEventListener('scroll', () => {
   }
 });
 
-// Hero descriptors rotation
+// Hero descriptor — fade in once and stay
 const track = document.querySelector('.hero-descriptors-track');
 if (track) {
-  const items = track.querySelectorAll('span');
-  let current = 0;
-  setInterval(() => {
-    current = (current + 1) % items.length;
-    track.style.transform = `translateY(-${current * 100}%)`;
-  }, 2500);
+  const first = track.querySelector('span');
+  if (first) {
+    first.style.opacity = '0';
+    first.style.transform = 'translateY(8px)';
+    first.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+    setTimeout(() => {
+      first.style.opacity = '1';
+      first.style.transform = 'translateY(0)';
+    }, 400);
+  }
 }
 </script>
 

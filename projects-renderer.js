@@ -156,9 +156,11 @@
       return `<img src="${item.src}" alt="${project.title}" loading="lazy">`;
     }).join('');
 
-    // Reset gallery scroll
+    // Reset scroll positions
     const galleryContainer = modal.querySelector('.project-modal__gallery-container');
     galleryContainer.scrollTop = 0;
+    const content = modal.querySelector('.project-modal__content');
+    content.scrollTop = 0;
 
     // Show modal
     modal.classList.add('active');
@@ -180,6 +182,25 @@
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
   });
+
+  // ─── TOUCH SWIPE DOWN TO CLOSE (mobile) ───
+  let touchStartY = 0;
+  let touchStartScrollTop = 0;
+  const modalContent = modal.querySelector('.project-modal__content');
+
+  modalContent.addEventListener('touchstart', e => {
+    touchStartY = e.touches[0].clientY;
+    touchStartScrollTop = modalContent.scrollTop;
+  }, { passive: true });
+
+  modalContent.addEventListener('touchend', e => {
+    const touchEndY = e.changedTouches[0].clientY;
+    const swipedDown = touchEndY - touchStartY;
+    // Only close if swiped down > 80px AND user is at top of scroll
+    if (swipedDown > 80 && touchStartScrollTop <= 0) {
+      closeModal();
+    }
+  }, { passive: true });
 
   function attachCardListeners() {
     grid.querySelectorAll('.project-card[data-project-id]').forEach(card => {
