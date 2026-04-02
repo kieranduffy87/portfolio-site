@@ -26,9 +26,15 @@
         </div>`;
     }
 
+    // Check if thumbnail is a video
+    const isVideo = project.thumbnail && project.thumbnail.endsWith('.mp4');
+    const mediaHTML = isVideo
+      ? `<video src="${project.thumbnail}" muted autoplay playsinline loop preload="metadata"></video>`
+      : `<img src="${project.thumbnail}" alt="${project.title}" loading="lazy">`;
+
     return `
       <button class="masonry-card ${sizeClass}" data-project-id="${project.id}" data-category="${project.category}" aria-label="View project: ${project.title}">
-        <img src="${project.thumbnail}" alt="${project.title}" loading="lazy">
+        ${mediaHTML}
         <div class="masonry-card__overlay">
           <div class="masonry-card__tag">${project.tag}</div>
           <h3 class="masonry-card__title">${project.title}</h3>
@@ -85,17 +91,22 @@
       <button class="project-modal__close" aria-label="Close project">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
-      <div class="project-modal__scroll">
-        <div class="project-modal__hero"></div>
-        <div class="project-modal__header">
-          <div class="project-modal__tag"></div>
-          <h2 class="project-modal__title"></h2>
-          <p class="project-modal__intro"></p>
+      <div class="project-modal__layout">
+        <!-- Left: Text Content -->
+        <div class="project-modal__sidebar">
+          <div class="project-modal__scroll">
+            <div class="project-modal__header">
+              <div class="project-modal__tag"></div>
+              <h2 class="project-modal__title"></h2>
+              <p class="project-modal__intro"></p>
+            </div>
+            <div class="project-modal__meta"></div>
+          </div>
         </div>
-        <div class="project-modal__meta"></div>
-        <div class="project-modal__stats"></div>
-        <div class="project-modal__gallery"></div>
-        <div class="project-modal__quote"></div>
+        <!-- Right: Gallery -->
+        <div class="project-modal__gallery-container">
+          <div class="project-modal__gallery"></div>
+        </div>
       </div>
     </div>`;
   document.body.appendChild(modal);
@@ -137,17 +148,6 @@
       return `<img src="${item.src}" alt="${project.title}" loading="lazy">`;
     }).join('');
     galleryEl.scrollLeft = 0;
-
-    // Populate quote
-    const quoteEl = modal.querySelector('.project-modal__quote');
-    if (project.quote) {
-      quoteEl.innerHTML = `
-        <blockquote>"${project.quote.text}"</blockquote>
-        <cite>— ${project.quote.author}</cite>`;
-      quoteEl.style.display = '';
-    } else {
-      quoteEl.style.display = 'none';
-    }
 
     // Show modal
     modal.classList.add('active');

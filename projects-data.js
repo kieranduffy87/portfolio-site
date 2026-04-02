@@ -35,15 +35,6 @@ window.PROJECTS = [
       { type: "image", src: "images/mjflood/asset 20.webp" },
       { type: "video", src: "images/mjflood/Mjflood-M.mp4" }
     ],
-    stats: [
-      { value: "90+", label: "Years of Heritage" },
-      { value: "4", label: "Divisions Unified" },
-      { value: "200%", label: "Traffic Increase" }
-    ],
-    quote: {
-      text: "Studio understood our business from day one. They took a complex, multi-division organisation and created a digital presence that finally tells our full story.",
-      author: "Ronan Flood, Managing Director"
-    },
     featured: true
   },
   {
@@ -79,15 +70,6 @@ window.PROJECTS = [
       { type: "video", src: "images/engineers-ireland/engineers-ireland-website.mp4" },
       { type: "video", src: "images/engineers-ireland/logo engineers.mp4" }
     ],
-    stats: [
-      { value: "100K+", label: "Community Members" },
-      { value: "180%", label: "Engagement Increase" },
-      { value: "92%", label: "Fewer Support Queries" }
-    ],
-    quote: {
-      text: "This new platform finally reflects who we are as a community. It's modern, it's intuitive, and it genuinely serves the needs of every engineer in Ireland.",
-      author: "Conor O'Connell, CEO"
-    },
     featured: true
   },
   {
@@ -107,11 +89,6 @@ window.PROJECTS = [
       { type: "image", src: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1200&h=800&fit=crop&q=80" },
       { type: "image", src: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200&h=800&fit=crop&q=80" },
       { type: "image", src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&h=800&fit=crop&q=80" }
-    ],
-    stats: [
-      { value: "45%", label: "Booking Increase" },
-      { value: "3.2s", label: "Avg. Session Duration" },
-      { value: "12", label: "Properties Live" }
     ],
     featured: true
   },
@@ -133,11 +110,6 @@ window.PROJECTS = [
       { type: "image", src: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&h=800&fit=crop&q=80" },
       { type: "image", src: "https://images.unsplash.com/photo-1558171813-01eda332a7ae?w=1200&h=800&fit=crop&q=80" }
     ],
-    stats: [
-      { value: "200%", label: "Conversion Lift" },
-      { value: "68%", label: "Mobile Revenue Up" },
-      { value: "4.8", label: "App Store Rating" }
-    ],
     featured: false
   },
   {
@@ -157,10 +129,39 @@ window.PROJECTS = [
       { type: "image", src: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1200&h=800&fit=crop&q=80" },
       { type: "image", src: "https://images.unsplash.com/photo-1563986768609-322da13575f2?w=1200&h=800&fit=crop&q=80" }
     ],
-    stats: [
-      { value: "2M+", label: "Users Worldwide" },
-      { value: "4.9", label: "App Store Rating" },
-      { value: "92%", label: "User Retention" }
+    featured: false
+  },
+  {
+    id: "liffey-meats",
+    title: "Liffey Meats",
+    category: "Brand & Digital",
+    tag: "Project",
+    shortDesc: "Premium meat brand digital presence and e-commerce platform",
+    fullDesc: "A complete brand refresh and digital transformation for Ireland's premium meat provider, featuring an immersive shopping experience and content-rich storytelling about sourcing and quality.",
+    client: "Liffey Meats",
+    year: "2024",
+    location: "Dublin, Ireland",
+    services: "Brand Identity, Web Design, E-Commerce, Content Strategy",
+    cardSize: "standard",
+    thumbnail: "images/liffey-meats/Liffy-1.mp4",
+    gallery: [
+      { type: "video", src: "images/liffey-meats/Liffy-1.mp4" },
+      { type: "image", src: "images/liffey-meats/asset 1.webp" },
+      { type: "image", src: "images/liffey-meats/asset 2.webp" },
+      { type: "image", src: "images/liffey-meats/asset 3.webp" },
+      { type: "image", src: "images/liffey-meats/asset 4.webp" },
+      { type: "image", src: "images/liffey-meats/asset 5.webp" },
+      { type: "image", src: "images/liffey-meats/asset 6.webp" },
+      { type: "image", src: "images/liffey-meats/asset 7.webp" },
+      { type: "image", src: "images/liffey-meats/asset 8.webp" },
+      { type: "image", src: "images/liffey-meats/asset 9.webp" },
+      { type: "image", src: "images/liffey-meats/asset 10.webp" },
+      { type: "image", src: "images/liffey-meats/asset 11.webp" },
+      { type: "image", src: "images/liffey-meats/asset 12.webp" },
+      { type: "image", src: "images/liffey-meats/asset 13.webp" },
+      { type: "image", src: "images/liffey-meats/asset 14.webp" },
+      { type: "image", src: "images/liffey-meats/asset 15.webp" },
+      { type: "image", src: "images/liffey-meats/asset 16.webp" }
     ],
     featured: false
   },
