@@ -788,9 +788,11 @@ nav.scrolled {
   gap: 12px;
   padding: 24px;
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
+  overflow-y: hidden;
   align-items: center;
   cursor: grab;
+  scroll-behavior: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .project-modal__gallery:active {
@@ -809,7 +811,6 @@ nav.scrolled {
   max-width: 90vw;
   border-radius: 12px;
   object-fit: contain;
-  scroll-snap-align: center;
   flex-shrink: 0;
 }
 

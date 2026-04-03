@@ -170,29 +170,56 @@
     }, { root: galleryEl, threshold: 0.4 });
     galleryVideos.forEach(v => videoObserver.observe(v));
 
-    // Wheel scroll → horizontal gallery scroll on desktop
+    // Wheel → horizontal scroll with momentum (never gets stuck)
+    let wheelVel = 0, wheelRaf = null;
     galleryEl.addEventListener('wheel', e => {
       e.preventDefault();
-      galleryEl.scrollLeft += e.deltaY !== 0 ? e.deltaY : e.deltaX;
+      wheelVel += (e.deltaY || e.deltaX) * 1.2;
+      if (!wheelRaf) {
+        const tick = () => {
+          if (Math.abs(wheelVel) < 0.5) { wheelRaf = null; return; }
+          galleryEl.scrollLeft += wheelVel;
+          wheelVel *= 0.78;
+          wheelRaf = requestAnimationFrame(tick);
+        };
+        wheelRaf = requestAnimationFrame(tick);
+      }
     }, { passive: false });
 
-    // Mouse drag to scroll
-    let isDragging = false, dragStartX = 0, dragScrollLeft = 0;
+    // Mouse drag to scroll with momentum
+    let isDragging = false, dragStartX = 0, dragScrollLeft = 0, lastX = 0, dragVel = 0;
     galleryEl.addEventListener('mousedown', e => {
       isDragging = true;
-      dragStartX = e.pageX - galleryEl.offsetLeft;
+      dragStartX = e.pageX;
       dragScrollLeft = galleryEl.scrollLeft;
+      lastX = e.pageX;
+      dragVel = 0;
+      wheelVel = 0;
+      if (wheelRaf) { cancelAnimationFrame(wheelRaf); wheelRaf = null; }
       galleryEl.classList.add('dragging');
     });
     document.addEventListener('mouseup', () => {
+      if (!isDragging) return;
       isDragging = false;
       galleryEl.classList.remove('dragging');
+      // Fling on release
+      wheelVel = -dragVel * 0.6;
+      if (!wheelRaf && Math.abs(wheelVel) > 1) {
+        const tick = () => {
+          if (Math.abs(wheelVel) < 0.5) { wheelRaf = null; return; }
+          galleryEl.scrollLeft += wheelVel;
+          wheelVel *= 0.88;
+          wheelRaf = requestAnimationFrame(tick);
+        };
+        wheelRaf = requestAnimationFrame(tick);
+      }
     });
     galleryEl.addEventListener('mousemove', e => {
       if (!isDragging) return;
       e.preventDefault();
-      const x = e.pageX - galleryEl.offsetLeft;
-      galleryEl.scrollLeft = dragScrollLeft - (x - dragStartX);
+      dragVel = e.pageX - lastX;
+      lastX = e.pageX;
+      galleryEl.scrollLeft = dragScrollLeft - (e.pageX - dragStartX);
     });
 
     // Reset scroll positions
