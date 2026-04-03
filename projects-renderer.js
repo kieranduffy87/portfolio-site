@@ -151,10 +151,49 @@
 
     galleryEl.innerHTML = allMedia.map(item => {
       if (item.type === 'video') {
-        return `<video src="${item.src}" controls muted playsinline preload="metadata"></video>`;
+        return `<video src="${item.src}" autoplay loop muted playsinline preload="metadata"></video>`;
       }
       return `<img src="${item.src}" alt="${project.title}" loading="lazy">`;
     }).join('');
+
+    // Autoplay videos as they scroll into view inside gallery
+    const galleryVideos = galleryEl.querySelectorAll('video');
+    const videoObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const vid = entry.target;
+        if (entry.isIntersecting) {
+          vid.play().catch(() => {});
+        } else {
+          vid.pause();
+        }
+      });
+    }, { root: galleryEl, threshold: 0.4 });
+    galleryVideos.forEach(v => videoObserver.observe(v));
+
+    // Wheel scroll → horizontal gallery scroll on desktop
+    galleryEl.addEventListener('wheel', e => {
+      e.preventDefault();
+      galleryEl.scrollLeft += e.deltaY !== 0 ? e.deltaY : e.deltaX;
+    }, { passive: false });
+
+    // Mouse drag to scroll
+    let isDragging = false, dragStartX = 0, dragScrollLeft = 0;
+    galleryEl.addEventListener('mousedown', e => {
+      isDragging = true;
+      dragStartX = e.pageX - galleryEl.offsetLeft;
+      dragScrollLeft = galleryEl.scrollLeft;
+      galleryEl.classList.add('dragging');
+    });
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+      galleryEl.classList.remove('dragging');
+    });
+    galleryEl.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const x = e.pageX - galleryEl.offsetLeft;
+      galleryEl.scrollLeft = dragScrollLeft - (x - dragStartX);
+    });
 
     // Reset scroll positions
     const galleryContainer = modal.querySelector('.project-modal__gallery-container');
