@@ -132,136 +132,24 @@ nav.scrolled {
   position: relative;
 }
 
-/* 3D Chrome Glass Logo */
-.hero-3d-container {
+/* Vibrant Gradient Blob Background */
+.hero-gradient-blob {
   position: absolute;
-  top: 8%;
-  right: -30%;
-  width: clamp(380px, 42vw, 640px);
-  height: clamp(380px, 42vw, 640px);
-  transform: translateY(0);
-  z-index: 1;
-  pointer-events: none;
-}
-
-.hero-logo-3d {
-  width: 100%;
-  height: 100%;
-  cursor: grab;
-  pointer-events: all;
-  transition: transform 0.15s ease-out;
-  transform-style: preserve-3d;
-  position: relative;
-}
-
-.hero-logo-3d:active {
-  cursor: grabbing;
-}
-
-/* Shared layer positioning */
-.logo-layer {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10%;
-}
-
-.logo-layer svg {
-  width: 100%;
-  height: 100%;
-}
-
-/* Glow — large ambient purple/blue light */
-.logo-layer--glow {
-  transform: translateZ(-120px) scale(1.5);
-  filter: blur(140px);
-  opacity: 0.8;
-}
-
-.logo-layer--glow svg polygon {
-  fill: #8b5cf6;
-}
-
-/* Back depth — dark edge for 3D thickness */
-.logo-layer--back {
-  transform: translateZ(-40px) translate(12px, 12px);
-  opacity: 0.6;
-  filter: blur(4px);
-}
-
-.logo-layer--back svg polygon:first-child {
-  fill: #312e81;
-}
-
-.logo-layer--back svg polygon:last-child {
-  fill: #1e1b4b;
-}
-
-/* Mid layer — colored depth */
-.logo-layer--mid {
-  transform: translateZ(-20px) translate(8px, 8px);
-  opacity: 0.75;
-  filter: blur(1.5px);
-}
-
-.logo-layer--mid svg polygon:first-child {
-  fill: #6366f1;
-}
-
-.logo-layer--mid svg polygon:last-child {
-  fill: #818cf8;
-}
-
-/* Front chrome — main iridescent surface */
-.logo-layer--front {
-  transform: translateZ(0px);
-  filter:
-    drop-shadow(0 0 40px rgba(139, 92, 246, 0.5))
-    drop-shadow(0 0 80px rgba(99, 102, 241, 0.3))
-    drop-shadow(0 15px 40px rgba(0, 0, 0, 0.4));
-}
-
-/* Highlight/shine — bright specular reflection */
-.logo-layer--shine {
-  transform: translateZ(20px) translate(-6px, -8px);
-  opacity: 0.5;
-  mix-blend-mode: screen;
-  filter: blur(0.5px);
-}
-
-.logo-layer--shine svg polygon:first-child {
-  fill: rgba(255, 255, 255, 0.9);
-}
-
-.logo-layer--shine svg polygon:last-child {
-  fill: rgba(196, 181, 253, 0.7);
-}
-
-/* Iridescent animated overlay */
-.logo-iridescent {
-  position: absolute;
-  inset: 5%;
-  background: conic-gradient(
-    from 0deg,
-    rgba(168, 85, 247, 0.12),
-    rgba(59, 130, 246, 0.12),
-    rgba(236, 72, 153, 0.08),
-    rgba(251, 191, 36, 0.06),
-    rgba(52, 211, 153, 0.06),
-    rgba(99, 102, 241, 0.12),
-    rgba(168, 85, 247, 0.12)
+  top: -10%;
+  right: -15%;
+  width: 110%;
+  height: 110%;
+  background: radial-gradient(
+    ellipse 900px 700px at var(--blob-x, 70%) var(--blob-y, 35%),
+    rgba(163, 105, 247, 0.5),
+    rgba(3, 57, 248, 0.25) 35%,
+    transparent 70%
   );
-  animation: iridescent-rotate 8s linear infinite;
-  mix-blend-mode: screen;
+  filter: blur(100px);
+  z-index: 0;
   pointer-events: none;
-  border-radius: 50%;
-}
-
-@keyframes iridescent-rotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  mix-blend-mode: screen;
+  will-change: --blob-x, --blob-y;
 }
 
 /* Hero descriptor — single static label */
