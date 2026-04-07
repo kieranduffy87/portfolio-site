@@ -184,6 +184,38 @@ window.PROJECTS = [
     featured: false
   },
   {
+    id: "whatsexposed",
+    title: "WhatsExposed",
+    category: "Brand & Digital",
+    tag: "Project",
+    shortDesc: "Bold brand identity and digital campaign for an investigative media platform",
+    fullDesc: "A striking brand identity and multi-channel digital campaign for WhatsExposed, an investigative media platform. From animated brand reveals to social content and immersive web experiences, every touchpoint was designed to command attention and build credibility in a crowded media landscape.",
+    client: "WhatsExposed",
+    year: "2025",
+    location: "Dublin, Ireland",
+    services: "Brand Identity, Motion Design, Web Design, Social Content",
+    cardSize: "full",
+    thumbnail: "images/whatsexposed/WhatsExposed animation.mp4",
+    gallery: [
+      { type: "video", src: "images/whatsexposed/WhatsExposed animation.mp4" },
+      { type: "video", src: "images/whatsexposed/social posts.mov" },
+      { type: "video", src: "images/whatsexposed/web pages.mov" },
+      { type: "image", src: "images/whatsexposed/openart-image_61DWJ3yD_1775250089925_raw.webp" },
+      { type: "image", src: "images/whatsexposed/openart-image_67ftaqa__1775254632869_raw.webp" },
+      { type: "image", src: "images/whatsexposed/openart-image_8DvMIjb7_1775248848320_raw.webp" },
+      { type: "image", src: "images/whatsexposed/openart-image_Mi4r-Fbj_1775252287000_raw.webp" },
+      { type: "image", src: "images/whatsexposed/openart-image_Qy47_ZyP_1775253039220_raw.webp" },
+      { type: "image", src: "images/whatsexposed/openart-image_V7WmE9H1_1775252989593_raw.webp" },
+      { type: "image", src: "images/whatsexposed/openart-image_X5ncexup_1775252243462_raw.webp" },
+      { type: "image", src: "images/whatsexposed/openart-image_hplpyVAO_1775254232179_raw.webp" },
+      { type: "image", src: "images/whatsexposed/openart-image_n26tXemr_1775248902938_raw.webp" },
+      { type: "image", src: "images/whatsexposed/openart-image_okfHQ8Cs_1775254086267_raw.webp" },
+      { type: "image", src: "images/whatsexposed/openart-image_qWGEJIAA_1775249053974_raw.webp" },
+      { type: "image", src: "images/whatsexposed/openart-image_rF_oci9h_1775252851838_raw.webp" }
+    ],
+    featured: false
+  },
+  {
     id: "brand-strategy",
     title: "Brand Strategy",
     category: "Brand Identity",

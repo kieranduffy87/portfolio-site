@@ -29,7 +29,8 @@
         </div>`;
     }
 
-    const sizeClass = project.cardSize === 'tall' ? 'project-card--tall' : '';
+    const sizeClass = project.cardSize === 'tall' ? 'project-card--tall'
+      : project.cardSize === 'full' ? 'project-card--full' : '';
 
     // Use <video> for video thumbnails, <img> for images
     const mediaSrc = project.thumbnail;
