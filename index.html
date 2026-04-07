@@ -30,8 +30,12 @@
 <section class="hero">
   <div class="hero-inner">
 
-    <!-- Gradient Blob Background -->
-    <div class="hero-gradient-blob"></div>
+    <!-- Aurora Gradient Background -->
+    <div class="hero-gradient-blob">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+    </div>
 
     <!-- Rotating descriptor words -->
     <div class="hero-descriptors">
@@ -203,47 +207,28 @@
 <script src="projects-data.js"></script>
 <script src="projects-renderer.js"></script>
 
-<!-- Gradient Blob Interactive Animation -->
+<!-- Aurora Mouse Parallax -->
 <script>
 (function() {
   const blob = document.querySelector('.hero-gradient-blob');
   if (!blob) return;
 
-  let mouseActive = false;
-  let mouseTimer;
-  let targetX = 70, targetY = 35;
-  let currentX = 70, currentY = 35;
+  let targetX = 0, targetY = 0;
+  let currentX = 0, currentY = 0;
 
-  // Smooth mouse tracking with lerp
   window.addEventListener('mousemove', (e) => {
-    mouseActive = true;
-    clearTimeout(mouseTimer);
-    mouseTimer = setTimeout(() => { mouseActive = false; }, 2000);
-
-    const x = (e.clientX / window.innerWidth) * 100;
-    const y = (e.clientY / window.innerHeight) * 100;
-    targetX = Math.max(50, Math.min(90, x));
-    targetY = Math.max(20, Math.min(60, y));
+    // Shift gradient opposite to mouse for parallax effect
+    targetX = (e.clientX / window.innerWidth - 0.5) * 80;
+    targetY = (e.clientY / window.innerHeight - 0.5) * 80;
   });
 
-  // Animation loop with smooth interpolation
   function animate() {
-    if (!mouseActive) {
-      const now = Date.now() / 1000;
-      targetX = 70 + Math.sin(now * 0.3) * 15;
-      targetY = 35 + Math.cos(now * 0.4) * 15;
-    }
-
-    // Smooth lerp
-    currentX += (targetX - currentX) * 0.04;
-    currentY += (targetY - currentY) * 0.04;
-
-    blob.style.setProperty('--blob-x', currentX + '%');
-    blob.style.setProperty('--blob-y', currentY + '%');
-
+    currentX += (targetX - currentX) * 0.05;
+    currentY += (targetY - currentY) * 0.05;
+    blob.style.setProperty('--mouse-x', currentX + 'px');
+    blob.style.setProperty('--mouse-y', currentY + 'px');
     requestAnimationFrame(animate);
   }
-
   animate();
 })();
 </script>

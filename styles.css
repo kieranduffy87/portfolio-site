@@ -132,24 +132,112 @@ nav.scrolled {
   position: relative;
 }
 
-/* Vibrant Gradient Blob Background */
+/* Aurora Gradient Background — multiple moving blobs */
 .hero-gradient-blob {
   position: absolute;
-  top: -10%;
-  right: -15%;
-  width: 110%;
-  height: 110%;
-  background: radial-gradient(
-    ellipse 900px 700px at var(--blob-x, 70%) var(--blob-y, 35%),
-    rgba(163, 105, 247, 0.5),
-    rgba(3, 57, 248, 0.25) 35%,
-    transparent 70%
-  );
-  filter: blur(100px);
+  inset: -20%;
   z-index: 0;
   pointer-events: none;
+  overflow: hidden;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
   mix-blend-mode: screen;
-  will-change: --blob-x, --blob-y;
+  will-change: transform;
+}
+
+/* Primary blue blob — largest, most prominent */
+.blob-1 {
+  top: 0%;
+  left: 30%;
+  width: 70vw;
+  height: 70vw;
+  background: radial-gradient(
+    circle at center,
+    rgba(3, 57, 248, 0.7) 0%,
+    rgba(59, 130, 246, 0.4) 30%,
+    rgba(37, 99, 235, 0.2) 50%,
+    transparent 70%
+  );
+  animation: blob-float-1 18s ease-in-out infinite;
+}
+
+/* Purple accent blob */
+.blob-2 {
+  top: 10%;
+  right: -10%;
+  width: 55vw;
+  height: 55vw;
+  background: radial-gradient(
+    circle at center,
+    rgba(168, 85, 247, 0.6) 0%,
+    rgba(139, 92, 246, 0.35) 35%,
+    transparent 70%
+  );
+  animation: blob-float-2 22s ease-in-out infinite;
+}
+
+/* Cyan highlight blob */
+.blob-3 {
+  top: -10%;
+  right: 20%;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(
+    circle at center,
+    rgba(6, 182, 212, 0.5) 0%,
+    rgba(59, 130, 246, 0.3) 40%,
+    transparent 70%
+  );
+  animation: blob-float-3 16s ease-in-out infinite;
+}
+
+@keyframes blob-float-1 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  33% {
+    transform: translate(-8%, 6%) scale(1.15) rotate(30deg);
+  }
+  66% {
+    transform: translate(10%, -4%) scale(0.95) rotate(-20deg);
+  }
+}
+
+@keyframes blob-float-2 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  25% {
+    transform: translate(-12%, 10%) scale(1.1) rotate(-40deg);
+  }
+  50% {
+    transform: translate(6%, -8%) scale(0.9) rotate(20deg);
+  }
+  75% {
+    transform: translate(-4%, 4%) scale(1.2) rotate(60deg);
+  }
+}
+
+@keyframes blob-float-3 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  40% {
+    transform: translate(14%, 8%) scale(1.25) rotate(45deg);
+  }
+  80% {
+    transform: translate(-8%, -6%) scale(0.85) rotate(-30deg);
+  }
+}
+
+/* Mouse-reactive offset (applied via JS) */
+.hero-gradient-blob {
+  transform: translate(var(--mouse-x, 0px), var(--mouse-y, 0px));
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Hero descriptor — single static label */
