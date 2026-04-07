@@ -122,7 +122,7 @@ nav.scrolled {
   padding: 0 clamp(32px, 5vw, 80px);
   padding-bottom: clamp(60px, 10vh, 120px);
   position: relative;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .hero-inner {
@@ -138,75 +138,84 @@ nav.scrolled {
   inset: -30%;
   z-index: 0;
   pointer-events: none;
-  /* Fade out softly at all edges */
-  mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, #000 30%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, #000 30%, transparent 100%);
+  /* Radial fade + bottom fade for smooth edges */
+  mask-image:
+    linear-gradient(to bottom, #000 0%, #000 85%, transparent 100%),
+    radial-gradient(ellipse 70% 70% at 50% 50%, #000 40%, transparent 100%);
+  mask-composite: multiply;
+  -webkit-mask-image:
+    linear-gradient(to bottom, #000 0%, #000 85%, transparent 100%),
+    radial-gradient(ellipse 70% 70% at 50% 50%, #000 40%, transparent 100%);
+  -webkit-mask-composite: destination-in;
 }
 
 .blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(120px);
+  filter: blur(100px);
   mix-blend-mode: screen;
   will-change: transform;
 }
 
 /* Primary blue blob — vibrant brand blue #0339f8 */
 .blob-1 {
-  top: 10%;
-  left: 25%;
-  width: 70vw;
-  height: 70vw;
+  top: 5%;
+  left: 20%;
+  width: 75vw;
+  height: 75vw;
   background: radial-gradient(
     circle at center,
-    rgba(3, 57, 248, 0.85) 0%,
-    rgba(3, 57, 248, 0.5) 25%,
-    rgba(3, 57, 248, 0.2) 50%,
+    rgba(3, 57, 248, 1) 0%,
+    rgba(3, 57, 248, 0.7) 20%,
+    rgba(3, 57, 248, 0.35) 45%,
     transparent 70%
   );
-  animation: blob-float-1 18s ease-in-out infinite;
+  animation: blob-float-1 10s ease-in-out infinite;
 }
 
-/* Lime green accent blob #9cff00 */
+/* Lime green accent blob #9cff00 — super vibrant */
 .blob-2 {
-  top: 15%;
-  right: 0%;
+  top: 10%;
+  right: -5%;
+  width: 65vw;
+  height: 65vw;
+  background: radial-gradient(
+    circle at center,
+    rgba(156, 255, 0, 0.95) 0%,
+    rgba(156, 255, 0, 0.6) 25%,
+    rgba(156, 255, 0, 0.25) 50%,
+    transparent 70%
+  );
+  animation: blob-float-2 12s ease-in-out infinite;
+}
+
+/* Secondary bright blue highlight */
+.blob-3 {
+  top: -5%;
+  right: 20%;
   width: 55vw;
   height: 55vw;
   background: radial-gradient(
     circle at center,
-    rgba(156, 255, 0, 0.55) 0%,
-    rgba(156, 255, 0, 0.3) 30%,
-    rgba(156, 255, 0, 0.1) 55%,
+    rgba(56, 120, 255, 0.9) 0%,
+    rgba(3, 57, 248, 0.5) 35%,
     transparent 70%
   );
-  animation: blob-float-2 22s ease-in-out infinite;
-}
-
-/* Secondary blue highlight */
-.blob-3 {
-  top: 0%;
-  right: 25%;
-  width: 50vw;
-  height: 50vw;
-  background: radial-gradient(
-    circle at center,
-    rgba(59, 130, 246, 0.6) 0%,
-    rgba(3, 57, 248, 0.3) 40%,
-    transparent 70%
-  );
-  animation: blob-float-3 16s ease-in-out infinite;
+  animation: blob-float-3 9s ease-in-out infinite;
 }
 
 @keyframes blob-float-1 {
   0%, 100% {
     transform: translate(0, 0) scale(1) rotate(0deg);
   }
-  33% {
-    transform: translate(-8%, 6%) scale(1.15) rotate(30deg);
+  25% {
+    transform: translate(-18%, 12%) scale(1.3) rotate(60deg);
   }
-  66% {
-    transform: translate(10%, -4%) scale(0.95) rotate(-20deg);
+  50% {
+    transform: translate(15%, -10%) scale(0.85) rotate(-40deg);
+  }
+  75% {
+    transform: translate(-8%, 18%) scale(1.15) rotate(90deg);
   }
 }
 
@@ -214,14 +223,17 @@ nav.scrolled {
   0%, 100% {
     transform: translate(0, 0) scale(1) rotate(0deg);
   }
-  25% {
-    transform: translate(-12%, 10%) scale(1.1) rotate(-40deg);
+  20% {
+    transform: translate(-22%, 18%) scale(1.25) rotate(-80deg);
   }
-  50% {
-    transform: translate(6%, -8%) scale(0.9) rotate(20deg);
+  40% {
+    transform: translate(12%, -14%) scale(0.8) rotate(40deg);
   }
-  75% {
-    transform: translate(-4%, 4%) scale(1.2) rotate(60deg);
+  60% {
+    transform: translate(-10%, 8%) scale(1.35) rotate(120deg);
+  }
+  80% {
+    transform: translate(18%, -6%) scale(0.9) rotate(-60deg);
   }
 }
 
@@ -229,11 +241,40 @@ nav.scrolled {
   0%, 100% {
     transform: translate(0, 0) scale(1) rotate(0deg);
   }
-  40% {
-    transform: translate(14%, 8%) scale(1.25) rotate(45deg);
+  30% {
+    transform: translate(22%, 16%) scale(1.4) rotate(90deg);
+  }
+  60% {
+    transform: translate(-16%, -12%) scale(0.75) rotate(-60deg);
   }
   80% {
-    transform: translate(-8%, -6%) scale(0.85) rotate(-30deg);
+    transform: translate(8%, 20%) scale(1.2) rotate(150deg);
+  }
+}
+
+/* Mobile — boost vibrancy */
+@media (max-width: 768px) {
+  .hero-gradient-blob {
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, #000 50%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, #000 50%, transparent 100%);
+  }
+  .blob {
+    filter: blur(70px);
+  }
+  .blob-1 {
+    width: 140vw;
+    height: 140vw;
+    left: -10%;
+  }
+  .blob-2 {
+    width: 120vw;
+    height: 120vw;
+    right: -20%;
+  }
+  .blob-3 {
+    width: 110vw;
+    height: 110vw;
+    right: 0%;
   }
 }
 
