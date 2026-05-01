@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&family=Outfit:wght@200;300;400;500;600&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/loaders/GLTFLoader.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/loaders/SVGLoader.js"></script>
 </head>
 <body>
 
@@ -321,7 +321,7 @@ if (track) {
   }
 }
 
-// 3D Model Loader
+// 3D Logo Loader
 (function() {
   const canvas = document.getElementById('model-canvas');
   if (!canvas) return;
@@ -345,22 +345,60 @@ if (track) {
   scene.add(ambientLight);
 
   let model;
-  const modelUrl = 'model (1).glb';
+  const svgUrl = 'images/logo.svg';
 
-  const loader = new THREE.GLTFLoader();
-  loader.load(modelUrl, (gltf) => {
-    model = gltf.scene;
+  const svgLoader = new THREE.SVGLoader();
+  svgLoader.load(svgUrl, (data) => {
+    const svgGroup = new THREE.Group();
+
+    // Process SVG paths
+    data.paths.forEach(path => {
+      const shapes = THREE.SVGLoader.pointsToStroke(path.userData.style.strokeWidth || 1, path.subPaths, {
+        arcDivisions: 5,
+        minDistance: 0.001
+      });
+
+      // Get fill color from path or use default
+      const fillColor = path.userData.style.fill ?
+        new THREE.Color(path.userData.style.fill) :
+        new THREE.Color('#adc6ff');
+
+      shapes.forEach(shape => {
+        // Create extrude geometry for 3D effect
+        const extrudeGeometry = new THREE.ExtrudeGeometry(shape, {
+          depth: 2,
+          bevelEnabled: true,
+          bevelThickness: 0.2,
+          bevelSize: 0.1,
+          bevelSegments: 3
+        });
+
+        const material = new THREE.MeshStandardMaterial({
+          color: fillColor,
+          metalness: 0.3,
+          roughness: 0.4
+        });
+
+        const mesh = new THREE.Mesh(extrudeGeometry, material);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        svgGroup.add(mesh);
+      });
+    });
+
+    model = svgGroup;
     scene.add(model);
 
-    // Center and scale model
+    // Center and scale
     const box = new THREE.Box3().setFromObject(model);
     const center = box.getCenter(new THREE.Vector3());
     const size = box.getSize(new THREE.Vector3());
     const maxDim = Math.max(size.x, size.y, size.z);
-    const scale = 4 / maxDim;
+    const scale = 3 / maxDim;
 
-    model.position.sub(center);
+    model.position.sub(center.multiplyScalar(scale));
     model.scale.multiplyScalar(scale);
+    model.position.z -= 0.5;
 
     animate();
   });
@@ -375,9 +413,9 @@ if (track) {
 
   function render() {
     if (model) {
-      // Slow orbit animation
-      model.rotation.y += 0.001;
-      model.rotation.x += 0.0005;
+      // Orbit animation
+      model.rotation.y += 0.008;
+      model.rotation.x = Math.sin(Date.now() * 0.0005) * 0.3;
     }
 
     renderer.render(scene, camera);
