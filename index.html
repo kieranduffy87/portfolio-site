@@ -8,6 +8,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&family=Outfit:wght@200;300;400;500;600&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/loaders/GLTFLoader.js"></script>
 </head>
 <body>
 
@@ -65,6 +67,11 @@
       <span class="hero-word dim">their</span>
       <span class="hero-word dim">time.</span>
     </h1>
+
+    <!-- 3D Model Viewer -->
+    <div class="hero-3d-viewer">
+      <canvas id="model-canvas"></canvas>
+    </div>
 
   </div>
 </section>
@@ -313,6 +320,81 @@ if (track) {
     }, 400);
   }
 }
+
+// 3D Model Loader
+(function() {
+  const canvas = document.getElementById('model-canvas');
+  if (!canvas) return;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+  renderer.setClearColor(0x000000, 0);
+
+  // Lighting
+  const light1 = new THREE.DirectionalLight(0xffffff, 1.2);
+  light1.position.set(10, 10, 10);
+  scene.add(light1);
+
+  const light2 = new THREE.DirectionalLight(0xffffff, 0.8);
+  light2.position.set(-10, -10, 5);
+  scene.add(light2);
+
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+  scene.add(ambientLight);
+
+  let model;
+  const modelUrl = 'model (1).glb';
+
+  const loader = new THREE.GLTFLoader();
+  loader.load(modelUrl, (gltf) => {
+    model = gltf.scene;
+    scene.add(model);
+
+    // Center and scale model
+    const box = new THREE.Box3().setFromObject(model);
+    const center = box.getCenter(new THREE.Vector3());
+    const size = box.getSize(new THREE.Vector3());
+    const maxDim = Math.max(size.x, size.y, size.z);
+    const scale = 4 / maxDim;
+
+    model.position.sub(center);
+    model.scale.multiplyScalar(scale);
+
+    animate();
+  });
+
+  let isAnimating = false;
+  function animate() {
+    if (!isAnimating) {
+      isAnimating = true;
+      requestAnimationFrame(render);
+    }
+  }
+
+  function render() {
+    if (model) {
+      // Slow orbit animation
+      model.rotation.y += 0.001;
+      model.rotation.x += 0.0005;
+    }
+
+    renderer.render(scene, camera);
+    requestAnimationFrame(render);
+  }
+
+  // Handle resize
+  function onWindowResize() {
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    renderer.setSize(width, height);
+  }
+
+  window.addEventListener('resize', onWindowResize);
+})();
 </script>
 
 </body>
