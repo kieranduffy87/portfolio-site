@@ -175,7 +175,7 @@ nav.scrolled {
   animation: blob-float-1 10s ease-in-out infinite;
 }
 
-/* Lime green accent blob #9cff00 — super vibrant */
+/* Purple accent blob #a855f7 — vibrant purple */
 .blob-2 {
   top: 10%;
   right: -5%;
@@ -184,9 +184,9 @@ nav.scrolled {
   background:
     radial-gradient(
       circle at center,
-      rgba(156, 255, 0, 0.95) 0%,
-      rgba(156, 255, 0, 0.6) 25%,
-      rgba(156, 255, 0, 0.25) 50%,
+      rgba(168, 85, 247, 0.95) 0%,
+      rgba(168, 85, 247, 0.6) 25%,
+      rgba(168, 85, 247, 0.25) 50%,
       transparent 70%
     ),
     linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.5) 100%);
@@ -343,11 +343,11 @@ nav.scrolled {
 
 /* 3D Model Viewer */
 .hero-3d-viewer {
-  position: absolute;
-  right: clamp(-80px, -10vw, 0px);
-  top: clamp(80px, 12vh, 160px);
-  width: clamp(400px, 45vw, 700px);
-  height: clamp(400px, 45vw, 700px);
+  position: fixed;
+  right: clamp(-100px, -5vw, 20px);
+  top: clamp(80px, 12vh, 200px);
+  width: clamp(400px, 50vw, 800px);
+  height: clamp(400px, 50vw, 800px);
   z-index: 5;
   pointer-events: all;
 }
