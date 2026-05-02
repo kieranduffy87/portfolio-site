@@ -412,11 +412,13 @@ import { RoomEnvironment } from 'https://esm.sh/three@0.160.0/examples/jsm/envir
 
     scene.add(model);
 
-    // Scale & centre to fit camera. Use a smaller divisor so the diagonal
-    // (which is ~1.41x the side) still fits inside the frustum during rotation.
+    // Scale & centre to fit camera. On mobile we want the logo to fill more
+    // of the canvas, so we use a larger scale factor when the canvas is small.
     const box = new THREE.Box3().setFromObject(model);
     const size = box.getSize(new THREE.Vector3());
-    model.scale.multiplyScalar(2.6 / Math.max(size.x, size.y, size.z));
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const targetSize = isMobile ? 3.2 : 2.6;
+    model.scale.multiplyScalar(targetSize / Math.max(size.x, size.y, size.z));
     model.position.sub(new THREE.Box3().setFromObject(model).getCenter(new THREE.Vector3()));
 
     // Store base position for float animation

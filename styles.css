@@ -357,7 +357,6 @@ nav.scrolled {
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-end;
-    padding-top: clamp(100px, 16vh, 140px);
   }
   .hero-3d-viewer {
     position: relative;
@@ -365,9 +364,14 @@ nav.scrolled {
     right: auto;
     top: auto;
     order: -1;
-    width: min(80vw, 360px);
-    height: min(80vw, 360px);
-    margin: 0 auto clamp(20px, 4vh, 40px);
+    width: 100vw;
+    height: 70vw;
+    max-width: 640px;
+    max-height: 450px;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    margin-top: 0;
+    margin-bottom: clamp(4px, 1vh, 12px);
   }
 }
 
@@ -910,8 +914,8 @@ nav.scrolled {
   /* Hero, tighten spacing, push text near top */
   .hero {
     min-height: auto;
-    align-items: flex-start;
-    padding-top: 110px;
+    align-items: stretch;
+    padding-top: 80px;
     padding-bottom: 60px;
   }
   .hero-3d-container { display: none; }
