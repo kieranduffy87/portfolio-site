@@ -144,7 +144,7 @@
       metaEl.style.display = 'none';
     }
 
-    // Populate gallery — ALL media including first
+    // Populate gallery, ALL media including first
     const galleryEl = modal.querySelector('.project-modal__gallery');
     const allMedia = project.gallery && project.gallery.length > 0
       ? project.gallery

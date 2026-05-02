@@ -1,4 +1,4 @@
-# Portfolio Automation System — Complete Setup Guide
+# Portfolio Automation System, Complete Setup Guide
 
 Your portfolio now has a fully automated system for managing project images and videos. Here's everything you need to know.
 

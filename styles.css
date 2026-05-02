@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   KD Portfolio — Leo Leo Layout, Dark Theme
+   KD Portfolio, Leo Leo Layout, Dark Theme
    ═══════════════════════════════════════════════════════ */
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -132,7 +132,7 @@ nav.scrolled {
   position: relative;
 }
 
-/* Aurora Gradient Background — multiple moving blobs */
+/* Aurora Gradient Background, multiple moving blobs */
 .hero-gradient-blob {
   position: absolute;
   inset: -30%;
@@ -157,7 +157,7 @@ nav.scrolled {
   will-change: transform;
 }
 
-/* Primary blue blob — vibrant brand blue #0339f8 */
+/* Primary blue blob, vibrant brand blue #0339f8 */
 .blob-1 {
   top: 5%;
   left: 20%;
@@ -175,7 +175,7 @@ nav.scrolled {
   animation: blob-float-1 10s ease-in-out infinite;
 }
 
-/* Purple accent blob #a855f7 — vibrant purple */
+/* Purple accent blob #a855f7, vibrant purple */
 .blob-2 {
   top: 10%;
   right: -5%;
@@ -246,7 +246,7 @@ nav.scrolled {
   }
 }
 
-/* Mobile — boost vibrancy */
+/* Mobile, boost vibrancy */
 @media (max-width: 768px) {
   .hero-gradient-blob {
     mask-image:
@@ -284,7 +284,7 @@ nav.scrolled {
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Hero descriptor — single static label */
+/* Hero descriptor, single static label */
 .hero-descriptors {
   margin-bottom: clamp(40px, 6vh, 80px);
 }
@@ -353,8 +353,21 @@ nav.scrolled {
 }
 
 @media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-end;
+    padding-top: clamp(100px, 16vh, 140px);
+  }
   .hero-3d-viewer {
-    display: none;
+    position: relative;
+    inset: auto;
+    right: auto;
+    top: auto;
+    order: -1;
+    width: min(80vw, 360px);
+    height: min(80vw, 360px);
+    margin: 0 auto clamp(20px, 4vh, 40px);
   }
 }
 
@@ -894,7 +907,7 @@ nav.scrolled {
     margin-left: 0;
   }
 
-  /* Hero — tighten spacing, push text near top */
+  /* Hero, tighten spacing, push text near top */
   .hero {
     min-height: auto;
     align-items: flex-start;
@@ -942,7 +955,7 @@ nav.scrolled {
     overflow: visible;
   }
 
-  /* Gallery — fills top, images stacked vertically */
+  /* Gallery, fills top, images stacked vertically */
   .project-modal__gallery-container {
     order: 1;
     width: 100%;
@@ -982,7 +995,7 @@ nav.scrolled {
     aspect-ratio: 16/9;
   }
 
-  /* Info panel — below gallery */
+  /* Info panel, below gallery */
   .project-modal__sidebar {
     order: 2;
     flex: none;

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>KD — Digital Design & Creative Direction</title>
+<title>KD, Digital Design & Creative Direction</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&family=Outfit:wght@200;300;400;500;600&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -191,7 +191,7 @@
     <div class="footer-info">
       <div class="footer-col">
         <div class="footer-label">Got a project?</div>
-        <a href="mailto:hello@kieranduffy.com" class="footer-link">hello@kieranduffy.com</a>
+        <a href="mailto:kieranduffy87@gmail.com" class="footer-link">kieranduffy87@gmail.com</a>
       </div>
       <div class="footer-col">
         <div class="footer-label">Follow me</div>
@@ -304,7 +304,7 @@ window.addEventListener('scroll', () => {
   }
 });
 
-// Hero descriptor — fade in once and stay
+// Hero descriptor, fade in once and stay
 const track = document.querySelector('.hero-descriptors-track');
 if (track) {
   const first = track.querySelector('span');
@@ -384,7 +384,7 @@ import { RoomEnvironment } from 'https://esm.sh/three@0.160.0/examples/jsm/envir
         } catch(e) { return; }
         if (!geo.attributes.position?.count) { geo.dispose(); return; }
 
-        // MeshPhysicalMaterial — exact studio settings
+        // MeshPhysicalMaterial, exact studio settings
         const mat = new THREE.MeshPhysicalMaterial({
           color: new THREE.Color(0x6d6e97), // Color: #6d6e97
           roughness: 0.05,                  // Roughness: 0.05
@@ -412,26 +412,29 @@ import { RoomEnvironment } from 'https://esm.sh/three@0.160.0/examples/jsm/envir
 
     scene.add(model);
 
-    // Scale & centre to fit camera (smaller scale leaves margin for float animation)
+    // Scale & centre to fit camera. Use a smaller divisor so the diagonal
+    // (which is ~1.41x the side) still fits inside the frustum during rotation.
     const box = new THREE.Box3().setFromObject(model);
     const size = box.getSize(new THREE.Vector3());
-    model.scale.multiplyScalar(3.5 / Math.max(size.x, size.y, size.z));
+    model.scale.multiplyScalar(2.6 / Math.max(size.x, size.y, size.z));
     model.position.sub(new THREE.Box3().setFromObject(model).getCenter(new THREE.Vector3()));
 
     // Store base position for float animation
     model.userData.baseY = model.position.y;
-    model.userData.baseZ = model.position.z;
 
     loop();
   });
 
-  // Float animation: gentle bobbing motion (small amplitude to avoid cropping)
+  // Slow rotation: oscillating yaw (so we never see the flat logo perfectly
+  // edge-on) plus tiny pitch and a gentle vertical float. This shows the
+  // iridescent refraction shifting across the surface without disappearing.
   function loop() {
     requestAnimationFrame(loop);
     if (model) {
-      const time = Date.now() * 0.0008;
-      model.position.y = model.userData.baseY + Math.sin(time) * 0.25;
-      model.rotation.z = Math.sin(time * 0.7) * 0.05;
+      const time = Date.now() * 0.0005;
+      model.rotation.y = Math.sin(time) * 0.7;                 // ±40° yaw
+      model.rotation.x = Math.sin(time * 0.8) * 0.18;          // ±10° pitch
+      model.position.y = model.userData.baseY + Math.sin(time * 1.2) * 0.15;
     }
     renderer.render(scene, camera);
   }
