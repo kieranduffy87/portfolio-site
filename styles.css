@@ -915,7 +915,7 @@ nav.scrolled {
   .hero {
     min-height: auto;
     align-items: stretch;
-    padding-top: 80px;
+    padding-top: 60px;
     padding-bottom: 60px;
   }
   .hero-3d-container { display: none; }
