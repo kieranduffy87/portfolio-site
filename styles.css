@@ -344,10 +344,10 @@ nav.scrolled {
 /* 3D Model Viewer */
 .hero-3d-viewer {
   position: absolute;
-  right: clamp(20px, 5vw, 80px);
-  bottom: clamp(60px, 10vh, 120px);
-  width: clamp(250px, 35vw, 500px);
-  height: clamp(250px, 35vw, 500px);
+  right: clamp(-80px, -10vw, 0px);
+  top: clamp(80px, 12vh, 160px);
+  width: clamp(400px, 45vw, 700px);
+  height: clamp(400px, 45vw, 700px);
   z-index: 5;
   pointer-events: all;
 }
