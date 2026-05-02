@@ -343,13 +343,19 @@ nav.scrolled {
 
 /* 3D Model Viewer */
 .hero-3d-viewer {
-  position: fixed;
-  right: clamp(-100px, -5vw, 20px);
-  top: clamp(80px, 12vh, 200px);
-  width: clamp(400px, 50vw, 800px);
-  height: clamp(400px, 50vw, 800px);
+  position: absolute;
+  right: clamp(20px, 4vw, 80px);
+  top: clamp(100px, 14vh, 180px);
+  width: clamp(400px, 42vw, 640px);
+  height: clamp(400px, 42vw, 640px);
   z-index: 5;
-  pointer-events: all;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .hero-3d-viewer {
+    display: none;
+  }
 }
 
 #model-canvas {
