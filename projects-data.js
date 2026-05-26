@@ -33,7 +33,8 @@ window.PROJECTS = [
       { type: "image", src: "images/mjflood/asset 17.webp" },
       { type: "image", src: "images/mjflood/asset 18.webp" },
       { type: "image", src: "images/mjflood/asset 19.webp" },
-      { type: "image", src: "images/mjflood/asset 20.webp" }
+      { type: "image", src: "images/mjflood/asset 20.webp" },
+      { type: "image", src: "images/mjflood/Mjflood-Expo-Mock.jpg" }
     ],
     featured: true
   },
@@ -93,7 +94,9 @@ window.PROJECTS = [
       { type: "image", src: "images/turmec/Turmec-Expo.jpg" },
       { type: "image", src: "images/turmec/Turmec-ID-Card-Holder-scaled.jpg" },
       { type: "image", src: "images/turmec/Turmec-Safety-BG-4k.jpg" },
-      { type: "image", src: "images/turmec/Turmec-high-vis-and-hardhat.jpg" }
+      { type: "image", src: "images/turmec/Turmec-high-vis-and-hardhat.jpg" },
+      { type: "image", src: "images/turmec/Turmec-Booth-Layout-2.jpg" },
+      { type: "image", src: "images/turmec/Turmec-Booth-Layout-3.jpg" }
     ],
     featured: true
   },
