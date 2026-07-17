@@ -69,6 +69,25 @@
 </figure>
 </div>
 
+<section class="cs-deep-head reveal"><h2>Process notes</h2><p>How the work actually happened: the phases it moved through and the decisions that shaped it.</p></section>
+<section class="cs-phases reveal"><ol><li><span class="ph-num">01</span><strong>Positioning &amp; identity</strong><p>The red dot: completeness of service, carried through a typographic identity.</p></li><li><span class="ph-num">02</span><strong>Platform architecture</strong><p>Publish-once data design: one entry, every channel, in real time.</p></li><li><span class="ph-num">03</span><strong>UI system</strong><p>A light interface that gets out of the way of the properties.</p></li><li><span class="ph-num">04</span><strong>Integration &amp; testing</strong><p>A purpose-built test bench for the third-party data hand-offs nobody else would sandbox.</p></li><li><span class="ph-num">05</span><strong>Rollout</strong><p>First in Ireland to syndicate live to portals and office window displays together.</p></li></ol></section>
+<section class="cs-decisions">
+  <h2 class="dec-title reveal">Three decisions that shaped it</h2>
+  <div class="dec-grid"><div class="dec-card reveal"><span class="dec-num">01</span><h3>Publish once, everywhere</h3><p>The real product is the pipeline. An agent enters a property once, on an iPad, video included, and the platform&#x27;s API pushes it live to the website, Daft, MyHome and the window display units in each office at the same moment. That single decision removed the duplicate-entry workload that was capping how fast the office network could grow.</p></div><div class="dec-card reveal"><span class="dec-num">02</span><h3>Open source, enterprise discipline</h3><p>The budget ruled out heavy licensing, so the build used an open-source stack, then treated it with enterprise seriousness: hardened security protocols and hosting specified for zero downtime. The saving went into the parts customers feel, speed and reliability, not into licence fees.</p></div><div class="dec-card reveal"><span class="dec-num">03</span><h3>Build the missing test bench</h3><p>The property portals offered no sandbox for testing data hand-offs, which is how launches break. I had a dedicated testing zone built so every integration could be debugged before go-live. Unglamorous, and the reason launch day was quiet.</p></div></div>
+</section>
+<section class="cs-exhibit reveal" style="--ex:#d43d2a">
+  <h2>The platform, mapped</h2>
+  <p class="ex-note">One property entry syndicated to every channel in real time.</p>
+  <div class="ex-flow">
+      <div class="ex-node ex-src"><strong>Agent entry</strong><span>iPad or laptop, on location, video included</span></div>
+      <div class="ex-arrow" aria-hidden="true">&rarr;</div>
+      <div class="ex-node ex-hub"><strong>Platform API</strong><span>Validates and publishes in real time</span></div>
+      <div class="ex-arrow" aria-hidden="true">&rarr;</div>
+      <div class="ex-targets"><div class="ex-node"><strong>raycooke.ie</strong><span>Map-first property search</span></div><div class="ex-node"><strong>Daft &amp; MyHome</strong><span>Portal syndication</span></div><div class="ex-node"><strong>Window displays</strong><span>Live in every office</span></div><div class="ex-node"><strong>Future channels</strong><span>Apps &amp; connected screens</span></div></div>
+    </div>
+</section>
+
+
 <aside class="cs-services reveal">
   <h2 class="mono">Services provided</h2>
   <ul><li>Brand Identity</li><li>Digital Strategy</li><li>Platform Design</li><li>UX/UI</li><li>Web Development Direction</li><li>Digital Marketing</li></ul>

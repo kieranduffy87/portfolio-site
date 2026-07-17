@@ -86,6 +86,38 @@
 </figure>
 </div><section class="cs-section reveal"><h2>Impact</h2><p>The result is a clearer, member-first brand presence online with faster paths to high-value actions: joining, renewing, registering for CPD and finding standards and resources.</p></section>
 
+<section class="cs-deep-head reveal"><h2>Process notes</h2><p>How the work actually happened: the phases it moved through and the decisions that shaped it.</p></section>
+<section class="cs-phases reveal"><ol><li><span class="ph-num">01</span><strong>UX research &amp; IA</strong><p>Priority journeys mapped with members: join, renew, CPD, accreditation, resources.</p></li><li><span class="ph-num">02</span><strong>Design tokens</strong><p>Colour, type and spacing decisions captured once, applied everywhere.</p></li><li><span class="ph-num">03</span><strong>Component library</strong><p>Reusable patterns for news, events, case studies and member actions.</p></li><li><span class="ph-num">04</span><strong>Templates &amp; governance</strong><p>Content models so new programmes slot in without a designer in the room.</p></li><li><span class="ph-num">05</span><strong>Handover</strong><p>A documented system the in-house team publishes with, at scale, unaided.</p></li></ol></section>
+<section class="cs-decisions">
+  <h2 class="dec-title reveal">Three decisions that shaped it</h2>
+  <div class="dec-grid"><div class="dec-card reveal"><span class="dec-num">01</span><h3>Journeys before pages</h3><p>The old site was organised around the institution; the new one is organised around what 30,000 members come to do. Join and upgrade, book CPD, find accreditation, check a standard. Navigation, templates and content models all follow those journeys, which is why the high-value actions got faster.</p></div><div class="dec-card reveal"><span class="dec-num">02</span><h3>Components before screens</h3><p>Instead of designing pages, I designed the system that makes pages: tokens for colour, type and spacing, then a component library built from them. The payoff is governance. Two years of publishing later, the site still looks like it did at handover, because the team assembles from the system rather than improvising.</p></div><div class="dec-card reveal"><span class="dec-num">03</span><h3>Accessibility as default</h3><p>Semantic structure, keyboard paths and contrast rules live inside the components themselves, so every new page inherits accessibility instead of needing an audit. For a professional body, being usable by every member is not a feature, it is the brief.</p></div></div>
+</section>
+<section class="cs-exhibit reveal" style="--ex:#2a5d7c">
+  <h2>Inside the design system</h2>
+  <p class="ex-note">Documentation extract: the tokens and components the platform is assembled from.</p>
+  <div class="ex-system">
+      <div class="ex-sys-block"><h4>Colour tokens</h4><div class="tok-swatches"><div class="tok-swatch"><i style="background:#10161d"></i><strong>Ink</strong><span>#10161d</span></div><div class="tok-swatch"><i style="background:#183048"></i><strong>Navy</strong><span>#183048</span></div><div class="tok-swatch"><i style="background:#2a5d7c"></i><strong>Blue</strong><span>#2a5d7c</span></div><div class="tok-swatch"><i style="background:#78a8c0"></i><strong>Sky</strong><span>#78a8c0</span></div><div class="tok-swatch"><i style="background:#dfe8ee"></i><strong>Mist</strong><span>#dfe8ee</span></div><div class="tok-swatch"><i style="background:#ffffff"></i><strong>Paper</strong><span>#ffffff</span></div></div></div>
+      <div class="ex-sys-block"><h4>Type scale</h4><div class="tok-types"><div class="tok-type" style="font-weight:600"><span class="tt-label">Display</span><span class="tt-sample" style="font-size:36px">Chartered for the future</span><span class="tt-spec">56/60 &middot; 600</span></div><div class="tok-type" style="font-weight:600"><span class="tt-label">Heading 1</span><span class="tt-sample" style="font-size:28px">Chartered for the future</span><span class="tt-spec">40/46 &middot; 600</span></div><div class="tok-type" style="font-weight:600"><span class="tt-label">Heading 2</span><span class="tt-sample" style="font-size:22px">Chartered for the future</span><span class="tt-spec">28/34 &middot; 600</span></div><div class="tok-type" style="font-weight:400"><span class="tt-label">Body</span><span class="tt-sample" style="font-size:16px">Chartered for the future</span><span class="tt-spec">17/28 &middot; 400</span></div><div class="tok-type" style="font-weight:500"><span class="tt-label">Caption</span><span class="tt-sample" style="font-size:14px">Chartered for the future</span><span class="tt-spec">13/18 &middot; 500</span></div></div></div>
+      <div class="ex-sys-block"><h4>Spacing</h4><div class="tok-spaces"><div class="tok-space"><i style="width:4px"></i><span>4</span></div><div class="tok-space"><i style="width:8px"></i><span>8</span></div><div class="tok-space"><i style="width:16px"></i><span>16</span></div><div class="tok-space"><i style="width:24px"></i><span>24</span></div><div class="tok-space"><i style="width:40px"></i><span>40</span></div><div class="tok-space"><i style="width:64px"></i><span>64</span></div></div></div>
+      <div class="ex-sys-block"><h4>Components &amp; states</h4>
+        <div class="tok-components">
+          <div class="comp-row">
+            <button class="c-btn" type="button">Become a member</button>
+            <button class="c-btn c-ghost" type="button">Find a course</button>
+            <button class="c-btn" type="button" disabled>Renew (disabled)</button>
+          </div>
+          <div class="comp-row comp-inputs">
+            <label class="c-field"><span>Membership number</span><input type="text" placeholder="EI-000000" readonly></label>
+            <label class="c-field c-focus"><span>Email</span><input type="text" value="you@engineersireland.ie" readonly></label>
+            <label class="c-field c-error"><span>Password</span><input type="text" value="&bull;&bull;&bull;" readonly><em>Required field</em></label>
+          </div>
+          <div class="comp-card"><span class="cc-tag">CPD</span><strong>Structural design refresher</strong><span class="cc-meta">Online &middot; 2 hours &middot; 12 credits</span></div>
+        </div>
+      </div>
+    </div>
+</section>
+
+
 <aside class="cs-services reveal">
   <h2 class="mono">Services provided</h2>
   <ul><li>Brand Strategy</li><li>Digital Brand System</li><li>UX Research &amp; IA</li><li>UI Design System</li><li>Accessibility</li><li>Web Design &amp; Development</li></ul>

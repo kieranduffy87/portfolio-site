@@ -186,7 +186,10 @@
   var chips = document.querySelectorAll('.chip');
   var grid = document.getElementById('workGrid');
   if (chips.length && grid) {
-    var cards = [].slice.call(grid.querySelectorAll('.proj-card'));
+    var featured = [].slice.call(grid.querySelectorAll('.proj-card'));
+    var archiveGrid = document.getElementById('archiveGrid');
+    var archived = archiveGrid ? [].slice.call(archiveGrid.querySelectorAll('.proj-card')) : [];
+    var all = featured.concat(archived);
     var count = document.getElementById('projCount');
     chips.forEach(function (chip) {
       chip.addEventListener('click', function () {
@@ -194,12 +197,12 @@
         chip.classList.add('active');
         var f = chip.getAttribute('data-filter');
         var shown = 0;
-        cards.forEach(function (card) {
+        all.forEach(function (card) {
           var show = f === 'all' || card.getAttribute('data-industry') === f;
           card.classList.toggle('hidden', !show);
           if (show) { shown++; card.classList.add('in'); }
         });
-        applyMosaic(cards);
+        applyMosaic(featured);
         if (count) count.textContent = shown + (shown === 1 ? ' project' : ' projects');
       });
     });
