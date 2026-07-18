@@ -159,6 +159,69 @@
     setTimeout(arm, document.getElementById('preloader') ? 2300 : 0);
   }
 
+  // --- skip link target ---
+  var firstMain = document.querySelector('main');
+  if (firstMain && !firstMain.id) { firstMain.id = 'main'; firstMain.setAttribute('tabindex', '-1'); }
+
+  // --- about: portrait morphs from the KD mark as you scroll ---
+  var stage = document.getElementById('portraitStage');
+  if (stage && !stage.classList.contains('ph') && !reducedMotion) {
+    var clip = document.getElementById('portraitClip');
+    var img = clip.querySelector('img');
+    var tint = clip.querySelector('.portrait-tint');
+    // KD chevron -> full frame, same six points so the morph is smooth
+    var P0 = [[100,0],[64.4,0],[32.2,50],[64.4,100],[100,100],[67.8,50]];
+    var P1 = [[100,0],[0,0],[0,50],[0,100],[100,100],[100,50]];
+    var tiltX = 0, tiltY = 0;
+    var render = function (t) {
+      var pts = P0.map(function (p, i) {
+        var q = P1[i];
+        return (p[0] + (q[0] - p[0]) * t).toFixed(2) + '% ' + (p[1] + (q[1] - p[1]) * t).toFixed(2) + '%';
+      });
+      clip.style.clipPath = t >= 0.999 ? 'none' : 'polygon(' + pts.join(', ') + ')';
+      clip.style.transform = 'rotateX(' + tiltX + 'deg) rotateY(' + tiltY + 'deg)';
+      if (img) {
+        img.style.filter = 'grayscale(' + (1 - t) + ') contrast(' + (1.05 - 0.05 * t) + ')';
+        img.style.transform = 'scale(' + (1.12 - 0.12 * t) + ')';
+      }
+      if (tint) tint.style.opacity = (0.9 * (1 - t)).toFixed(3);
+    };
+    var prog = 0;
+    var update = function () {
+      var r = stage.getBoundingClientRect();
+      var vh = window.innerHeight;
+      // 0 when the stage enters, 1 once its centre passes 55% of the viewport
+      var raw = (vh * 0.9 - r.top) / (vh * 0.55);
+      prog = Math.max(0, Math.min(1, raw));
+      render(prog);
+    };
+    window.addEventListener('scroll', function () { requestAnimationFrame(update); }, { passive: true });
+    window.addEventListener('resize', update);
+    stage.addEventListener('mousemove', function (ev) {
+      var r = stage.getBoundingClientRect();
+      tiltY = ((ev.clientX - r.left) / r.width - 0.5) * 7;
+      tiltX = (0.5 - (ev.clientY - r.top) / r.height) * 7;
+      render(prog);
+    });
+    stage.addEventListener('mouseleave', function () { tiltX = tiltY = 0; render(prog); });
+    update();
+  }
+
+  // --- case-study videos: click or keyboard to pause/play ---
+  document.querySelectorAll('.media-row video').forEach(function (v) {
+    v.setAttribute('tabindex', '0');
+    v.setAttribute('role', 'button');
+    v.setAttribute('aria-label', 'Pause video');
+    var toggle = function () {
+      if (v.paused) { v.play().catch(function () {}); v.setAttribute('aria-label', 'Pause video'); }
+      else { v.pause(); v.setAttribute('aria-label', 'Play video'); }
+    };
+    v.addEventListener('click', toggle);
+    v.addEventListener('keydown', function (ev) {
+      if (ev.key === ' ' || ev.key === 'Enter') { ev.preventDefault(); toggle(); }
+    });
+  });
+
   // --- reveal on scroll ---
   var revealEls = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {
@@ -209,5 +272,3 @@
   }
 })();
 
-// iOS Safari ignores user-scalable=no; block pinch gestures explicitly
-document.addEventListener('gesturestart', function (e) { e.preventDefault(); });

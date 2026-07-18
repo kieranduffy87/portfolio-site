@@ -732,3 +732,70 @@ a.contact-big:hover { color: var(--accent-text); }
 .archive-grid .card-client { font-size: 0.92rem; margin-top: 0.7rem; }
 .archive-grid .card-tagline { font-size: 0.85rem; }
 .archive-grid .card-tags { display: none; }
+
+/* ---------- accessibility ---------- */
+.skip-link {
+  position: fixed; top: -100px; left: 1rem; z-index: 400;
+  background: var(--accent); color: #fff; font-weight: 600; font-size: 0.9rem;
+  padding: 0.7rem 1.2rem; border-radius: 100px; transition: top 0.2s;
+}
+.skip-link:focus { top: 1rem; }
+a:focus-visible, button:focus-visible, .chip:focus-visible, video:focus-visible {
+  outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px;
+}
+.media-row video { cursor: pointer; }
+
+/* ---------- about: interactive portrait ---------- */
+.about-me {
+  display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: 2rem var(--pad); align-items: center;
+  min-height: 88vh;
+}
+.am-lede { font-size: clamp(1.7rem, 3.4vw, 2.7rem); font-weight: 500; letter-spacing: -0.02em; line-height: 1.2; }
+.am-facts { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.6rem; }
+.am-facts span {
+  font-size: 0.78rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--muted); border: 1px solid var(--line); border-radius: 100px; padding: 0.4rem 0.95rem;
+}
+.portrait-stage { perspective: 900px; }
+.portrait-clip {
+  position: relative; overflow: hidden;
+  aspect-ratio: 4 / 5; border-radius: var(--radius);
+  clip-path: polygon(100% 0%, 64.4% 0%, 32.2% 50%, 64.4% 100%, 100% 100%, 67.8% 50%);
+  transform-style: preserve-3d; will-change: clip-path, transform;
+  background: var(--surface-2);
+}
+.portrait-clip img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: grayscale(1) contrast(1.05);
+  transform: scale(1.12);
+  will-change: filter, transform;
+}
+.portrait-tint {
+  position: absolute; inset: 0; background: var(--accent); mix-blend-mode: color;
+  opacity: 0.9; pointer-events: none; will-change: opacity;
+}
+.portrait-stage.ph .portrait-clip {
+  clip-path: none; display: grid; place-items: center;
+  background:
+    radial-gradient(ellipse 90% 90% at 15% 0%, rgba(3, 57, 248, 0.45), transparent 55%),
+    linear-gradient(160deg, #0a0f22, #05070f);
+}
+.portrait-stage.ph .portrait-clip::before {
+  content: "Drop portrait.jpg into assets/site/";
+  font-size: 0.8rem; letter-spacing: 0.06em; color: rgba(236, 238, 242, 0.6);
+}
+@media (max-width: 860px) {
+  .about-me { grid-template-columns: 1fr; min-height: 0; padding-top: 1rem; }
+  .portrait-stage { max-width: 420px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portrait-clip { clip-path: none !important; transform: none !important; }
+  .portrait-clip img { filter: none !important; transform: none !important; }
+  .portrait-tint { opacity: 0 !important; }
+}
+
+/* ---------- year + 404 ---------- */
+.k-year { color: var(--muted); }
+.nf-page { min-height: 70vh; }
+.nf-actions { display: flex; gap: 0.8rem; margin-top: 2rem; flex-wrap: wrap; }

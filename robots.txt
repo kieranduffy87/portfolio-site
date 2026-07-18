@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://kieranduffy87.github.io/portfolio-site/sitemap.xml
