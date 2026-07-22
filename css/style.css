@@ -632,8 +632,36 @@ a.contact-big:hover { color: var(--accent-text); }
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
 }
 .pg-card:hover .pg-preview-3d .kd-mark { animation-duration: 2.6s; }
+
+/* design-system preview: mini token sheet */
+.pg-preview-ds .ds-sheet { display: flex; align-items: center; gap: 0.9rem; position: relative; z-index: 1; }
+.pg-preview-ds .ds-sw { width: 26px; height: 26px; border-radius: 50%; transition: transform 0.35s var(--ease); }
+.pg-preview-ds .ds-blue { background: #0339f8; box-shadow: 0 0 26px rgba(3, 57, 248, 0.6); }
+.pg-preview-ds .ds-paper { background: #f6f5f1; }
+.pg-preview-ds .ds-ink { background: #16181d; border: 1px solid rgba(236, 238, 242, 0.3); }
+.pg-preview-ds .ds-aa { font-size: 2.1rem; font-weight: 500; letter-spacing: -0.02em; line-height: 1; color: #eceef2; }
+.pg-preview-ds .ds-pill {
+  font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: #fff; background: #0339f8; padding: 0.45rem 0.9rem; border-radius: 100px;
+}
+.pg-card:hover .pg-preview-ds .ds-sw { transform: translateY(-5px); }
+.pg-card:hover .pg-preview-ds .ds-paper { transition-delay: 0.05s; }
+.pg-card:hover .pg-preview-ds .ds-ink { transition-delay: 0.1s; }
+
+/* pillgrid preview: LED pill-dot matrix */
+.pg-preview-pill .pill-grad {
+  position: absolute; inset: -12%;
+  background: conic-gradient(from 210deg at 32% 30%, #0339f8, #21d4b4, #ff7a59, #7aa2ff, #0339f8);
+  -webkit-mask-image: radial-gradient(ellipse 40% 44% at 50% 50%, #000 58%, transparent 62%);
+  mask-image: radial-gradient(ellipse 40% 44% at 50% 50%, #000 58%, transparent 62%);
+  -webkit-mask-size: 13px 22px; mask-size: 13px 22px;
+  animation: pill-hue 9s linear infinite;
+}
+@keyframes pill-hue { to { filter: hue-rotate(360deg); } }
+.pg-card:hover .pg-preview-pill .pill-grad { animation-duration: 3s; }
+
 @media (prefers-reduced-motion: reduce) {
-  .pg-preview-3d .kd-mark, .pg-preview-mesh .blob { animation: none; }
+  .pg-preview-3d .kd-mark, .pg-preview-mesh .blob, .pg-preview-pill .pill-grad { animation: none; }
 }
 
 /* ============ flagship deep-dives ============ */
