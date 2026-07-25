@@ -47,7 +47,7 @@ EXPERIMENTS = [
  "tagline": "A headline placed rather than typeset",
  "desc": "A full-screen hero for an invented data-security platform. The headline is cut into three words and pinned to different corners of the frame, so the eye steps down the page and the film keeps showing through the gaps between them. Nothing sits on a panel: the type, the stats and the navigation all lie straight on the picture.",
  "tags": ["Display type", "Generative film", "React"],
- "build": "The film is a Seedance 2.0 shot from OpenArt, a close tracking shot of a snowboarder in golden hour, graded down and desaturated so a page set in white on black can carry it, then looped forward and back so it never cuts. The camera keeps moving, which means a flare sweeps under type that was on dark a second earlier, so the type carries a wide soft shadow that is invisible over the black and holds the letterforms together over the light. React, TypeScript and Tailwind, built with Vite.",
+ "build": "The film is a Seedance 2.0 shot from OpenArt, a close tracking shot of a snowboarder at golden hour, looped forward and back so it never cuts. It plays at close to its own exposure: rather than grade the picture flat so white type can survive it, the shading is pulled in from the four edges where the words actually sit and the middle of frame is left as shot. The camera keeps moving, so the type also carries a wide soft shadow that vanishes over the dark and holds the letterforms together when a flare sweeps under them. React, TypeScript and Tailwind, built with Vite.",
 },
 {
  "slug": "dental",

@@ -39,12 +39,14 @@ export default function App() {
         aria-hidden="true"
       />
 
-      {/* Both gradients sit on the film rather than over the type, so they
-          settle the picture without dulling the white it carries. The top one
-          holds the sky back off the navigation and the first stat, the bottom
-          one gives the other two stats ground to stand on. */}
-      <div className="pointer-events-none absolute top-0 left-0 right-0 h-64 bg-gradient-to-t from-transparent to-black/85" />
-      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-b from-transparent to-black" />
+      {/* The type lives around the edges of the frame and the rider is in the
+          middle of it, so the picture is only shaded where words land: four
+          gradients pulled in from the sides, none of them reaching the centre.
+          The film keeps its own exposure where anyone is actually looking. */}
+      <div className="pointer-events-none absolute top-0 left-0 right-0 h-56 bg-gradient-to-t from-transparent to-black/80" />
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-b from-transparent to-black/95" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-[45%] bg-gradient-to-r from-black/85 via-black/35 to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-[38%] bg-gradient-to-l from-black/80 via-black/30 to-transparent" />
 
       <Navbar />
 
