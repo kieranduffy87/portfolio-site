@@ -1,11 +1,21 @@
 # -*- coding: utf-8 -*-
 # KD Lab: experiments and tools shown on the Playground page.
 # Local experiments live under /lab/<slug>/. "url" overrides the link (external projects).
+# "build" is kept for reference only, the playground stopped printing it in July 2026.
 
 EXPERIMENTS = [
 {
- "slug": "vaultshield",
+ "slug": "dental",
  "num": "01",
+ "title": "Dental Health",
+ "tagline": "One photograph, cut across nine cards",
+ "desc": "A landing page for a clinic that does not exist. Every card in a section is a window onto the same photograph: each one measures where it sits and shifts the picture by exactly that much, so the image runs unbroken behind the whole mosaic while the cards keep their own rounded corners.",
+ "tags": ["Masked cards", "Generative photography", "React"],
+ "build": "The picture is scaled to the section height and offset per card, so a narrow window sees a much smaller slice than a wide one. The focal point slides left as that slice narrows, which keeps the headline on clear ground at any size. All five photographs were made in OpenArt with Nano Banana Pro and art directed around where the type lands. React, TypeScript and Tailwind, built with Vite.",
+},
+{
+ "slug": "vaultshield",
+ "num": "02",
  "title": "VaultShield",
  "tagline": "A hero for a password manager that does not exist",
  "desc": "A full-screen hero for an invented password manager. The film plays behind everything with no scrim over it, because the shot was directed to keep its left third empty, so dark type sits straight on the picture. The icons live inside the headline as words rather than beside it, so they wrap with the line.",
@@ -14,7 +24,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "drift",
- "num": "02",
+ "num": "03",
  "title": "Drift",
  "tagline": "A landing page that stays quiet",
  "desc": "A single page for an invented ADHD-friendly planner. The hero is one held shot of morning light, the cream section rides up over it by the exact radius of its own corners, and the feature cards slide in one at a time against a fixed backdrop while the index on the left keeps pace with where you are.",
@@ -23,7 +33,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "aurai",
- "num": "03",
+ "num": "04",
  "title": "Aurai",
  "tagline": "A hero section for a brand that does not exist",
  "desc": "A full-screen landing page for an invented always-on wellness companion. One film runs behind everything and the interface sits on top in glass, with no dark overlay anywhere. The shot was directed to leave the left of frame empty so the type has somewhere to live.",
@@ -32,7 +42,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "lithos",
- "num": "04",
+ "num": "05",
  "title": "Lithos",
  "tagline": "A spotlight that x-rays the page",
  "desc": "A hero section for an invented geology brand. Two photographs of the same cliff sit exactly on top of each other, and a soft circular spotlight follows the cursor, cutting a window through the top one so the seams below read like an x-ray of the rock.",
@@ -41,7 +51,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "imagination-explorer",
- "num": "05",
+ "num": "06",
  "title": "The Imagination Explorer",
  "tagline": "A scroll-film for a children's brand",
  "desc": "A promo site built as one continuous scroll-film: the story scrubs frame by frame as you move down the page, with type and colour cued to the film rather than layered over it.",
@@ -51,7 +61,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "aurora",
- "num": "06",
+ "num": "07",
  "title": "Aurora",
  "tagline": "Colour that breathes",
  "desc": "A live WebGL gradient with no images at all: fractal noise, domain-warped twice, pushed through a brand palette and steered by the pointer. Runs on a single fullscreen triangle.",
@@ -60,7 +70,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "reveal",
- "num": "07",
+ "num": "08",
  "title": "Reveal",
  "tagline": "An index that shows its hand",
  "desc": "The agency-list problem: a list scans faster than a grid but hides the work. Here the preview tracks the cursor with inertia, skewing to its own velocity, while the rest of the index dims away.",
@@ -69,7 +79,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "pillgrid",
- "num": "08",
+ "num": "09",
  "title": "PILLGRID",
  "tagline": "Any video, rebuilt in pills",
  "desc": "A real-time video filter that rebuilds footage as a matrix of pill-shaped dots, like a physical LED display. Load a clip or use your camera, then tune grid density, pill shape, colour and bleed live.",

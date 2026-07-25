@@ -822,7 +822,6 @@ def build_playground():
     <h3><a href="{href}"{ext}>{e(x['title'])}</a></h3>
     <p class="lab-tagline">{e(x['tagline'])}</p>
     <p class="lab-desc">{e(x['desc'])}</p>
-    <p class="lab-build"><strong>How it works.</strong> {e(x['build'])}</p>
   </div>
 </article>""")
     tools = []

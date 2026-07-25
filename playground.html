@@ -51,7 +51,7 @@
 </section>
 
 <section class="lab-intro reveal">
-  <div class="li-stat"><strong>8</strong><span>motion experiments</span></div>
+  <div class="li-stat"><strong>9</strong><span>motion experiments</span></div>
   <div class="li-stat"><strong>3</strong><span>tools in the wild</span></div>
   <div class="li-stat"><strong>0</strong><span>animation libraries used</span></div>
 </section>
@@ -60,16 +60,26 @@
   <h2 class="work-sub reveal">Motion experiments</h2>
   <p class="archive-lede reveal">Each one is a self-contained page with hand-written motion and no animation libraries. Previews play on hover, click to open the real thing.</p>
   <div class="lab-grid"><article class="lab-card reveal">
+  <a class="lab-media" href="lab/dental/index.html" aria-label="Open Dental Health">
+    <video muted loop playsinline preload="none" poster="lab/previews/dental.jpg" data-src="lab/previews/dental.mp4"></video>
+    <span class="lab-open">Open experiment &rarr;</span>
+  </a>
+  <div class="lab-body">
+    <div class="lab-head"><span class="lab-num">01</span><div class="lab-tags"><span>Masked cards</span><span>Generative photography</span><span>React</span></div></div>
+    <h3><a href="lab/dental/index.html">Dental Health</a></h3>
+    <p class="lab-tagline">One photograph, cut across nine cards</p>
+    <p class="lab-desc">A landing page for a clinic that does not exist. Every card in a section is a window onto the same photograph: each one measures where it sits and shifts the picture by exactly that much, so the image runs unbroken behind the whole mosaic while the cards keep their own rounded corners.</p>
+  </div>
+</article><article class="lab-card reveal">
   <a class="lab-media" href="lab/vaultshield/index.html" aria-label="Open VaultShield">
     <video muted loop playsinline preload="none" poster="lab/previews/vaultshield.jpg" data-src="lab/previews/vaultshield.mp4"></video>
     <span class="lab-open">Open experiment &rarr;</span>
   </a>
   <div class="lab-body">
-    <div class="lab-head"><span class="lab-num">01</span><div class="lab-tags"><span>Generative film</span><span>Framer Motion</span><span>React</span></div></div>
+    <div class="lab-head"><span class="lab-num">02</span><div class="lab-tags"><span>Generative film</span><span>Framer Motion</span><span>React</span></div></div>
     <h3><a href="lab/vaultshield/index.html">VaultShield</a></h3>
     <p class="lab-tagline">A hero for a password manager that does not exist</p>
     <p class="lab-desc">A full-screen hero for an invented password manager. The film plays behind everything with no scrim over it, because the shot was directed to keep its left third empty, so dark type sits straight on the picture. The icons live inside the headline as words rather than beside it, so they wrap with the line.</p>
-    <p class="lab-build"><strong>How it works.</strong> The film came out of OpenArt: a still from Nano Banana Pro animated with Seedance 2.0, then looped forward and back so the glass keys never cut. Heading, subtext and button share one fadeUp variant staggered 0.15 seconds apart, and the mobile sheet slides in on the same easing curve. React, TypeScript, Tailwind and Framer Motion, built with Vite.</p>
   </div>
 </article><article class="lab-card reveal">
   <a class="lab-media" href="lab/drift/index.html" aria-label="Open Drift">
@@ -77,11 +87,10 @@
     <span class="lab-open">Open experiment &rarr;</span>
   </a>
   <div class="lab-body">
-    <div class="lab-head"><span class="lab-num">02</span><div class="lab-tags"><span>Scroll cards</span><span>Generative film</span><span>React</span></div></div>
+    <div class="lab-head"><span class="lab-num">03</span><div class="lab-tags"><span>Scroll cards</span><span>Generative film</span><span>React</span></div></div>
     <h3><a href="lab/drift/index.html">Drift</a></h3>
     <p class="lab-tagline">A landing page that stays quiet</p>
     <p class="lab-desc">A single page for an invented ADHD-friendly planner. The hero is one held shot of morning light, the cream section rides up over it by the exact radius of its own corners, and the feature cards slide in one at a time against a fixed backdrop while the index on the left keeps pace with where you are.</p>
-    <p class="lab-build"><strong>How it works.</strong> Two intersection observers run the right-hand column: one at 60 percent to say which card you are on, one at 15 percent to fire each entrance once and leave it. All four films were made in OpenArt, stills from Nano Banana Pro animated with Seedance 2.0, then looped forward and back so nothing ever cuts. React, TypeScript and Tailwind, built with Vite.</p>
   </div>
 </article><article class="lab-card reveal">
   <a class="lab-media" href="lab/aurai/index.html" aria-label="Open Aurai">
@@ -89,11 +98,10 @@
     <span class="lab-open">Open experiment &rarr;</span>
   </a>
   <div class="lab-body">
-    <div class="lab-head"><span class="lab-num">03</span><div class="lab-tags"><span>Generative film</span><span>Glass UI</span><span>React</span></div></div>
+    <div class="lab-head"><span class="lab-num">04</span><div class="lab-tags"><span>Generative film</span><span>Glass UI</span><span>React</span></div></div>
     <h3><a href="lab/aurai/index.html">Aurai</a></h3>
     <p class="lab-tagline">A hero section for a brand that does not exist</p>
     <p class="lab-desc">A full-screen landing page for an invented always-on wellness companion. One film runs behind everything and the interface sits on top in glass, with no dark overlay anywhere. The shot was directed to leave the left of frame empty so the type has somewhere to live.</p>
-    <p class="lab-build"><strong>How it works.</strong> The film came out of OpenArt: a still from GPT Image 2 animated with Seedance 2.0, then looped forward and back so the visor unwinds instead of cutting. It was shot twice, 16:9 and 9:16, and the page loads whichever cut suits the screen. React, TypeScript and Tailwind, built with Vite.</p>
   </div>
 </article><article class="lab-card reveal">
   <a class="lab-media" href="lab/lithos/index.html" aria-label="Open Lithos">
@@ -101,11 +109,10 @@
     <span class="lab-open">Open experiment &rarr;</span>
   </a>
   <div class="lab-body">
-    <div class="lab-head"><span class="lab-num">04</span><div class="lab-tags"><span>Canvas masking</span><span>Cursor reveal</span><span>React</span></div></div>
+    <div class="lab-head"><span class="lab-num">05</span><div class="lab-tags"><span>Canvas masking</span><span>Cursor reveal</span><span>React</span></div></div>
     <h3><a href="lab/lithos/index.html">Lithos</a></h3>
     <p class="lab-tagline">A spotlight that x-rays the page</p>
     <p class="lab-desc">A hero section for an invented geology brand. Two photographs of the same cliff sit exactly on top of each other, and a soft circular spotlight follows the cursor, cutting a window through the top one so the seams below read like an x-ray of the rock.</p>
-    <p class="lab-build"><strong>How it works.</strong> A radial gradient is painted into an offscreen canvas every frame, then handed to CSS as a mask image on the second layer. The cursor is eased with a lerp so the light lags slightly behind the pointer. React, TypeScript and Tailwind, built with Vite. Both stone photographs were generated in OpenArt.</p>
   </div>
 </article><article class="lab-card reveal">
   <a class="lab-media" href="lab/imagination-explorer/index.html" aria-label="Open The Imagination Explorer">
@@ -113,11 +120,10 @@
     <span class="lab-open">Open project &rarr;</span>
   </a>
   <div class="lab-body">
-    <div class="lab-head"><span class="lab-num">05</span><div class="lab-tags"><span>Scroll film</span><span>Brand site</span><span>Art direction</span></div></div>
+    <div class="lab-head"><span class="lab-num">06</span><div class="lab-tags"><span>Scroll film</span><span>Brand site</span><span>Art direction</span></div></div>
     <h3><a href="lab/imagination-explorer/index.html">The Imagination Explorer</a></h3>
     <p class="lab-tagline">A scroll-film for a children&#x27;s brand</p>
     <p class="lab-desc">A promo site built as one continuous scroll-film: the story scrubs frame by frame as you move down the page, with type and colour cued to the film rather than layered over it.</p>
-    <p class="lab-build"><strong>How it works.</strong> Scroll position drives film playback directly, so the page and the footage share one timeline. Built as a standalone site, no framework.</p>
   </div>
 </article><article class="lab-card reveal">
   <a class="lab-media" href="lab/aurora/index.html" aria-label="Open Aurora">
@@ -125,11 +131,10 @@
     <span class="lab-open">Open experiment &rarr;</span>
   </a>
   <div class="lab-body">
-    <div class="lab-head"><span class="lab-num">06</span><div class="lab-tags"><span>WebGL</span><span>GLSL</span><span>Generative</span></div></div>
+    <div class="lab-head"><span class="lab-num">07</span><div class="lab-tags"><span>WebGL</span><span>GLSL</span><span>Generative</span></div></div>
     <h3><a href="lab/aurora/index.html">Aurora</a></h3>
     <p class="lab-tagline">Colour that breathes</p>
     <p class="lab-desc">A live WebGL gradient with no images at all: fractal noise, domain-warped twice, pushed through a brand palette and steered by the pointer. Runs on a single fullscreen triangle.</p>
-    <p class="lab-build"><strong>How it works.</strong> Hand-written fragment shader (fbm + domain warping). Falls back to an animated CSS field where WebGL is unavailable.</p>
   </div>
 </article><article class="lab-card reveal">
   <a class="lab-media" href="lab/reveal/index.html" aria-label="Open Reveal">
@@ -137,11 +142,10 @@
     <span class="lab-open">Open experiment &rarr;</span>
   </a>
   <div class="lab-body">
-    <div class="lab-head"><span class="lab-num">07</span><div class="lab-tags"><span>Hover reveal</span><span>Inertia</span><span>Velocity skew</span></div></div>
+    <div class="lab-head"><span class="lab-num">08</span><div class="lab-tags"><span>Hover reveal</span><span>Inertia</span><span>Velocity skew</span></div></div>
     <h3><a href="lab/reveal/index.html">Reveal</a></h3>
     <p class="lab-tagline">An index that shows its hand</p>
     <p class="lab-desc">The agency-list problem: a list scans faster than a grid but hides the work. Here the preview tracks the cursor with inertia, skewing to its own velocity, while the rest of the index dims away.</p>
-    <p class="lab-build"><strong>How it works.</strong> Preview position lerps behind the pointer; frame skew and scale are derived from per-frame delta.</p>
   </div>
 </article><article class="lab-card reveal">
   <a class="lab-media" href="https://kieranduffy87.github.io/pillgrid/" target="_blank" rel="noopener" aria-label="Open PILLGRID">
@@ -149,11 +153,10 @@
     <span class="lab-open">Open project &rarr;</span>
   </a>
   <div class="lab-body">
-    <div class="lab-head"><span class="lab-num">08</span><div class="lab-tags"><span>WebGL</span><span>Video filter</span><span>Real time</span></div></div>
+    <div class="lab-head"><span class="lab-num">09</span><div class="lab-tags"><span>WebGL</span><span>Video filter</span><span>Real time</span></div></div>
     <h3><a href="https://kieranduffy87.github.io/pillgrid/" target="_blank" rel="noopener">PILLGRID</a></h3>
     <p class="lab-tagline">Any video, rebuilt in pills</p>
     <p class="lab-desc">A real-time video filter that rebuilds footage as a matrix of pill-shaped dots, like a physical LED display. Load a clip or use your camera, then tune grid density, pill shape, colour and bleed live.</p>
-    <p class="lab-build"><strong>How it works.</strong> Every frame is sampled to a grid in a fragment shader and redrawn as pills. Single file, no build step, runs entirely in the browser.</p>
   </div>
 </article></div>
 </section>
