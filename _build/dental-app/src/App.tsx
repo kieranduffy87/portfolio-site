@@ -381,7 +381,11 @@ export default function App() {
 
   const s1Fraction = s1ImageWidth ? Math.min(1, (s1Positions[0]?.sw ?? 0) / s1ImageWidth) : 1
   const s2Fraction = s2ImageWidth ? Math.min(1, (s2Positions[0]?.sw ?? 0) / s2ImageWidth) : 1
-  const s1Focal = focalFor(s1Fraction, 0.45, 0.8)
+  // The wide anchor is lower than the narrow one on purpose: a wide window sees
+  // more of the plate, so the crop has to start further left to keep her in the
+  // right third. Otherwise she drifts to centre and the feature bars, whose type
+  // is centred, print straight across her face.
+  const s1Focal = focalFor(s1Fraction, 0.45, 0.26)
   // Mobile turns this section's type white, so its crop has to sit on the hair
   // and face rather than on the empty white sweep the desktop crop leans on.
   const s2Focal = focalFor(s2Fraction, isMobile ? 0.72 : 0.6, 0.8)
