@@ -51,14 +51,14 @@
 </section>
 
 <section class="lab-intro reveal">
-  <div class="li-stat"><strong>7</strong><span>motion experiments</span></div>
+  <div class="li-stat"><strong>8</strong><span>motion experiments</span></div>
   <div class="li-stat"><strong>3</strong><span>tools in the wild</span></div>
   <div class="li-stat"><strong>0</strong><span>animation libraries used</span></div>
 </section>
 
 <section class="lab-grid-wrap">
   <h2 class="work-sub reveal">Motion experiments</h2>
-  <p class="archive-lede reveal">Each one is a single self-contained page: no build step, no dependencies, hand-written motion. Previews play on hover, click to open the real thing.</p>
+  <p class="archive-lede reveal">Each one is a self-contained page with hand-written motion and no animation libraries. Previews play on hover, click to open the real thing.</p>
   <div class="lab-grid"><article class="lab-card reveal">
   <a class="lab-media" href="lab/imagination-explorer/index.html" aria-label="Open The Imagination Explorer">
     <video muted loop playsinline preload="none" poster="lab/previews/imagination-explorer.jpg" data-src="lab/previews/imagination-explorer.mp4"></video>
@@ -72,12 +72,24 @@
     <p class="lab-build"><strong>How it works.</strong> Scroll position drives film playback directly, so the page and the footage share one timeline. Built as a standalone site, no framework.</p>
   </div>
 </article><article class="lab-card reveal">
+  <a class="lab-media" href="lab/lithos/index.html" aria-label="Open Lithos">
+    <video muted loop playsinline preload="none" poster="lab/previews/lithos.jpg" data-src="lab/previews/lithos.mp4"></video>
+    <span class="lab-open">Open experiment &rarr;</span>
+  </a>
+  <div class="lab-body">
+    <div class="lab-head"><span class="lab-num">02</span><div class="lab-tags"><span>Canvas masking</span><span>Cursor reveal</span><span>React</span></div></div>
+    <h3><a href="lab/lithos/index.html">Lithos</a></h3>
+    <p class="lab-tagline">A spotlight that x-rays the page</p>
+    <p class="lab-desc">A hero section for an invented geology brand. Two photographs of the same cliff sit exactly on top of each other, and a soft circular spotlight follows the cursor, cutting a window through the top one so the seams below read like an x-ray of the rock.</p>
+    <p class="lab-build"><strong>How it works.</strong> A radial gradient is painted into an offscreen canvas every frame, then handed to CSS as a mask image on the second layer. The cursor is eased with a lerp so the light lags slightly behind the pointer. React, TypeScript and Tailwind, built with Vite. Both stone photographs were generated in OpenArt.</p>
+  </div>
+</article><article class="lab-card reveal">
   <a class="lab-media" href="lab/magnetic/index.html" aria-label="Open Magnetic">
     <video muted loop playsinline preload="none" poster="lab/previews/magnetic.jpg" data-src="lab/previews/magnetic.mp4"></video>
     <span class="lab-open">Open experiment &rarr;</span>
   </a>
   <div class="lab-body">
-    <div class="lab-head"><span class="lab-num">02</span><div class="lab-tags"><span>Cursor physics</span><span>Springs</span><span>Hover states</span></div></div>
+    <div class="lab-head"><span class="lab-num">03</span><div class="lab-tags"><span>Cursor physics</span><span>Springs</span><span>Hover states</span></div></div>
     <h3><a href="lab/magnetic/index.html">Magnetic</a></h3>
     <p class="lab-tagline">Interfaces that pull back</p>
     <p class="lab-desc">Cursor physics: buttons that attract as you approach, cards that tilt with a specular highlight tracking the pointer, and list rows that fill upward on hover. Every value is integrated per frame, so nothing snaps.</p>
@@ -89,7 +101,7 @@
     <span class="lab-open">Open experiment &rarr;</span>
   </a>
   <div class="lab-body">
-    <div class="lab-head"><span class="lab-num">03</span><div class="lab-tags"><span>WebGL</span><span>GLSL</span><span>Generative</span></div></div>
+    <div class="lab-head"><span class="lab-num">04</span><div class="lab-tags"><span>WebGL</span><span>GLSL</span><span>Generative</span></div></div>
     <h3><a href="lab/aurora/index.html">Aurora</a></h3>
     <p class="lab-tagline">Colour that breathes</p>
     <p class="lab-desc">A live WebGL gradient with no images at all: fractal noise, domain-warped twice, pushed through a brand palette and steered by the pointer. Runs on a single fullscreen triangle.</p>
@@ -101,7 +113,7 @@
     <span class="lab-open">Open experiment &rarr;</span>
   </a>
   <div class="lab-body">
-    <div class="lab-head"><span class="lab-num">04</span><div class="lab-tags"><span>Hover reveal</span><span>Inertia</span><span>Velocity skew</span></div></div>
+    <div class="lab-head"><span class="lab-num">05</span><div class="lab-tags"><span>Hover reveal</span><span>Inertia</span><span>Velocity skew</span></div></div>
     <h3><a href="lab/reveal/index.html">Reveal</a></h3>
     <p class="lab-tagline">An index that shows its hand</p>
     <p class="lab-desc">The agency-list problem: a list scans faster than a grid but hides the work. Here the preview tracks the cursor with inertia, skewing to its own velocity, while the rest of the index dims away.</p>
@@ -113,7 +125,7 @@
     <span class="lab-open">Open experiment &rarr;</span>
   </a>
   <div class="lab-body">
-    <div class="lab-head"><span class="lab-num">05</span><div class="lab-tags"><span>Pinned scroll</span><span>Horizontal</span><span>Parallax</span></div></div>
+    <div class="lab-head"><span class="lab-num">06</span><div class="lab-tags"><span>Pinned scroll</span><span>Horizontal</span><span>Parallax</span></div></div>
     <h3><a href="lab/horizon/index.html">Horizon</a></h3>
     <p class="lab-tagline">Scroll down, travel sideways</p>
     <p class="lab-desc">A pinned viewport that maps the vertical gesture people already know onto a horizontal cinema, with per-panel parallax depth and a skew that reads scroll speed.</p>
@@ -125,7 +137,7 @@
     <span class="lab-open">Open experiment &rarr;</span>
   </a>
   <div class="lab-body">
-    <div class="lab-head"><span class="lab-num">06</span><div class="lab-tags"><span>Scroll sequence</span><span>Brand motion</span><span>Choreography</span></div></div>
+    <div class="lab-head"><span class="lab-num">07</span><div class="lab-tags"><span>Scroll sequence</span><span>Brand motion</span><span>Choreography</span></div></div>
     <h3><a href="lab/unfold/index.html">Unfold</a></h3>
     <p class="lab-tagline">The mark becomes the interface</p>
     <p class="lab-desc">A brand reveal as a scroll sequence: the two halves of the KD mark fly in and lock, the assembled mark shrinks up into the navigation, and the landing page composes itself in its wake.</p>
@@ -137,7 +149,7 @@
     <span class="lab-open">Open project &rarr;</span>
   </a>
   <div class="lab-body">
-    <div class="lab-head"><span class="lab-num">07</span><div class="lab-tags"><span>WebGL</span><span>Video filter</span><span>Real time</span></div></div>
+    <div class="lab-head"><span class="lab-num">08</span><div class="lab-tags"><span>WebGL</span><span>Video filter</span><span>Real time</span></div></div>
     <h3><a href="https://kieranduffy87.github.io/pillgrid/" target="_blank" rel="noopener">PILLGRID</a></h3>
     <p class="lab-tagline">Any video, rebuilt in pills</p>
     <p class="lab-desc">A real-time video filter that rebuilds footage as a matrix of pill-shaped dots, like a physical LED display. Load a clip or use your camera, then tune grid density, pill shape, colour and bleed live.</p>
