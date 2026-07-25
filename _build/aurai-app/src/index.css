@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+/* Askan Light, self-hosted so the page does not depend on a third-party CDN.
+   Font made from Web Fonts (onlinewebfonts.com), licensed CC BY 4.0. */
+@font-face {
+  font-family: 'Askan Light';
+  src: url('./font/askan-light.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #1b2430;
+}
+
+/* Entrance choreography: the film settles first, then the content rises
+   through it. One shared easing curve so nothing feels bolted on. */
+@keyframes filmSettle { 0% { transform: scale(1.06); opacity: 0 } 100% { transform: scale(1); opacity: 1 } }
+@keyframes riseIn { 0% { opacity: 0; transform: translateY(22px) } 100% { opacity: 1; transform: translateY(0) } }
+@keyframes glassIn { 0% { opacity: 0; transform: translateY(-14px) } 100% { opacity: 1; transform: translateY(0) } }
+
+.film-settle { animation: filmSettle 2.4s cubic-bezier(0.16, 1, 0.3, 1) forwards }
+.rise { opacity: 0; animation: riseIn 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards }
+.glass-in { opacity: 0; animation: glassIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards }
+
+@media (prefers-reduced-motion: reduce) {
+  .film-settle, .rise, .glass-in { animation: none; opacity: 1; transform: none }
+}
+
+/* Visible keyboard focus on glass, where a default ring disappears. */
+:where(a, button, input):focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.85);
+  outline-offset: 3px;
+}
+
+::placeholder { color: rgba(255, 255, 255, 0.5) }

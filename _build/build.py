@@ -12,6 +12,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from content_projects_a import PROJECTS_A
 from content_projects_b import PROJECTS_B
 from content_deep import DEEP, FLAGSHIP
+from content_lab import EXPERIMENTS, TOOLS
 
 PROJECTS = PROJECTS_A + PROJECTS_B
 
@@ -131,6 +132,7 @@ def nav(depth=0, active=""):
   <nav class="pill-links" id="siteNav">
     <a class="menu-logo" href="{p}index.html" aria-label="Home">{KD_MARK}</a>
     <a href="{p}work.html"{cls('work')}>Work</a>
+    <a href="{p}playground.html"{cls('playground')}>Playground</a>
     <a href="{p}services.html"{cls('services')}>Services</a>
     <a href="{p}about.html"{cls('about')}>About</a>
     <a href="{p}contact.html" class="mobile-only{' active' if active == 'contact' else ''}">Contact</a>
@@ -162,6 +164,7 @@ def footer(depth=0):
       <a href="{p}about.html">About</a>
       <a href="{p}services.html">Services</a>
       <a href="{p}work.html">Work</a>
+      <a href="{p}playground.html">Playground</a>
       <a href="{p}contact.html">Contact</a>
     </div>
     <div class="foot-col">
@@ -387,6 +390,15 @@ def build_home():
     </a>""")
     dots = "".join(f'<button class="dot{" active" if i == 0 else ""}" data-goto="{i}" aria-label="Slide {i+1}"></button>' for i in range(len(feats)))
     cards = "\n".join(project_card(p, 0, size=MOSAIC_CYCLE[i % len(MOSAIC_CYCLE)]) for i, p in enumerate(feats))
+    pg_strip = "\n    ".join(
+        '<a class="pg-tile reveal" href="%s"%s><span class="pgt-media">'
+        '<video muted loop playsinline preload="none" poster="lab/previews/%s.jpg" '
+        'data-src="lab/previews/%s.mp4"></video></span>'
+        '<span class="pgt-name">%s</span><span class="pgt-tag">%s</span></a>'
+        % (x.get("url", "lab/%s/index.html" % x["slug"]),
+           ' target="_blank" rel="noopener"' if x.get("external") else "",
+           x["slug"], x["slug"], e(x["title"]), e(x["tags"][0]))
+        for x in EXPERIMENTS[:4])
     logo_dir = os.path.join(ROOT, "assets", "site", "logos")
     logos = sorted(f for f in os.listdir(logo_dir) if f.endswith(".svg")) if os.path.isdir(logo_dir) else []
     marq = "".join(
@@ -442,45 +454,10 @@ def build_home():
 </section>
 
 <section class="playground" id="playground">
-  <div class="sec-head reveal"><h2>Playground</h2></div>
-  <p class="pg-lede reveal">Experiments and open process: small utilities I designed and built for myself and other designers, plus working samples of how I work behind the scenes &mdash; like the design system that runs this site. Free to use, open in your browser.</p>
-  <div class="pg-grid">
-    <a class="pg-card reveal" href="https://kieranduffy87.github.io/kd-design-system/" target="_blank" rel="noopener">
-      <div class="pg-preview pg-preview-ds">
-        <div class="ds-sheet">
-          <span class="ds-sw ds-blue"></span>
-          <span class="ds-sw ds-paper"></span>
-          <span class="ds-sw ds-ink"></span>
-          <span class="ds-aa">Aa</span>
-          <span class="ds-pill">Button</span>
-        </div>
-      </div>
-      <div class="pg-tags"><span>Design System</span><span>Live Guidelines</span></div>
-      <h3>KD Design System</h3>
-      <p>The system behind this site, published as a working sample: mark, colour, type, motion, components and voice as living guidelines &mdash; the same deliverable I build for clients, so you can see the standard before we start.</p>
-      <span class="pg-cta">Open guidelines <i>&rarr;</i></span>
-    </a>
-    <a class="pg-card reveal" href="https://kieranduffy87.github.io/pillgrid/" target="_blank" rel="noopener">
-      <div class="pg-preview pg-preview-pill"><span class="pill-grad"></span></div>
-      <div class="pg-tags"><span>WebGL</span><span>Video Filter</span></div>
-      <h3>PILLGRID</h3>
-      <p>A real-time LED pill-matrix filter for video, images and your camera. Drop footage in and it re-renders as a glowing pill-dot display &mdash; one file, no build, running entirely in the browser.</p>
-      <span class="pg-cta">Open filter <i>&rarr;</i></span>
-    </a>
-    <a class="pg-card reveal" href="https://kieranduffy87.github.io/svg-to-3d/" target="_blank" rel="noopener">
-      <div class="pg-preview pg-preview-3d">{KD_MARK}</div>
-      <div class="pg-tags"><span>Three.js</span><span>Web Tool</span></div>
-      <h3>SVG to 3D</h3>
-      <p>Turn any SVG into an interactive 3D object in the browser. Pick materials, colours, extrusion depth and animations, then share the result with a single link.</p>
-      <span class="pg-cta">Open tool <i>&rarr;</i></span>
-    </a>
-    <a class="pg-card reveal" href="https://kieranduffy87.github.io/designer-tools/" target="_blank" rel="noopener">
-      <div class="pg-preview pg-preview-mesh"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span></div>
-      <div class="pg-tags"><span>Toolkit</span><span>Utilities</span></div>
-      <h3>Designer Tools</h3>
-      <p>A growing collection of small utilities for everyday design work. Mesh gradients, colour pickers and more, all in one place.</p>
-      <span class="pg-cta">Open tools <i>&rarr;</i></span>
-    </a>
+  <div class="sec-head reveal"><h2>Playground</h2><a class="btn ghost" href="playground.html">Enter the lab</a></div>
+  <p class="pg-lede reveal">Where I test ideas with no client attached: motion studies, interaction experiments and small tools. {len(EXPERIMENTS) + len(TOOLS)} live pieces, all built from scratch.</p>
+  <div class="pg-strip">
+    {pg_strip}
   </div>
 </section>
 
@@ -828,6 +805,79 @@ def build_project(pr, idx):
     og_abs = f"{SITE_URL}/{q(os.path.relpath(ogi, ROOT))}" if ogi else None
     return head(title, depth=1, desc=pr["intro"][:150], path=f"projects/{slug}.html", og_image=og_abs) + nav(1, "work") + body + footer(1)
 
+def build_playground():
+    cards = []
+    for x in EXPERIMENTS:
+        tags = "".join(f"<span>{e(t)}</span>" for t in x["tags"])
+        href = x.get("url", f"lab/{x['slug']}/index.html")
+        ext = ' target="_blank" rel="noopener"' if x.get("external") else ""
+        label = "Open project" if x.get("external") or x.get("url") else "Open experiment"
+        cards.append(f"""<article class="lab-card reveal">
+  <a class="lab-media" href="{href}"{ext} aria-label="Open {e(x['title'])}">
+    <video muted loop playsinline preload="none" poster="lab/previews/{x['slug']}.jpg" data-src="lab/previews/{x['slug']}.mp4"></video>
+    <span class="lab-open">{label} &rarr;</span>
+  </a>
+  <div class="lab-body">
+    <div class="lab-head"><span class="lab-num">{x['num']}</span><div class="lab-tags">{tags}</div></div>
+    <h3><a href="{href}"{ext}>{e(x['title'])}</a></h3>
+    <p class="lab-tagline">{e(x['tagline'])}</p>
+    <p class="lab-desc">{e(x['desc'])}</p>
+    <p class="lab-build"><strong>How it works.</strong> {e(x['build'])}</p>
+  </div>
+</article>""")
+    tools = []
+    for t in TOOLS:
+        ttags = "".join(f"<span>{e(z)}</span>" for z in t["tags"])
+        if t["preview"] == "video":
+            prev = (f'<div class="pg-preview pg-preview-vid">'
+                    f'<video muted loop playsinline preload="none" poster="lab/previews/{t["slug"]}.jpg" '
+                    f'data-src="lab/previews/{t["slug"]}.mp4"></video></div>')
+        elif t["preview"] == "3d":
+            prev = '<div class="pg-preview pg-preview-3d">' + KD_MARK + '</div>'
+        else:
+            prev = '<div class="pg-preview pg-preview-mesh"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span></div>'
+        tools.append(f"""<a class="pg-card reveal" href="{t['url']}" target="_blank" rel="noopener">
+      {prev}
+      <div class="pg-tags">{ttags}</div>
+      <h3>{e(t['title'])}</h3>
+      <p>{e(t['desc'])}</p>
+      <span class="pg-cta">Open tool <i>&rarr;</i></span>
+    </a>""")
+    body = f"""
+<main class="page" id="main">
+<section class="page-hero">
+  <p class="hero-kicker mono">Playground</p>
+  <h1 class="page-title">A place to build things<br>nobody <em>asked for.</em></h1>
+  <p class="hero-sub">Client work has constraints, and that is mostly a good thing. This is where they come off: motion studies, interaction experiments and small tools, built from scratch and running live in the browser.</p>
+</section>
+
+<section class="lab-intro reveal">
+  <div class="li-stat"><strong>{len(EXPERIMENTS)}</strong><span>motion experiments</span></div>
+  <div class="li-stat"><strong>{len(TOOLS)}</strong><span>tools in the wild</span></div>
+  <div class="li-stat"><strong>0</strong><span>animation libraries used</span></div>
+</section>
+
+<section class="lab-grid-wrap">
+  <h2 class="work-sub reveal">Motion experiments</h2>
+  <p class="archive-lede reveal">Each one is a self-contained page with hand-written motion and no animation libraries. Previews play on hover, click to open the real thing.</p>
+  <div class="lab-grid">{''.join(cards)}</div>
+</section>
+
+<section class="lab-grid-wrap">
+  <h2 class="work-sub reveal">Tools</h2>
+  <p class="archive-lede reveal">Small utilities I designed and built for myself and other designers. Free to use, open in your browser.</p>
+  <div class="pg-grid">{''.join(tools)}</div>
+</section>
+
+<section class="lab-note reveal">
+  <h2>Why bother?</h2>
+  <p>Because the fastest way to understand an interaction is to build it. Everything here started as a question: what does scroll feel like moving sideways, what makes a hover feel physical, how much can a single shader carry. The answers end up back in client work, which is the real point.</p>
+</section>
+</main>
+"""
+    return head("Playground | Kieran Duffy", path="playground.html",
+                desc="Motion experiments, interaction studies and small tools by Kieran Duffy. Built from scratch, live in the browser.") + nav(0, "playground") + body + footer(0)
+
 def build_404():
     body = """
 <main class="page nf-page" id="main">
@@ -845,7 +895,7 @@ def build_404():
     return head("Page not found | Kieran Duffy", path="404.html") + nav(0, "") + body + footer(0)
 
 def build_sitemap():
-    urls = ["", "about.html", "services.html", "work.html", "contact.html"] + [f"projects/{p['slug']}.html" for p in PROJECTS]
+    urls = ["", "about.html", "services.html", "work.html", "playground.html", "contact.html"] + [x.get("url", f"lab/{x['slug']}/index.html") for x in EXPERIMENTS if not str(x.get("url", "")).startswith("http")] + [f"projects/{p['slug']}.html" for p in PROJECTS]
     today = _dt.date.today().isoformat()
     items = "".join(f"<url><loc>{SITE_URL}/{u}</loc><lastmod>{today}</lastmod></url>" for u in urls)
     return f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{items}</urlset>'
@@ -857,6 +907,7 @@ def main():
         "services.html": build_services(),
         "work.html": build_work(),
         "contact.html": build_contact(),
+        "playground.html": build_playground(),
         "404.html": build_404(),
     }
     open(os.path.join(ROOT, "sitemap.xml"), "w").write(build_sitemap())
