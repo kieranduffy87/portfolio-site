@@ -14,8 +14,17 @@ EXPERIMENTS = [
  "url": "lab/imagination-explorer/index.html",
 },
 {
- "slug": "aurai",
+ "slug": "drift",
  "num": "02",
+ "title": "Drift",
+ "tagline": "A landing page that stays quiet",
+ "desc": "A single page for an invented ADHD-friendly planner. The hero is one held shot of morning light, the cream section rides up over it by the exact radius of its own corners, and the feature cards slide in one at a time against a fixed backdrop while the index on the left keeps pace with where you are.",
+ "tags": ["Scroll cards", "Generative film", "React"],
+ "build": "Two intersection observers run the right-hand column: one at 60 percent to say which card you are on, one at 15 percent to fire each entrance once and leave it. All four films were made in OpenArt, stills from Nano Banana Pro animated with Seedance 2.0, then looped forward and back so nothing ever cuts. React, TypeScript and Tailwind, built with Vite.",
+},
+{
+ "slug": "aurai",
+ "num": "03",
  "title": "Aurai",
  "tagline": "A hero section for a brand that does not exist",
  "desc": "A full-screen landing page for an invented always-on wellness companion. One film runs behind everything and the interface sits on top in glass, with no dark overlay anywhere. The shot was directed to leave the left of frame empty so the type has somewhere to live.",
@@ -24,7 +33,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "lithos",
- "num": "03",
+ "num": "04",
  "title": "Lithos",
  "tagline": "A spotlight that x-rays the page",
  "desc": "A hero section for an invented geology brand. Two photographs of the same cliff sit exactly on top of each other, and a soft circular spotlight follows the cursor, cutting a window through the top one so the seams below read like an x-ray of the rock.",
@@ -33,7 +42,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "magnetic",
- "num": "04",
+ "num": "05",
  "title": "Magnetic",
  "tagline": "Interfaces that pull back",
  "desc": "Cursor physics: buttons that attract as you approach, cards that tilt with a specular highlight tracking the pointer, and list rows that fill upward on hover. Every value is integrated per frame, so nothing snaps.",
@@ -42,7 +51,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "aurora",
- "num": "05",
+ "num": "06",
  "title": "Aurora",
  "tagline": "Colour that breathes",
  "desc": "A live WebGL gradient with no images at all: fractal noise, domain-warped twice, pushed through a brand palette and steered by the pointer. Runs on a single fullscreen triangle.",
@@ -51,7 +60,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "reveal",
- "num": "06",
+ "num": "07",
  "title": "Reveal",
  "tagline": "An index that shows its hand",
  "desc": "The agency-list problem: a list scans faster than a grid but hides the work. Here the preview tracks the cursor with inertia, skewing to its own velocity, while the rest of the index dims away.",
@@ -60,7 +69,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "horizon",
- "num": "07",
+ "num": "08",
  "title": "Horizon",
  "tagline": "Scroll down, travel sideways",
  "desc": "A pinned viewport that maps the vertical gesture people already know onto a horizontal cinema, with per-panel parallax depth and a skew that reads scroll speed.",
@@ -69,7 +78,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "unfold",
- "num": "08",
+ "num": "09",
  "title": "Unfold",
  "tagline": "The mark becomes the interface",
  "desc": "A brand reveal as a scroll sequence: the two halves of the KD mark fly in and lock, the assembled mark shrinks up into the navigation, and the landing page composes itself in its wake.",
@@ -78,7 +87,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "pillgrid",
- "num": "09",
+ "num": "10",
  "title": "PILLGRID",
  "tagline": "Any video, rebuilt in pills",
  "desc": "A real-time video filter that rebuilds footage as a matrix of pill-shaped dots, like a physical LED display. Load a clip or use your camera, then tune grid density, pill shape, colour and bleed live.",

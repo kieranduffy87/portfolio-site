@@ -2,3 +2,4 @@
 node_modules/
 _build/lithos-app/tsconfig.tsbuildinfo
 _build/aurai-app/tsconfig.tsbuildinfo
+_build/drift-app/tsconfig.tsbuildinfo
