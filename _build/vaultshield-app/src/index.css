@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Helvetica Now Display Bold, self-hosted so the page does not depend on a
+   third-party CDN. Font made from Web Fonts (onlinewebfonts.com), CC BY 4.0. */
+@font-face {
+  font-family: 'Helvetica Now Display Bold';
+  src: url('./font/helvetica-now-display-bold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-heading: 'Helvetica Now Display Bold', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --color-text: #192837;
+  --color-accent: #7342e2;
+  --color-login-bg: #f2f2ee;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  /* Sampled from the film's own backdrop, so the picture meets the page with
+     no visible seam where it stops on small screens. */
+  background: #f3eee8;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* The heading carries inline icons, so the line box has to breathe. */
+.hero-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(1.65rem, 5vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+  margin-bottom: 24px;
+}
+
+.hero-heading svg {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  top: -2px;
+}
+
+/* Dark type sits on a light film, so the default focus ring holds up. */
+:where(a, button):focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

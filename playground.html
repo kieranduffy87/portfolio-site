@@ -51,7 +51,7 @@
 </section>
 
 <section class="lab-intro reveal">
-  <div class="li-stat"><strong>10</strong><span>motion experiments</span></div>
+  <div class="li-stat"><strong>8</strong><span>motion experiments</span></div>
   <div class="li-stat"><strong>3</strong><span>tools in the wild</span></div>
   <div class="li-stat"><strong>0</strong><span>animation libraries used</span></div>
 </section>
@@ -60,16 +60,16 @@
   <h2 class="work-sub reveal">Motion experiments</h2>
   <p class="archive-lede reveal">Each one is a self-contained page with hand-written motion and no animation libraries. Previews play on hover, click to open the real thing.</p>
   <div class="lab-grid"><article class="lab-card reveal">
-  <a class="lab-media" href="lab/imagination-explorer/index.html" aria-label="Open The Imagination Explorer">
-    <video muted loop playsinline preload="none" poster="lab/previews/imagination-explorer.jpg" data-src="lab/previews/imagination-explorer.mp4"></video>
-    <span class="lab-open">Open project &rarr;</span>
+  <a class="lab-media" href="lab/vaultshield/index.html" aria-label="Open VaultShield">
+    <video muted loop playsinline preload="none" poster="lab/previews/vaultshield.jpg" data-src="lab/previews/vaultshield.mp4"></video>
+    <span class="lab-open">Open experiment &rarr;</span>
   </a>
   <div class="lab-body">
-    <div class="lab-head"><span class="lab-num">01</span><div class="lab-tags"><span>Scroll film</span><span>Brand site</span><span>Art direction</span></div></div>
-    <h3><a href="lab/imagination-explorer/index.html">The Imagination Explorer</a></h3>
-    <p class="lab-tagline">A scroll-film for a children&#x27;s brand</p>
-    <p class="lab-desc">A promo site built as one continuous scroll-film: the story scrubs frame by frame as you move down the page, with type and colour cued to the film rather than layered over it.</p>
-    <p class="lab-build"><strong>How it works.</strong> Scroll position drives film playback directly, so the page and the footage share one timeline. Built as a standalone site, no framework.</p>
+    <div class="lab-head"><span class="lab-num">01</span><div class="lab-tags"><span>Generative film</span><span>Framer Motion</span><span>React</span></div></div>
+    <h3><a href="lab/vaultshield/index.html">VaultShield</a></h3>
+    <p class="lab-tagline">A hero for a password manager that does not exist</p>
+    <p class="lab-desc">A full-screen hero for an invented password manager. The film plays behind everything with no scrim over it, because the shot was directed to keep its left third empty, so dark type sits straight on the picture. The icons live inside the headline as words rather than beside it, so they wrap with the line.</p>
+    <p class="lab-build"><strong>How it works.</strong> The film came out of OpenArt: a still from Nano Banana Pro animated with Seedance 2.0, then looped forward and back so the glass keys never cut. Heading, subtext and button share one fadeUp variant staggered 0.15 seconds apart, and the mobile sheet slides in on the same easing curve. React, TypeScript, Tailwind and Framer Motion, built with Vite.</p>
   </div>
 </article><article class="lab-card reveal">
   <a class="lab-media" href="lab/drift/index.html" aria-label="Open Drift">
@@ -108,16 +108,16 @@
     <p class="lab-build"><strong>How it works.</strong> A radial gradient is painted into an offscreen canvas every frame, then handed to CSS as a mask image on the second layer. The cursor is eased with a lerp so the light lags slightly behind the pointer. React, TypeScript and Tailwind, built with Vite. Both stone photographs were generated in OpenArt.</p>
   </div>
 </article><article class="lab-card reveal">
-  <a class="lab-media" href="lab/magnetic/index.html" aria-label="Open Magnetic">
-    <video muted loop playsinline preload="none" poster="lab/previews/magnetic.jpg" data-src="lab/previews/magnetic.mp4"></video>
-    <span class="lab-open">Open experiment &rarr;</span>
+  <a class="lab-media" href="lab/imagination-explorer/index.html" aria-label="Open The Imagination Explorer">
+    <video muted loop playsinline preload="none" poster="lab/previews/imagination-explorer.jpg" data-src="lab/previews/imagination-explorer.mp4"></video>
+    <span class="lab-open">Open project &rarr;</span>
   </a>
   <div class="lab-body">
-    <div class="lab-head"><span class="lab-num">05</span><div class="lab-tags"><span>Cursor physics</span><span>Springs</span><span>Hover states</span></div></div>
-    <h3><a href="lab/magnetic/index.html">Magnetic</a></h3>
-    <p class="lab-tagline">Interfaces that pull back</p>
-    <p class="lab-desc">Cursor physics: buttons that attract as you approach, cards that tilt with a specular highlight tracking the pointer, and list rows that fill upward on hover. Every value is integrated per frame, so nothing snaps.</p>
-    <p class="lab-build"><strong>How it works.</strong> A single rAF loop lerps every element toward its target. Pull strength falls off with distance from centre.</p>
+    <div class="lab-head"><span class="lab-num">05</span><div class="lab-tags"><span>Scroll film</span><span>Brand site</span><span>Art direction</span></div></div>
+    <h3><a href="lab/imagination-explorer/index.html">The Imagination Explorer</a></h3>
+    <p class="lab-tagline">A scroll-film for a children&#x27;s brand</p>
+    <p class="lab-desc">A promo site built as one continuous scroll-film: the story scrubs frame by frame as you move down the page, with type and colour cued to the film rather than layered over it.</p>
+    <p class="lab-build"><strong>How it works.</strong> Scroll position drives film playback directly, so the page and the footage share one timeline. Built as a standalone site, no framework.</p>
   </div>
 </article><article class="lab-card reveal">
   <a class="lab-media" href="lab/aurora/index.html" aria-label="Open Aurora">
@@ -144,36 +144,12 @@
     <p class="lab-build"><strong>How it works.</strong> Preview position lerps behind the pointer; frame skew and scale are derived from per-frame delta.</p>
   </div>
 </article><article class="lab-card reveal">
-  <a class="lab-media" href="lab/horizon/index.html" aria-label="Open Horizon">
-    <video muted loop playsinline preload="none" poster="lab/previews/horizon.jpg" data-src="lab/previews/horizon.mp4"></video>
-    <span class="lab-open">Open experiment &rarr;</span>
-  </a>
-  <div class="lab-body">
-    <div class="lab-head"><span class="lab-num">08</span><div class="lab-tags"><span>Pinned scroll</span><span>Horizontal</span><span>Parallax</span></div></div>
-    <h3><a href="lab/horizon/index.html">Horizon</a></h3>
-    <p class="lab-tagline">Scroll down, travel sideways</p>
-    <p class="lab-desc">A pinned viewport that maps the vertical gesture people already know onto a horizontal cinema, with per-panel parallax depth and a skew that reads scroll speed.</p>
-    <p class="lab-build"><strong>How it works.</strong> Sticky section plus one transform on the track. Panels offset by depth factor and distance from centre.</p>
-  </div>
-</article><article class="lab-card reveal">
-  <a class="lab-media" href="lab/unfold/index.html" aria-label="Open Unfold">
-    <video muted loop playsinline preload="none" poster="lab/previews/unfold.jpg" data-src="lab/previews/unfold.mp4"></video>
-    <span class="lab-open">Open experiment &rarr;</span>
-  </a>
-  <div class="lab-body">
-    <div class="lab-head"><span class="lab-num">09</span><div class="lab-tags"><span>Scroll sequence</span><span>Brand motion</span><span>Choreography</span></div></div>
-    <h3><a href="lab/unfold/index.html">Unfold</a></h3>
-    <p class="lab-tagline">The mark becomes the interface</p>
-    <p class="lab-desc">A brand reveal as a scroll sequence: the two halves of the KD mark fly in and lock, the assembled mark shrinks up into the navigation, and the landing page composes itself in its wake.</p>
-    <p class="lab-build"><strong>How it works.</strong> One progress value split into overlapping windows, each easing a different element of the page into place.</p>
-  </div>
-</article><article class="lab-card reveal">
   <a class="lab-media" href="https://kieranduffy87.github.io/pillgrid/" target="_blank" rel="noopener" aria-label="Open PILLGRID">
     <video muted loop playsinline preload="none" poster="lab/previews/pillgrid.jpg" data-src="lab/previews/pillgrid.mp4"></video>
     <span class="lab-open">Open project &rarr;</span>
   </a>
   <div class="lab-body">
-    <div class="lab-head"><span class="lab-num">10</span><div class="lab-tags"><span>WebGL</span><span>Video filter</span><span>Real time</span></div></div>
+    <div class="lab-head"><span class="lab-num">08</span><div class="lab-tags"><span>WebGL</span><span>Video filter</span><span>Real time</span></div></div>
     <h3><a href="https://kieranduffy87.github.io/pillgrid/" target="_blank" rel="noopener">PILLGRID</a></h3>
     <p class="lab-tagline">Any video, rebuilt in pills</p>
     <p class="lab-desc">A real-time video filter that rebuilds footage as a matrix of pill-shaped dots, like a physical LED display. Load a clip or use your camera, then tune grid density, pill shape, colour and bleed live.</p>
