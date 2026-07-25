@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Imagination Explorer: The Night Leo Found the Light</title>
+<meta name="description" content="Meet Leo, the Imagination Explorer. A story that helps the world see autism through wonder, not worry.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  @font-face{
+    font-family:'Chinchilla';
+    src:url('assets/chinchilla.otf') format('opentype');
+    font-weight:100 900;
+    font-style:normal;
+    font-display:swap;
+  }
+  :root{
+    --night:#020133;
+    --indigo:#221a66;
+    --orb:#9fd4ff;
+    --orb-bright:#eaf6ff;
+    --gold:#c49a6c;
+    --gold-bright:#e8c397;
+    --cream:#fff0e6;
+    --purple:#bf6beb;
+    --leo-orange:#e8833a;
+    --ink:#1b1740;
+    --display:'Chinchilla', cursive;
+    --body:'Atkinson Hyperlegible', sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scrollbar-width:thin;scrollbar-color:var(--gold) var(--night);overflow-anchor:none;}
+  body{
+    font-family:var(--body);
+    background:var(--night);
+    color:var(--cream);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  ::selection{background:var(--purple);color:#fff;}
+
+  /* Chinchilla only reads well in caps — every display-font element is uppercased */
+  .beat h2,.hero-sub,.message h2,.trait h3,.manifesto p,.realm-intro h2,
+  .postcard .name,.realm-outro p,.episodes h2,.ep .meta b,
+  .follow h2,.follow-card b{
+    text-transform:uppercase;letter-spacing:.03em;
+  }
+
+  /* ---------- loader ---------- */
+  #loader{
+    position:fixed;inset:0;z-index:200;background:var(--night);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;
+    transition:opacity .7s ease;
+  }
+  #loader.gone{opacity:0;pointer-events:none;}
+  #loader img{width:74px;filter:drop-shadow(0 0 26px rgba(196,154,108,.45));animation:bob 2.4s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  #loader .lbar{width:180px;height:3px;background:rgba(255,240,230,.15);border-radius:3px;overflow:hidden;}
+  #loader .lbar i{display:block;height:100%;width:0;background:var(--gold);border-radius:3px;transition:width .2s;}
+  #loader p{font-family:var(--display);font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-bright);}
+  @media (prefers-reduced-motion:reduce){#loader img{animation:none;}}
+
+  /* ---------- fixed chrome ---------- */
+  header{
+    position:fixed;inset:0 0 auto 0;z-index:90;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px clamp(20px,4vw,52px);
+    color:var(--cream);
+    transition:color .5s ease;
+    pointer-events:none;
+  }
+  header a{pointer-events:auto;}
+  header.on-light{color:var(--ink);}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:currentColor;}
+  .brand img{width:40px;height:auto;filter:drop-shadow(0 2px 8px rgba(2,1,51,.4));}
+  .brand span{
+    font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.06em;
+    text-transform:uppercase;line-height:1.25;
+  }
+  .head-cta{
+    font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.08em;
+    text-transform:uppercase;color:currentColor;text-decoration:none;
+    border:2px solid currentColor;border-radius:999px;padding:9px 18px;
+    transition:background .3s,color .3s;
+  }
+  header:not(.on-light) .head-cta:hover{background:var(--cream);color:var(--night);}
+  header.on-light .head-cta:hover{background:var(--ink);color:var(--cream);}
+
+  .readout{
+    position:fixed;left:clamp(20px,4vw,52px);bottom:26px;z-index:90;
+    font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--gold-bright);
+    opacity:1;transition:opacity .5s ease;pointer-events:none;
+  }
+  .readout.gone{opacity:0;}
+  .readout .bar{
+    margin-top:8px;width:150px;height:2px;background:rgba(255,240,230,.18);border-radius:2px;overflow:hidden;
+  }
+  .readout .bar i{display:block;height:100%;width:0;background:var(--gold);border-radius:2px;}
+
+  .scroll-hint{
+    position:fixed;right:clamp(20px,4vw,52px);bottom:26px;z-index:90;
+    display:flex;align-items:center;gap:10px;
+    font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:.22em;
+    text-transform:uppercase;color:rgba(255,240,230,.6);
+    transition:opacity .5s;pointer-events:none;
+  }
+  .scroll-hint.gone{opacity:0;}
+  .scroll-hint .mouse{
+    width:18px;height:28px;border:2px solid rgba(255,240,230,.5);border-radius:10px;position:relative;
+  }
+  .scroll-hint .mouse::after{
+    content:'';position:absolute;left:50%;top:5px;width:3px;height:6px;margin-left:-1.5px;
+    background:var(--gold);border-radius:2px;animation:wheel 1.6s ease-in-out infinite;
+  }
+  @keyframes wheel{0%{transform:translateY(0);opacity:1}70%{transform:translateY(9px);opacity:0}100%{opacity:0}}
+
+  /* ---------- the film ---------- */
+  #film{position:relative;height:900vh;}
+  #film .stage{
+    position:sticky;top:0;height:100vh;overflow:hidden;background:var(--night);
+  }
+  #film canvas{position:absolute;inset:0;width:100%;height:100%;}
+  #film #film-canvas{z-index:1;}
+  #film #fireflies{z-index:2;}
+  #film .grain{
+    position:absolute;inset:0;z-index:3;pointer-events:none;opacity:.5;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  }
+  #film .vignette{
+    position:absolute;inset:0;z-index:4;pointer-events:none;
+    background:radial-gradient(ellipse at center,transparent 46%,rgba(2,1,51,.5) 100%);
+  }
+  #film .top-scrim{
+    position:absolute;inset:0;z-index:5;pointer-events:none;opacity:1;
+    background:linear-gradient(180deg,rgba(2,1,51,.66) 0%,rgba(2,1,51,.28) 34%,transparent 60%);
+  }
+  #film .bottom-fade{
+    position:absolute;inset:0;z-index:7;pointer-events:none;opacity:0;
+    background:var(--cream);
+  }
+  #film .flare{
+    position:absolute;inset:0;z-index:6;pointer-events:none;opacity:0;
+    background:radial-gradient(circle at 55% 55%,#ffffff 0%,#f4f8ff 40%,var(--cream) 100%);
+  }
+
+  /* beats */
+  .beat{
+    position:absolute;z-index:8;opacity:0;will-change:transform,opacity;pointer-events:none;
+  }
+  .beat .kicker{
+    font-family:var(--display);font-weight:700;font-size:clamp(11px,1.2vw,14px);
+    letter-spacing:.3em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:14px;
+    text-shadow:0 1px 14px rgba(2,1,51,.85),0 0 3px rgba(2,1,51,.6);
+  }
+  .beat h2{
+    font-family:var(--display);font-weight:800;
+    font-size:clamp(30px,5.2vw,68px);line-height:1.08;letter-spacing:.01em;
+    text-shadow:0 4px 40px rgba(2,1,51,.6);
+  }
+  .beat p{
+    font-size:clamp(16px,1.5vw,20px);line-height:1.6;max-width:44ch;margin-top:16px;
+    color:rgba(255,240,230,.94);text-shadow:0 2px 24px rgba(2,1,51,.7);
+  }
+  .beat.right{text-align:right;}
+  .beat.right p{margin-left:auto;}
+  .beat.center{text-align:center;}
+  .beat.center p{margin-left:auto;margin-right:auto;}
+
+  /* hero beat */
+  .beat-hero{inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 24px;}
+  .beat-hero img{width:clamp(64px,7vw,100px);margin-bottom:26px;
+    filter:drop-shadow(0 0 26px rgba(196,154,108,.45));}
+  .hero-kicker{
+    font-family:var(--display);font-weight:700;font-size:clamp(12px,1.3vw,15px);
+    letter-spacing:.34em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:18px;
+    text-shadow:0 1px 14px rgba(2,1,51,.9);
+  }
+  h1.hero-title{
+    font-family:var(--display);font-weight:800;text-transform:uppercase;
+    font-size:clamp(38px,7.4vw,104px);line-height:1.02;letter-spacing:.015em;
+    color:var(--cream);text-shadow:0 6px 60px rgba(2,1,51,.8),0 2px 20px rgba(2,1,51,.7);
+  }
+  h1 .line{display:block;overflow:hidden;padding:.06em 0;}
+  h1 .ch{display:inline-block;will-change:transform;}
+  h1 .glow{color:var(--orb);text-shadow:0 0 34px rgba(159,212,255,.75),0 2px 20px rgba(2,1,51,.7);}
+  .hero-sub{
+    margin-top:24px;font-family:var(--display);font-weight:500;
+    font-size:clamp(16px,2vw,24px);color:rgba(255,240,230,.9);
+    text-shadow:0 2px 18px rgba(2,1,51,.85);
+  }
+
+  @media (min-width:760px){
+    .beat-hero{align-items:flex-end;text-align:right;padding-right:clamp(40px,7vw,120px);}
+  }
+  .beat-meet{left:clamp(24px,7vw,110px);top:16%;}
+  .beat-loud{left:clamp(24px,7vw,110px);bottom:16%;}
+  .beat-hush{right:clamp(24px,7vw,110px);top:18%;}
+  .beat-gate{left:0;right:0;top:12%;}
+  .beat-found{left:clamp(24px,7vw,110px);top:16%;}
+
+  /* ---------- content ---------- */
+  .content{background:var(--cream);color:var(--ink);position:relative;z-index:2;}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 clamp(22px,4.5vw,48px);}
+
+  /* ---------- follow band (socials, right under the film) ---------- */
+  .follow{padding-top:clamp(70px,9vw,110px);}
+  .follow .kicker{
+    font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.3em;
+    text-transform:uppercase;color:var(--purple);
+  }
+  .follow h2{
+    font-family:var(--display);font-weight:800;color:var(--night);
+    font-size:clamp(30px,4.4vw,56px);margin-top:14px;
+  }
+  .follow-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:clamp(16px,2.4vw,28px);margin-top:clamp(28px,3.5vw,44px);
+  }
+  .follow-card{
+    display:flex;align-items:center;gap:16px;
+    background:var(--night);color:var(--cream);text-decoration:none;
+    border-radius:20px;padding:22px 24px;
+    box-shadow:0 16px 44px rgba(34,26,102,.16);
+    transition:transform .3s ease,box-shadow .3s ease,background .3s ease;
+  }
+  .follow-card:hover{transform:translateY(-4px);box-shadow:0 24px 60px rgba(34,26,102,.3);background:var(--indigo);}
+  .follow-card .fc-icon{
+    width:48px;height:48px;border-radius:50%;flex-shrink:0;
+    display:grid;place-items:center;background:rgba(255,240,230,.1);
+    border:1.5px solid rgba(255,240,230,.25);
+  }
+  .follow-card svg{width:22px;height:22px;fill:var(--gold-bright);}
+  .follow-card b{font-family:var(--display);font-weight:700;font-size:17px;display:block;}
+  .follow-card span{display:block;font-size:13px;color:rgba(255,240,230,.65);margin-top:3px;word-break:break-all;}
+  .message{padding-top:clamp(60px,8vw,110px);padding-bottom:clamp(70px,8vw,110px);}
+  .message .kicker{
+    font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.3em;
+    text-transform:uppercase;color:var(--leo-orange);
+  }
+  .message h2{
+    font-family:var(--display);font-weight:800;color:var(--night);
+    font-size:clamp(34px,5.4vw,72px);line-height:1.06;margin-top:18px;max-width:16ch;
+  }
+  .message .lede{
+    margin-top:28px;font-size:clamp(18px,1.7vw,23px);line-height:1.65;max-width:62ch;color:#3c3760;
+  }
+  .message .lede strong{color:var(--night);}
+  .orb-inline{
+    display:inline-block;width:.9em;height:.9em;border-radius:50%;vertical-align:-.08em;
+    background:radial-gradient(circle at 35% 30%,#eaf6ff,#9fd4ff 55%,#4f7fd9);
+    box-shadow:0 0 18px rgba(120,180,255,.8);
+  }
+  .traits{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:clamp(18px,2.4vw,30px);margin:clamp(44px,5vw,70px) 0 0;
+  }
+  .trait{
+    background:#fff;border-radius:20px;padding:30px 28px 32px;
+    border:1px solid rgba(27,23,64,.08);
+    box-shadow:0 14px 40px rgba(34,26,102,.08);
+    opacity:0;transform:translateY(34px);
+  }
+  .trait .dot{width:14px;height:14px;border-radius:50%;margin-bottom:18px;}
+  .trait h3{font-family:var(--display);font-weight:700;font-size:21px;color:var(--night);}
+  .trait p{margin-top:10px;line-height:1.6;color:#4a4570;font-size:15.5px;}
+  .manifesto{
+    margin:clamp(70px,8vw,110px) 0 0;text-align:center;
+  }
+  .manifesto p{
+    font-family:var(--display);font-weight:700;
+    font-size:clamp(24px,3.4vw,44px);line-height:1.35;color:var(--indigo);max-width:24ch;margin:0 auto;
+  }
+  .manifesto p em{font-style:normal;color:var(--purple);}
+
+  /* ---------- realms band (horizontal run) ---------- */
+  #realms{background:linear-gradient(180deg,#221a66,#020133);position:relative;color:var(--cream);}
+  #realms .stage{position:relative;height:100vh;overflow:hidden;display:flex;align-items:center;}
+  .track{
+    display:flex;align-items:center;gap:clamp(30px,5vw,80px);
+    width:max-content;padding:0 clamp(30px,8vw,120px);will-change:transform;
+  }
+  .realm-intro{width:min(560px,72vw);flex-shrink:0;}
+  .realm-intro h2{
+    font-family:var(--display);font-weight:800;font-size:clamp(32px,4.6vw,60px);line-height:1.1;
+  }
+  .realm-intro h2 em{font-style:normal;color:var(--purple);}
+  .realm-intro p{margin-top:18px;font-size:clamp(16px,1.4vw,19px);line-height:1.65;color:rgba(255,240,230,.85);max-width:42ch;}
+  .postcard{
+    position:relative;flex-shrink:0;
+    width:clamp(320px,54vw,820px);aspect-ratio:16/10;
+    border-radius:22px;overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 0 1px rgba(255,240,230,.08);
+    transform:rotate(var(--tilt,0deg));
+  }
+  .postcard img{
+    width:118%;height:118%;object-fit:cover;will-change:transform;
+  }
+  .postcard figcaption{
+    position:absolute;left:0;right:0;bottom:0;padding:44px 24px 18px;
+    background:linear-gradient(transparent,rgba(2,1,51,.85));
+    display:flex;flex-direction:column;gap:3px;
+  }
+  .postcard .num{
+    font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.25em;color:var(--gold-bright);
+  }
+  .postcard .name{
+    font-family:var(--display);font-weight:800;font-size:clamp(18px,1.8vw,26px);
+  }
+  .realm-outro{width:min(420px,66vw);flex-shrink:0;}
+  .realm-outro p{
+    font-family:var(--display);font-weight:500;
+    font-size:clamp(20px,2.4vw,32px);line-height:1.4;color:var(--orb);
+  }
+
+  /* episodes */
+  .episodes{padding-top:clamp(70px,9vw,120px);padding-bottom:clamp(90px,10vw,140px);}
+  .episodes .kicker{
+    font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.3em;
+    text-transform:uppercase;color:var(--purple);
+  }
+  .episodes h2{
+    font-family:var(--display);font-weight:800;color:var(--night);
+    font-size:clamp(30px,4.4vw,56px);margin-top:14px;
+  }
+  .ep-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:clamp(20px,3vw,36px);margin-top:clamp(34px,4vw,54px);
+  }
+  .ep{
+    border-radius:22px;overflow:hidden;background:var(--night);
+    box-shadow:0 20px 60px rgba(34,26,102,.18);
+    text-decoration:none;color:var(--cream);display:block;
+    transform:translateY(34px);opacity:0;
+    transition:box-shadow .35s ease;
+  }
+  .ep:hover{box-shadow:0 26px 70px rgba(34,26,102,.32);}
+  .ep .thumb{overflow:hidden;aspect-ratio:16/9;}
+  .ep .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1);}
+  .ep:hover .thumb img{transform:scale(1.05);}
+  .ep .meta{padding:20px 22px 24px;display:flex;align-items:center;justify-content:space-between;gap:14px;}
+  .ep .meta b{font-family:var(--display);font-weight:700;font-size:18px;}
+  .ep .meta span{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-bright);white-space:nowrap;}
+
+  /* footer */
+  footer{background:var(--night);color:var(--cream);padding:clamp(70px,9vw,110px) 0 46px;position:relative;overflow:hidden;}
+  footer .glow-line{position:absolute;top:0;left:0;right:0;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(159,212,255,.5),transparent);}
+  .foot-inner{display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px;}
+  .foot-inner img{width:64px;}
+  .foot-title{font-family:var(--display);font-weight:800;font-size:clamp(22px,2.6vw,32px);text-transform:uppercase;letter-spacing:.05em;}
+  .foot-line{color:rgba(255,240,230,.72);max-width:46ch;line-height:1.65;}
+  .socials{display:flex;gap:16px;margin-top:6px;}
+  .socials a{
+    width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+    border:1.5px solid rgba(255,240,230,.28);color:var(--cream);transition:.3s;
+  }
+  .socials a:hover{background:var(--gold);border-color:var(--gold);color:var(--night);}
+  .socials svg{width:20px;height:20px;fill:currentColor;}
+  .fine{margin-top:34px;font-size:12.5px;color:rgba(255,240,230,.4);letter-spacing:.04em;}
+
+  @media (max-width:640px){
+    .brand span{font-size:11px;}
+    .brand img{width:32px;}
+    .head-cta{font-size:11px;padding:8px 14px;}
+    .beat h2{font-size:clamp(26px,8vw,38px);}
+    .beat-hush{right:24px;left:24px;text-align:left;}
+    .beat-hush p{margin-left:0;}
+    .readout{display:none;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .scroll-hint .mouse::after{animation:none;}
+  }
+</style>
+</head>
+<body>
+
+<div id="loader" aria-hidden="true">
+  <img src="assets/logo-balloon.svg" alt="">
+  <div class="lbar"><i id="lbar-i"></i></div>
+  <p>Opening the storybook…</p>
+</div>
+
+<header id="header">
+  <a class="brand" href="#top">
+    <img src="assets/logo-balloon.svg" alt="The Imagination Explorer balloon logo">
+    <span>The Imagination<br>Explorer</span>
+  </a>
+  <a class="head-cta" href="#episodes">Watch the episodes</a>
+</header>
+
+<div class="readout" id="readout">
+  <span id="readout-label">CH 01 · Leo’s Room</span>
+  <div class="bar"><i id="readout-bar"></i></div>
+</div>
+
+<div class="scroll-hint" id="scroll-hint">
+  <span>Scroll to begin</span><div class="mouse"></div>
+</div>
+
+<main id="top">
+
+  <!-- THE FILM — one continuous shot, scrubbed by scroll -->
+  <section id="film">
+    <div class="stage">
+      <canvas id="film-canvas"></canvas>
+      <canvas id="fireflies"></canvas>
+      <div class="grain" id="grain"></div>
+      <div class="vignette" id="film-vignette"></div>
+      <div class="top-scrim" id="top-scrim"></div>
+
+      <div class="beat beat-hero" data-in="-0.1" data-peak="0" data-out="0.055" id="beat-hero">
+        <img src="assets/logo-balloon.svg" alt="">
+        <div class="hero-kicker">A story about Leo</div>
+        <h1 class="hero-title" id="hero-title">
+          <span class="line">The</span>
+          <span class="line">Imagination</span>
+          <span class="line glow">Explorer</span>
+        </h1>
+        <p class="hero-sub">Some minds don’t wander. They soar.</p>
+      </div>
+
+      <div class="beat beat-meet" data-in="0.075" data-peak="0.115" data-out="0.185">
+        <div class="kicker">Chapter One</div>
+        <h2>Meet Leo.</h2>
+        <p>Six years old. Sees everything.<br>Feels everything, all at once.</p>
+      </div>
+
+      <div class="beat beat-loud" data-in="0.205" data-peak="0.25" data-out="0.325">
+        <h2>Some days, the world<br>is too loud.</h2>
+        <p>Lights shine brighter for Leo. Sounds press closer. An ordinary afternoon can feel enormous.</p>
+      </div>
+
+      <div class="beat beat-hush right" data-in="0.36" data-peak="0.405" data-out="0.475">
+        <h2>Then… hush.</h2>
+        <p>His golden headphones turn the noise down,<br>and his imagination all the way up.</p>
+      </div>
+
+      <div class="beat beat-gate center" data-in="0.52" data-peak="0.565" data-out="0.64">
+        <div class="kicker">Into the garden</div>
+        <h2>When Leo imagines,<br>a gate opens.</h2>
+      </div>
+
+      <div class="beat beat-found" data-in="0.70" data-peak="0.75" data-out="0.845">
+        <div class="kicker">The old stone</div>
+        <h2>And one evening,<br>he found it.</h2>
+        <p>Waiting there, glowing like it had known him all along.</p>
+      </div>
+
+      <div class="flare" id="flare"></div>
+      <div class="bottom-fade" id="bottom-fade"></div>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <div class="content">
+    <section class="follow wrap" id="follow">
+      <div class="kicker">Come along</div>
+      <h2>Follow Leo’s journey</h2>
+      <div class="follow-grid">
+        <a class="follow-card" href="https://www.youtube.com/@TheImaginationExplorer" target="_blank" rel="noopener">
+          <span class="fc-icon"><svg viewBox="0 0 24 24"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg></span>
+          <span><b>YouTube</b><span>Watch every episode</span></span>
+        </a>
+        <a class="follow-card" href="https://instagram.com/the.imagination.explorer" target="_blank" rel="noopener">
+          <span class="fc-icon"><svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23a3.7 3.7 0 0 1-.9 1.38c-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63a5.87 5.87 0 0 0-2.13 1.38A5.87 5.87 0 0 0 .63 4.14C.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.8.72 1.48 1.38 2.13a5.87 5.87 0 0 0 2.13 1.38c.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.87 5.87 0 0 0 2.13-1.38 5.87 5.87 0 0 0 1.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.87 5.87 0 0 0-1.38-2.13A5.87 5.87 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4zm7.85-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44z"/></svg></span>
+          <span><b>Instagram</b><span>Behind the scenes</span></span>
+        </a>
+        <a class="follow-card" href="https://tiktok.com/@the.imagination.explorer" target="_blank" rel="noopener">
+          <span class="fc-icon"><svg viewBox="0 0 24 24"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></span>
+          <span><b>TikTok</b><span>Little moments of wonder</span></span>
+        </a>
+      </div>
+    </section>
+    <section class="message wrap" id="message">
+      <div class="kicker">The heart of the story</div>
+      <h2>What the orb <span class="orb-inline" aria-hidden="true"></span> really is</h2>
+      <p class="lede">
+        The orb isn’t something Leo found. <strong>It’s something he carries.</strong>
+        Leo is autistic. His senses are turned all the way up. Some days are overwhelming,
+        some days are luminous, and many days are both. The same mind that
+        feels this world so strongly is the one that builds whole worlds of its own.
+      </p>
+      <p class="lede">
+        <strong>The Imagination Explorer</strong> was made to help children, and the grown-ups
+        beside them, see autism not as a puzzle to be solved but as a different way of being
+        in the world. Not a story about what Leo can’t do. A story about everything he can.
+      </p>
+
+      <div class="traits" id="traits">
+        <div class="trait">
+          <div class="dot" style="background:var(--orb);box-shadow:0 0 14px rgba(159,212,255,.8)"></div>
+          <h3>Turned all the way up</h3>
+          <p>Buzzing lights, scratchy labels, three people talking at once. Leo’s senses take everything in without a filter. The hush of his headphones isn’t hiding. It’s how he makes room for wonder.</p>
+        </div>
+        <div class="trait">
+          <div class="dot" style="background:var(--purple);box-shadow:0 0 14px rgba(191,107,235,.7)"></div>
+          <h3>The deep dive</h3>
+          <p>When Leo loves something, he loves it completely: every fact, every detail, every drawing of it he can make. That focus isn’t a fixation to break. It’s the engine of every realm he builds.</p>
+        </div>
+        <div class="trait">
+          <div class="dot" style="background:var(--gold);box-shadow:0 0 14px rgba(196,154,108,.8)"></div>
+          <h3>Honest as sunlight</h3>
+          <p>Leo says exactly what he means and means exactly what he says. In his worlds, and in ours, that isn’t rudeness. It’s a kind of truth most of us have to relearn.</p>
+        </div>
+      </div>
+
+      <div class="manifesto">
+        <p>Different, <em>not less</em>.<br>Leo doesn’t need fixing. He needs a world that wonders <em>with</em> him.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- REALMS — a dip back into his imagination -->
+  <section id="realms">
+    <div class="stage">
+      <div class="track" id="track">
+        <div class="realm-intro">
+          <h2>Inside the orb:<br><em>his worlds.</em></h2>
+          <p>Every episode of The Imagination Explorer follows Leo into a realm his mind has built, each one shaped by how he senses, sorts, and celebrates the world.</p>
+        </div>
+        <figure class="postcard" style="--tilt:-1.4deg">
+          <img src="assets/realm-soft-sounds.jpg" alt="Leo standing in a flower meadow, arms open and eyes closed, as glowing musical notes drift down on silver threads">
+          <figcaption><span class="num">REALM 01</span><span class="name">The Realm of Soft Sounds</span></figcaption>
+        </figure>
+        <figure class="postcard" style="--tilt:1.2deg">
+          <img src="assets/realm-jellyfish.jpg" alt="Leo laughing beneath a sky full of floating coral jellyfish at sunset">
+          <figcaption><span class="num">REALM 02</span><span class="name">The Jellyfish Sky</span></figcaption>
+        </figure>
+        <figure class="postcard" style="--tilt:-1deg">
+          <img src="assets/realm-japan.jpg" alt="Leo on a mossy lantern-lit path between red pagodas">
+          <figcaption><span class="num">REALM 03</span><span class="name">The Lantern Path</span></figcaption>
+        </figure>
+        <div class="realm-outro">
+          <p>“Every world he builds is a way of telling us how this one feels.”</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="content">
+    <section class="episodes wrap" id="episodes">
+      <div class="kicker">Follow the journey</div>
+      <h2>The episodes</h2>
+      <div class="ep-grid" id="ep-grid">
+        <a class="ep" href="https://www.youtube.com/@TheImaginationExplorer" target="_blank" rel="noopener" aria-label="Watch Episode 1, The Magical Orb, on YouTube">
+          <div class="thumb"><img src="assets/ep1.jpg" alt="Episode 1: The Magical Orb"></div>
+          <div class="meta"><b>Ep 1 · The Magical Orb</b><span>Watch now</span></div>
+        </a>
+        <a class="ep" href="https://www.youtube.com/@TheImaginationExplorer" target="_blank" rel="noopener" aria-label="Watch Episode 2, The Shimmering City, on YouTube">
+          <div class="thumb"><img src="assets/ep2.jpg" alt="Episode 2: The Shimmering City"></div>
+          <div class="meta"><b>Ep 2 · The Shimmering City</b><span>Watch now</span></div>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="glow-line"></div>
+    <div class="wrap foot-inner">
+      <img src="assets/logo-balloon.svg" alt="">
+      <div class="foot-title">The Imagination Explorer</div>
+      <p class="foot-line">Made with love for every kid who sees the world differently, and for everyone learning to see it their way.</p>
+      <div class="socials">
+        <a href="https://www.youtube.com/@TheImaginationExplorer" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg></a>
+        <a href="https://instagram.com/the.imagination.explorer" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23a3.7 3.7 0 0 1-.9 1.38c-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63a5.87 5.87 0 0 0-2.13 1.38A5.87 5.87 0 0 0 .63 4.14C.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.8.72 1.48 1.38 2.13a5.87 5.87 0 0 0 2.13 1.38c.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.87 5.87 0 0 0 2.13-1.38 5.87 5.87 0 0 0 1.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.87 5.87 0 0 0-1.38-2.13A5.87 5.87 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4zm7.85-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44z"/></svg></a>
+        <a href="https://tiktok.com/@the.imagination.explorer" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
+      </div>
+      <div class="fine">© 2026 The Imagination Explorer · A story by Kieran Duffy</div>
+    </div>
+  </footer>
+</main>
+
+<script src="assets/frames/manifest.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+(() => {
+  gsap.registerPlugin(ScrollTrigger);
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const JUMP = new URLSearchParams(location.search).get('jump');
+  if (JUMP !== null) history.scrollRestoration = 'manual';
+
+  /* ---------- smooth scroll ---------- */
+  let lenis = null;
+  if (!reduced && JUMP === null) {
+    lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(t => lenis.raf(t * 1000));
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  /* =========================================================
+     FILM — canvas scrub engine (ImageBitmap sliding window)
+     ========================================================= */
+  const F = window.FILM;                       // {count, prefix, pad, ext}
+  const FRAME_COUNT = F.count;
+  const frameSrc = i => F.prefix + String(i + 1).padStart(F.pad, '0') + F.ext;
+
+  const filmEl = document.getElementById('film');
+  const canvas = document.getElementById('film-canvas');
+  const ctx = canvas.getContext('2d');
+  const DPR = Math.min(devicePixelRatio || 1, 1.5);
+
+  function sizeCanvas(){
+    canvas.width = innerWidth * DPR;
+    canvas.height = innerHeight * DPR;
+  }
+  sizeCanvas(); addEventListener('resize', () => { sizeCanvas(); drawFrame(displayed, true); });
+
+  /* frame loading — concurrency-capped pump, prioritised around the landing frame */
+  const images = new Array(FRAME_COUNT);
+  let loadedCount = 0;
+  const lbar = document.getElementById('lbar-i');
+  const bootTarget = (() => {
+    if (JUMP === null) return 0;
+    const vh = innerHeight, span = vh * 9 - vh;      /* #film is 900vh */
+    const p = Math.max(0, Math.min(1, (+JUMP || 0) / span));
+    return Math.round(p * (FRAME_COUNT - 1));
+  })();
+  const loadOrder = Array.from({length: FRAME_COUNT}, (_, i) => i)
+    .sort((a, b) => Math.abs(a - bootTarget) - Math.abs(b - bootTarget));
+  function pump(){
+    let inFlight = 0, next = 0;
+    return new Promise(resolve => {
+      const kick = () => {
+        while (inFlight < 10 && next < FRAME_COUNT){
+          const i = loadOrder[next++];
+          inFlight++;
+          const im = new Image();
+          im.onload = im.onerror = () => {
+            inFlight--; loadedCount++;
+            if (lbar) lbar.style.width = (loadedCount / FRAME_COUNT * 100) + '%';
+            if (Math.abs(i - bmpCenter) <= B_AHEAD) bmpCenter = -999;  /* rescan window */
+            if (loadedCount === FRAME_COUNT) resolve();
+            else kick();
+          };
+          im.src = frameSrc(i);
+          images[i] = im;
+        }
+      };
+      kick();
+    });
+  }
+
+  function nearestFrame(idx){
+    if (images[idx] && images[idx].complete && images[idx].naturalWidth) return idx;
+    for (let d = 1; d < FRAME_COUNT; d++){
+      const a = idx - d, b = idx + d;
+      if (a >= 0 && images[a] && images[a].complete && images[a].naturalWidth) return a;
+      if (b < FRAME_COUNT && images[b] && images[b].complete && images[b].naturalWidth) return b;
+    }
+    return idx;
+  }
+
+  /* ImageBitmap sliding window — the anti-jank core */
+  const bitmaps = new Map(), decoding = new Set();
+  const B_AHEAD = 18, B_KEEP = 28; let bmpCenter = -999;
+  const framesReady = pump();
+  function ensureBitmaps(center){
+    if (Math.abs(center - bmpCenter) < 3) return;
+    bmpCenter = center;
+    const lo = Math.max(0, center - B_AHEAD), hi = Math.min(FRAME_COUNT - 1, center + B_AHEAD);
+    for (let i = lo; i <= hi; i++){
+      if (bitmaps.has(i) || decoding.has(i)) continue;
+      const im = images[i];
+      if (!im || !im.complete || !im.naturalWidth) continue;
+      decoding.add(i);
+      createImageBitmap(im).then(b => {
+        decoding.delete(i);
+        if (Math.abs(i - bmpCenter) > B_KEEP){ b.close(); return; }
+        bitmaps.set(i, b);
+        if (i === displayed) drawFrame(i, true);
+      }).catch(() => decoding.delete(i));
+    }
+    for (const k of Array.from(bitmaps.keys()))
+      if (k < center - B_KEEP || k > center + B_KEEP){ bitmaps.get(k).close(); bitmaps.delete(k); }
+  }
+
+  let displayed = -1;
+  function drawFrame(idx, force){
+    if (idx === displayed && !force) return;
+    const near = nearestFrame(idx);
+    const src = bitmaps.get(idx) || images[near];
+    if (!src) return;
+    const sw = src.width || src.naturalWidth, sh = src.height || src.naturalHeight;
+    if (!sw || !sh) return;
+    /* only mark displayed when we drew the real frame — substitutes keep redrawing */
+    displayed = (bitmaps.has(idx) || near === idx) ? idx : -999;
+    const cw = canvas.width, chh = canvas.height;
+    const scale = Math.max(cw / sw, chh / sh);
+    const dw = sw * scale, dh = sh * scale;
+    ctx.drawImage(src, (cw - dw) / 2, (chh - dh) / 2, dw, dh);
+  }
+
+  /* progress + lerped playhead */
+  let progress = 0, currentFrame = 0;
+  function computeProgress(){
+    const r = filmEl.getBoundingClientRect();
+    progress = Math.max(0, Math.min(1, -r.top / (r.height - innerHeight)));
+  }
+
+  /* beats */
+  const beats = Array.from(document.querySelectorAll('#film .beat')).map(el => ({
+    el, in: +el.dataset.in, peak: +el.dataset.peak, out: +el.dataset.out
+  }));
+  function beatAlpha(b, p){
+    if (p < b.in || p > b.out) return 0;
+    if (p < b.peak) return (p - b.in) / Math.max(1e-4, b.peak - b.in);
+    if (b.out > 1.5) return 1;
+    return 1 - (p - b.peak) / Math.max(1e-4, b.out - b.peak);
+  }
+
+  /* overlays */
+  const flare = document.getElementById('flare');
+  const bottomFade = document.getElementById('bottom-fade');
+  const grain = document.getElementById('grain');
+  const vignette = document.getElementById('film-vignette');
+  const topScrim = document.getElementById('top-scrim');
+
+  /* fireflies (gold, over the opening; sprite-based) */
+  function makeSprite(color){
+    const c = document.createElement('canvas'); c.width = c.height = 32;
+    const g = c.getContext('2d');
+    const grad = g.createRadialGradient(16,16,0,16,16,16);
+    grad.addColorStop(0, color); grad.addColorStop(.35, color.replace('1)', '.5)'));
+    grad.addColorStop(1, 'rgba(0,0,0,0)');
+    g.fillStyle = grad; g.fillRect(0,0,32,32);
+    return c;
+  }
+  const flyCanvas = document.getElementById('fireflies');
+  const flyCtx = flyCanvas.getContext('2d');
+  const goldSprite = makeSprite('rgba(232,195,151,1)');
+  let flies = [];
+  function seedFlies(){
+    flyCanvas.width = innerWidth * DPR; flyCanvas.height = innerHeight * DPR;
+    flyCtx.setTransform(DPR,0,0,DPR,0,0);
+    flies = Array.from({length: reduced ? 0 : 26}, () => ({
+      x: Math.random()*innerWidth, y: Math.random()*innerHeight,
+      z: .4 + Math.random()*.6, a: Math.random()*Math.PI*2,
+      va: (Math.random()-.5)*.02, sp: .12 + Math.random()*.3, tw: Math.random()*Math.PI*2
+    }));
+  }
+  seedFlies(); addEventListener('resize', seedFlies);
+  function drawFlies(t, alpha){
+    flyCtx.clearRect(0,0,innerWidth,innerHeight);
+    if (alpha <= 0.005) return;
+    for (const f of flies){
+      f.a += f.va; f.x += Math.cos(f.a)*f.sp*f.z; f.y += Math.sin(f.a)*f.sp*f.z*.7;
+      if (f.x < -20) f.x = innerWidth+20; if (f.x > innerWidth+20) f.x = -20;
+      if (f.y < -20) f.y = innerHeight+20; if (f.y > innerHeight+20) f.y = -20;
+      const glow = .45 + .55*(0.5+0.5*Math.sin(t*0.002 + f.tw));
+      const s = 10 + 22*f.z;
+      flyCtx.globalAlpha = alpha * glow * f.z;
+      flyCtx.drawImage(goldSprite, f.x - s/2, f.y - s/2, s, s);
+    }
+    flyCtx.globalAlpha = 1;
+  }
+
+  /* master tick */
+  let lastScrollDir = 1, lastP = 0;
+  gsap.ticker.add(() => {
+    computeProgress();
+    const p = progress;
+    lastScrollDir = p >= lastP ? 1 : -1; lastP = p;
+
+    const target = p * (FRAME_COUNT - 1);
+    currentFrame += (target - currentFrame) * (reduced ? 1 : 0.14);
+    if (Math.abs(target - currentFrame) < 0.01) currentFrame = target;
+    const idx = Math.round(currentFrame);
+    ensureBitmaps(idx);
+    drawFrame(idx);
+
+    /* beats */
+    for (const b of beats){
+      const a = beatAlpha(b, p);
+      b.el.style.opacity = a.toFixed(3);
+      if (!b.el.classList.contains('beat-hero'))
+        b.el.style.transform = `translateY(${(1 - a) * 18 * lastScrollDir}px)`;
+    }
+
+    /* overlays */
+    const endRamp = Math.max(0, (p - 0.90) / 0.10);          // flare 0.90 → 1
+    flare.style.opacity = Math.min(1, endRamp * 1.15).toFixed(3);
+    bottomFade.style.opacity = Math.max(0, (p - 0.965) / 0.035).toFixed(3);
+    const fadeChrome = 1 - endRamp;
+    grain.style.opacity = (0.5 * fadeChrome).toFixed(3);
+    vignette.style.opacity = fadeChrome.toFixed(3);
+    topScrim.style.opacity = Math.max(0, 1 - p / 0.09).toFixed(3);
+
+    /* fireflies: over the opening, gone by 8%; return around the orb, gone in flare */
+    const openAlpha = Math.max(0, 1 - p / 0.075);
+    const orbAlpha = p > 0.62 ? Math.max(0, Math.min(1, (p - 0.62) / 0.12)) * fadeChrome : 0;
+    drawFlies(performance.now(), Math.max(openAlpha, orbAlpha));
+
+    /* chrome */
+    updateChrome(p);
+  });
+
+  /* hero char-split intro (time-based) */
+  document.querySelectorAll('#hero-title .line').forEach(line => {
+    const chars = line.textContent.split('');
+    line.textContent = '';
+    chars.forEach(c => {
+      const s = document.createElement('span');
+      s.className = 'ch'; s.innerHTML = c === ' ' ? '&nbsp;' : c;
+      line.appendChild(s);
+    });
+  });
+
+  /* =========================================================
+     PINNED SCENES — realms run (created FIRST after film driver,
+     which needs no ScrollTrigger pin: the stage is CSS sticky)
+     ========================================================= */
+  const track = document.getElementById('track');
+  const tlRealms = gsap.timeline({
+    scrollTrigger: {
+      trigger: '#realms', start: 'top top', end: '+=260%', scrub: true, pin: true,
+      invalidateOnRefresh: true
+    }
+  });
+  tlRealms.to(track, {
+    x: () => -(track.scrollWidth - innerWidth), ease: 'none'
+  });
+  document.querySelectorAll('.postcard img').forEach(img => {
+    gsap.fromTo(img, { xPercent: -9 }, {
+      xPercent: 0, ease: 'none',
+      scrollTrigger: {
+        trigger: img.closest('.postcard'),
+        containerAnimation: tlRealms,
+        start: 'left right', end: 'right left', scrub: true
+      }
+    });
+  });
+
+  /* =========================================================
+     AMBIENT / CONTENT triggers — after pins
+     ========================================================= */
+  const header = document.getElementById('header');
+  const label = document.getElementById('readout-label');
+  const bar = document.getElementById('readout-bar');
+  const readout = document.getElementById('readout');
+  const hint = document.getElementById('scroll-hint');
+
+  const CHAPTERS = [
+    [0.00, 'CH 01 · Leo’s Room'],
+    [0.19, 'CH 02 · The Window'],
+    [0.36, 'CH 03 · The Garden Path'],
+    [0.65, 'CH 04 · The Magic Orb']
+  ];
+  function updateChrome(p){
+    let cur = CHAPTERS[0][1];
+    for (const [at, name] of CHAPTERS) if (p >= at) cur = name;
+    if (label.textContent !== cur) label.textContent = cur;
+    bar.style.width = (p * 100) + '%';
+    const filmDone = p >= 0.995;
+    readout.classList.toggle('gone', filmDone);
+    hint.classList.toggle('gone', p > 0.01);
+    header.classList.toggle('on-light', filmDone && !inDarkBand());
+  }
+  let darkBandRect = null;
+  function inDarkBand(){
+    /* header sits over the navy realms band or footer → keep cream text */
+    const rl = document.getElementById('realms').getBoundingClientRect();
+    if (rl.top < 70 && rl.bottom > 0) return true;
+    const ft = document.querySelector('footer').getBoundingClientRect();
+    if (ft.top < 70 && ft.bottom > 0) return true;
+    return false;
+  }
+
+  /* content reveals */
+  gsap.utils.toArray('.trait').forEach((el, i) => {
+    gsap.to(el, {
+      opacity: 1, y: 0, duration: .8, ease: 'power3.out', delay: i * .12,
+      scrollTrigger: { trigger: '#traits', start: 'top 78%', once: true }
+    });
+  });
+  gsap.utils.toArray('.ep').forEach((el, i) => {
+    gsap.to(el, {
+      opacity: 1, y: 0, duration: .8, ease: 'power3.out', delay: i * .14,
+      scrollTrigger: { trigger: '#ep-grid', start: 'top 80%', once: true }
+    });
+  });
+
+  /* ---------- boot / dev contract ---------- */
+  const loader = document.getElementById('loader');
+  const firstFrames = new Promise(res => {
+    /* enough to start: first 24 frames or everything, whichever first */
+    const check = setInterval(() => {
+      let ok = true;
+      for (let n = 0; n < Math.min(24, FRAME_COUNT); n++){
+        const i = loadOrder[n];
+        if (!images[i] || !images[i].complete) { ok = false; break; }
+      }
+      if (ok){ clearInterval(check); res(); }
+    }, 60);
+    framesReady.then(() => { clearInterval(check); res(); });
+  });
+
+  Promise.all([document.fonts.ready, firstFrames]).then(() => {
+    ensureBitmaps(0);
+    computeProgress();
+    currentFrame = progress * (FRAME_COUNT - 1);
+    drawFrame(Math.round(currentFrame), true);
+
+    if (JUMP !== null){
+      scrollTo(0, +JUMP || 0);
+      ScrollTrigger.refresh();
+      scrollTo(0, +JUMP || 0);
+      computeProgress();
+      currentFrame = progress * (FRAME_COUNT - 1);
+      ensureBitmaps(Math.round(currentFrame));
+      requestAnimationFrame(() => {
+        ScrollTrigger.update();
+        drawFrame(Math.round(currentFrame), true);
+        loader.classList.add('gone');
+        requestAnimationFrame(() => { window.__ready = true; });
+      });
+    } else {
+      ScrollTrigger.refresh();
+      loader.classList.add('gone');
+      if (!reduced){
+        gsap.from('#hero-title .ch', {
+          yPercent: 130, duration: 1.1, ease: 'power4.out',
+          stagger: { each: 0.032, from: 'start' }, delay: 0.15
+        });
+      }
+      window.__ready = true;
+    }
+  });
+
+  /* jank meter */
+  let last = performance.now(), maxD = 0;
+  function meter(now){ maxD = Math.max(maxD, now - last); last = now; requestAnimationFrame(meter); }
+  requestAnimationFrame(meter);
+  setInterval(() => { console.log('[jank] max rAF delta (2s):', Math.round(maxD) + 'ms'); maxD = 0; }, 2000);
+})();
+</script>
+</body>
+</html>

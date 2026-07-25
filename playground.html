@@ -51,8 +51,8 @@
 </section>
 
 <section class="lab-intro reveal">
-  <div class="li-stat"><strong>6</strong><span>motion experiments</span></div>
-  <div class="li-stat"><strong>2</strong><span>tools in the wild</span></div>
+  <div class="li-stat"><strong>7</strong><span>motion experiments</span></div>
+  <div class="li-stat"><strong>3</strong><span>tools in the wild</span></div>
   <div class="li-stat"><strong>0</strong><span>animation libraries used</span></div>
 </section>
 
@@ -60,19 +60,19 @@
   <h2 class="work-sub reveal">Motion experiments</h2>
   <p class="archive-lede reveal">Each one is a single self-contained page: no build step, no dependencies, hand-written motion. Previews play on hover, click to open the real thing.</p>
   <div class="lab-grid"><article class="lab-card reveal">
-  <a class="lab-media" href="lab/kinetic-type/index.html" aria-label="Open the Kinetic Type experiment">
-    <video muted loop playsinline preload="none" poster="lab/previews/kinetic-type.jpg" data-src="lab/previews/kinetic-type.mp4"></video>
-    <span class="lab-open">Open experiment &rarr;</span>
+  <a class="lab-media" href="lab/imagination-explorer/index.html" aria-label="Open The Imagination Explorer">
+    <video muted loop playsinline preload="none" poster="lab/previews/imagination-explorer.jpg" data-src="lab/previews/imagination-explorer.mp4"></video>
+    <span class="lab-open">Open project &rarr;</span>
   </a>
   <div class="lab-body">
-    <div class="lab-head"><span class="lab-num">01</span><div class="lab-tags"><span>Scroll scrub</span><span>Split text</span><span>3D transforms</span></div></div>
-    <h3><a href="lab/kinetic-type/index.html">Kinetic Type</a></h3>
-    <p class="lab-tagline">Type as choreography</p>
-    <p class="lab-desc">A scroll-scrubbed typographic sequence. Every character is an independent actor on one timeline: it rises, rotates in 3D, settles, then hands over to the next line while a difference-blend bar sweeps the seam.</p>
-    <p class="lab-build"><strong>How it works.</strong> No libraries. One scroll-progress value drives per-character transforms with staggered sub-timelines.</p>
+    <div class="lab-head"><span class="lab-num">01</span><div class="lab-tags"><span>Scroll film</span><span>Brand site</span><span>Art direction</span></div></div>
+    <h3><a href="lab/imagination-explorer/index.html">The Imagination Explorer</a></h3>
+    <p class="lab-tagline">A scroll-film for a children&#x27;s brand</p>
+    <p class="lab-desc">A promo site built as one continuous scroll-film: the story scrubs frame by frame as you move down the page, with type and colour cued to the film rather than layered over it.</p>
+    <p class="lab-build"><strong>How it works.</strong> Scroll position drives film playback directly, so the page and the footage share one timeline. Built as a standalone site, no framework.</p>
   </div>
 </article><article class="lab-card reveal">
-  <a class="lab-media" href="lab/magnetic/index.html" aria-label="Open the Magnetic experiment">
+  <a class="lab-media" href="lab/magnetic/index.html" aria-label="Open Magnetic">
     <video muted loop playsinline preload="none" poster="lab/previews/magnetic.jpg" data-src="lab/previews/magnetic.mp4"></video>
     <span class="lab-open">Open experiment &rarr;</span>
   </a>
@@ -84,7 +84,7 @@
     <p class="lab-build"><strong>How it works.</strong> A single rAF loop lerps every element toward its target. Pull strength falls off with distance from centre.</p>
   </div>
 </article><article class="lab-card reveal">
-  <a class="lab-media" href="lab/aurora/index.html" aria-label="Open the Aurora experiment">
+  <a class="lab-media" href="lab/aurora/index.html" aria-label="Open Aurora">
     <video muted loop playsinline preload="none" poster="lab/previews/aurora.jpg" data-src="lab/previews/aurora.mp4"></video>
     <span class="lab-open">Open experiment &rarr;</span>
   </a>
@@ -96,7 +96,7 @@
     <p class="lab-build"><strong>How it works.</strong> Hand-written fragment shader (fbm + domain warping). Falls back to an animated CSS field where WebGL is unavailable.</p>
   </div>
 </article><article class="lab-card reveal">
-  <a class="lab-media" href="lab/reveal/index.html" aria-label="Open the Reveal experiment">
+  <a class="lab-media" href="lab/reveal/index.html" aria-label="Open Reveal">
     <video muted loop playsinline preload="none" poster="lab/previews/reveal.jpg" data-src="lab/previews/reveal.mp4"></video>
     <span class="lab-open">Open experiment &rarr;</span>
   </a>
@@ -108,7 +108,7 @@
     <p class="lab-build"><strong>How it works.</strong> Preview position lerps behind the pointer; frame skew and scale are derived from per-frame delta.</p>
   </div>
 </article><article class="lab-card reveal">
-  <a class="lab-media" href="lab/horizon/index.html" aria-label="Open the Horizon experiment">
+  <a class="lab-media" href="lab/horizon/index.html" aria-label="Open Horizon">
     <video muted loop playsinline preload="none" poster="lab/previews/horizon.jpg" data-src="lab/previews/horizon.mp4"></video>
     <span class="lab-open">Open experiment &rarr;</span>
   </a>
@@ -120,7 +120,7 @@
     <p class="lab-build"><strong>How it works.</strong> Sticky section plus one transform on the track. Panels offset by depth factor and distance from centre.</p>
   </div>
 </article><article class="lab-card reveal">
-  <a class="lab-media" href="lab/unfold/index.html" aria-label="Open the Unfold experiment">
+  <a class="lab-media" href="lab/unfold/index.html" aria-label="Open Unfold">
     <video muted loop playsinline preload="none" poster="lab/previews/unfold.jpg" data-src="lab/previews/unfold.mp4"></video>
     <span class="lab-open">Open experiment &rarr;</span>
   </a>
@@ -131,13 +131,31 @@
     <p class="lab-desc">A brand reveal as a scroll sequence: the two halves of the KD mark fly in and lock, the assembled mark shrinks up into the navigation, and the landing page composes itself in its wake.</p>
     <p class="lab-build"><strong>How it works.</strong> One progress value split into overlapping windows, each easing a different element of the page into place.</p>
   </div>
+</article><article class="lab-card reveal">
+  <a class="lab-media" href="https://kieranduffy87.github.io/pillgrid/" target="_blank" rel="noopener" aria-label="Open PILLGRID">
+    <video muted loop playsinline preload="none" poster="lab/previews/pillgrid.jpg" data-src="lab/previews/pillgrid.mp4"></video>
+    <span class="lab-open">Open project &rarr;</span>
+  </a>
+  <div class="lab-body">
+    <div class="lab-head"><span class="lab-num">07</span><div class="lab-tags"><span>WebGL</span><span>Video filter</span><span>Real time</span></div></div>
+    <h3><a href="https://kieranduffy87.github.io/pillgrid/" target="_blank" rel="noopener">PILLGRID</a></h3>
+    <p class="lab-tagline">Any video, rebuilt in pills</p>
+    <p class="lab-desc">A real-time video filter that rebuilds footage as a matrix of pill-shaped dots, like a physical LED display. Load a clip or use your camera, then tune grid density, pill shape, colour and bleed live.</p>
+    <p class="lab-build"><strong>How it works.</strong> Every frame is sampled to a grid in a fragment shader and redrawn as pills. Single file, no build step, runs entirely in the browser.</p>
+  </div>
 </article></div>
 </section>
 
 <section class="lab-grid-wrap">
   <h2 class="work-sub reveal">Tools</h2>
   <p class="archive-lede reveal">Small utilities I designed and built for myself and other designers. Free to use, open in your browser.</p>
-  <div class="pg-grid"><a class="pg-card reveal" href="https://kieranduffy87.github.io/svg-to-3d/" target="_blank" rel="noopener">
+  <div class="pg-grid"><a class="pg-card reveal" href="https://kieranduffy87.github.io/kd-design-system/" target="_blank" rel="noopener">
+      <div class="pg-preview pg-preview-vid"><video muted loop playsinline preload="none" poster="lab/previews/kd-design-system.jpg" data-src="lab/previews/kd-design-system.mp4"></video></div>
+      <div class="pg-tags"><span>Design system</span><span>Tokens</span><span>Documentation</span></div>
+      <h3>KD Design System</h3>
+      <p>My own brand as a working system: tokens, type scale, colour, components and usage rules, documented and published so every project I build starts from the same foundation.</p>
+      <span class="pg-cta">Open tool <i>&rarr;</i></span>
+    </a><a class="pg-card reveal" href="https://kieranduffy87.github.io/svg-to-3d/" target="_blank" rel="noopener">
       <div class="pg-preview pg-preview-3d"><svg class="kd-mark" viewBox="0 0 18.62 11.73" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polygon fill="#0339f8" points="18.62 0 12 0 6 5.86 12 11.73 18.62 11.73 12.62 5.86 18.62 0"/><polygon class="kd-mark-ink" points="0 0 0 11.72 6 5.86 0 0"/></svg></div>
       <div class="pg-tags"><span>Three.js</span><span>Web Tool</span></div>
       <h3>SVG to 3D</h3>

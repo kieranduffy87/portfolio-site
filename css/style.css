@@ -872,3 +872,7 @@ a:focus-visible, button:focus-visible, .chip:focus-visible, video:focus-visible 
 .lab-note h2{font-size:clamp(1.6rem,3vw,2.3rem);font-weight:500;letter-spacing:-.02em}
 .lab-note p{color:var(--muted);margin-top:.9rem}
 @media(max-width:560px){.lab-grid{grid-template-columns:1fr}}
+
+/* tool card with a captured video preview */
+.pg-preview-vid{padding:0;background:var(--surface-2)}
+.pg-preview-vid video{width:100%;height:100%;object-fit:cover;display:block}
