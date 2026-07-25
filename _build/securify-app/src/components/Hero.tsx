@@ -13,13 +13,13 @@ export default function Hero() {
       {WORDS.map((word) => (
         <h1
           key={word.text}
-          className={`hero-title absolute text-white font-medium text-[14vw] md:text-[13vw] ${word.place}`}
+          className={`hero-title on-film absolute text-white font-medium text-[14vw] md:text-[13vw] ${word.place}`}
         >
           {word.text}
         </h1>
       ))}
 
-      <p className="absolute left-6 md:left-10 top-[46%] max-w-[240px] text-[15px] leading-snug text-white/90">
+      <p className="on-film absolute left-6 md:left-10 top-[46%] max-w-[240px] text-[15px] leading-snug text-white/90">
         we can guarding your data with utmost care, empowering you with privacy everywhere
       </p>
 
@@ -28,25 +28,25 @@ export default function Hero() {
       <div className="absolute right-6 md:right-24 top-[14%]">
         <div className="flex items-center gap-3 justify-end">
           <span className="hidden md:block h-px w-24 bg-white/40 rotate-[20deg]" />
-          <span className="text-4xl md:text-5xl font-medium tracking-tight">+65k</span>
+          <span className="on-film text-4xl md:text-5xl font-medium tracking-tight">+65k</span>
         </div>
-        <p className="text-xs md:text-sm text-white/70 mt-1 text-right">startups use</p>
+        <p className="on-film text-xs md:text-sm text-white/70 mt-1 text-right">startups use</p>
       </div>
 
       <div className="absolute left-6 md:left-20 bottom-20 md:bottom-24">
         <div className="flex items-center gap-3">
-          <span className="text-4xl md:text-5xl font-medium tracking-tight">+1.5b</span>
+          <span className="on-film text-4xl md:text-5xl font-medium tracking-tight">+1.5b</span>
           <span className="hidden md:block h-px w-24 bg-white/40 rotate-[-20deg]" />
         </div>
-        <p className="text-xs md:text-sm text-white/70 mt-1">gb data was protected</p>
+        <p className="on-film text-xs md:text-sm text-white/70 mt-1">gb data was protected</p>
       </div>
 
       <div className="absolute right-6 md:right-20 bottom-16 md:bottom-20">
         <div className="flex items-center gap-3 justify-end">
           <span className="hidden md:block h-px w-24 bg-white/40 rotate-[-20deg]" />
-          <span className="text-4xl md:text-5xl font-medium tracking-tight">+300k</span>
+          <span className="on-film text-4xl md:text-5xl font-medium tracking-tight">+300k</span>
         </div>
-        <p className="text-xs md:text-sm text-white/70 mt-1 text-right">downloads</p>
+        <p className="on-film text-xs md:text-sm text-white/70 mt-1 text-right">downloads</p>
       </div>
     </div>
   )

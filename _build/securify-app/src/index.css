@@ -23,6 +23,14 @@ body {
   line-height: 0.95;
 }
 
+/* The camera moves through the shot, so a bright flare sweeps under type that
+   was sitting on dark a second earlier. A wide, soft shadow is invisible over
+   the dark parts and holds the letterforms together over the light ones, which
+   is cheaper than grading the film flat to survive its own worst frame. */
+.on-film {
+  text-shadow: 0 2px 28px rgba(0, 0, 0, 0.6), 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
 /* White type on a dark film, so the ring has to be white to be seen. */
 :where(a, button):focus-visible {
   outline: 2px solid #fff;
