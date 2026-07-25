@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Horizon — KD Lab</title>
+<meta name="description" content="Vertical scroll turned sideways: a pinned horizontal gallery with velocity skew and depth parallax. An experiment by Kieran Duffy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#0339f8;--ink:#0b0c10;--paper:#f2f1ed}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--ink);color:var(--paper);font-family:"Instrument Sans",-apple-system,Helvetica,Arial,sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.head{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;
+ padding:clamp(1.1rem,3vw,2rem) clamp(1.25rem,4vw,3rem);z-index:8;font-size:.68rem;letter-spacing:.18em;
+ text-transform:uppercase;color:rgba(242,241,237,.55);mix-blend-mode:difference}
+.back{border:1px solid rgba(242,241,237,.25);padding:.5rem 1rem;border-radius:100px;color:rgba(242,241,237,.8)}
+.back:hover{border-color:var(--blue);color:#fff}
+.rail{height:460vh;position:relative}
+.pin{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center}
+.track{display:flex;gap:clamp(1.2rem,3vw,3rem);padding:0 12vw;will-change:transform}
+.panel{position:relative;flex:0 0 auto;width:clamp(240px,30vw,420px);aspect-ratio:3/4;border-radius:18px;
+ overflow:hidden;background:#14161d;will-change:transform}
+.panel .fill{position:absolute;inset:0;will-change:transform}
+.panel .num{position:absolute;top:1.1rem;left:1.3rem;font-size:.7rem;letter-spacing:.18em;color:rgba(255,255,255,.75);z-index:2}
+.panel .cap{position:absolute;left:1.3rem;bottom:1.2rem;z-index:2}
+.panel .cap b{display:block;font-size:1.15rem;font-weight:600;letter-spacing:-.02em}
+.panel .cap span{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.panel .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,12,16,.35),transparent 38%,rgba(11,12,16,.75));z-index:1}
+.intro{flex:0 0 auto;width:min(38vw,460px);padding-right:2vw}
+.intro h1{font-size:clamp(2.2rem,5.4vw,4.4rem);font-weight:600;letter-spacing:-.035em;line-height:1}
+.intro h1 em{font-style:normal;color:var(--blue)}
+.intro p{margin-top:1rem;color:rgba(242,241,237,.55);max-width:34ch}
+.outro{flex:0 0 auto;width:min(34vw,420px);display:flex;align-items:center}
+.outro p{font-size:clamp(1.2rem,2.4vw,1.9rem);font-weight:500;letter-spacing:-.02em;line-height:1.25}
+.bar{position:fixed;left:clamp(1.25rem,4vw,3rem);right:clamp(1.25rem,4vw,3rem);bottom:1.6rem;height:1px;
+ background:rgba(242,241,237,.16);z-index:8}
+.bar i{display:block;height:100%;width:0;background:var(--blue)}
+@media(prefers-reduced-motion:reduce){.rail{height:auto}.pin{position:static;height:auto;padding:14vh 0}
+ .track{flex-wrap:wrap;justify-content:center;padding:0 6vw}}
+</style>
+</head>
+<body>
+<div class="head"><a class="back" href="../../playground.html">← Playground</a><span>KD Lab / 05</span></div>
+<div class="rail" id="rail">
+  <section class="pin">
+    <div class="track" id="track">
+      <div class="intro">
+        <h1>Scroll down,<br>travel <em>sideways.</em></h1>
+        <p>One pinned viewport, one transform. The vertical gesture people already know, mapped to a horizontal cinema with parallax depth and skew that reads your speed.</p>
+      </div>
+      <article class="panel" data-d="0.9"><div class="fill" style="background:linear-gradient(150deg,#0339f8,#04123f)"></div><div class="scrim"></div><span class="num">01</span><div class="cap"><b>Depth</b><span>parallax per panel</span></div></article>
+      <article class="panel" data-d="1.18"><div class="fill" style="background:linear-gradient(150deg,#f2f1ed,#9aa6c8)"></div><div class="scrim"></div><span class="num">02</span><div class="cap"><b>Velocity</b><span>skew from delta</span></div></article>
+      <article class="panel" data-d="0.78"><div class="fill" style="background:linear-gradient(150deg,#ff6a3d,#7a1f0c)"></div><div class="scrim"></div><span class="num">03</span><div class="cap"><b>Rhythm</b><span>staggered offsets</span></div></article>
+      <article class="panel" data-d="1.3"><div class="fill" style="background:linear-gradient(150deg,#12d6a8,#053b30)"></div><div class="scrim"></div><span class="num">04</span><div class="cap"><b>Inertia</b><span>eased, never linear</span></div></article>
+      <article class="panel" data-d="0.86"><div class="fill" style="background:linear-gradient(150deg,#0339f8,#f2f1ed)"></div><div class="scrim"></div><span class="num">05</span><div class="cap"><b>Contrast</b><span>light against dark</span></div></article>
+      <div class="outro"><p>The whole sequence is one number: progress, zero to one.</p></div>
+    </div>
+  </section>
+</div>
+<div class="bar"><i id="barFill"></i></div>
+<script>
+(function(){
+  var params = new URLSearchParams(location.search);
+  var capture = params.has('t');
+  var rail = document.getElementById('rail'), track = document.getElementById('track');
+  var panels = [].slice.call(document.querySelectorAll('.panel'));
+  var fill = document.getElementById('barFill');
+  var cur = 0, tgt = 0, last = 0;
+
+  function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+  function lerp(a,b,n){ return a + (b-a)*n; }
+
+  function apply(p, vel){
+    var dist = track.scrollWidth - innerWidth;
+    var x = -p * dist;
+    track.style.transform = 'translate3d(' + x.toFixed(2) + 'px,0,0)';
+    var skew = clamp(vel * 0.16, -9, 9);
+    panels.forEach(function(pn, i){
+      var d = parseFloat(pn.dataset.d) || 1;
+      var r = pn.getBoundingClientRect();
+      var centre = (r.left + r.width/2) / innerWidth;    // 0..1 across viewport
+      var off = (centre - 0.5);
+      pn.style.transform = 'translate3d(0,' + (off * 42 * (d - 0.5)).toFixed(2) + 'px,0) skewX(' + skew.toFixed(2) + 'deg) scale(' + (1 - Math.abs(off) * 0.06).toFixed(3) + ')';
+      var f = pn.querySelector('.fill');
+      if (f) f.style.transform = 'translate3d(' + (off * -26 * d).toFixed(2) + 'px,0,0) scale(1.18)';
+    });
+    fill.style.width = (p * 100).toFixed(2) + '%';
+  }
+
+  if (capture) {
+    document.body.style.overflow = 'hidden';
+    rail.style.height = '100vh';
+    var t = parseFloat(params.get('t')) || 0;
+    apply(t, Math.sin(t * Math.PI * 2) * 22);
+  } else {
+    function onScroll(){
+      var r = rail.getBoundingClientRect();
+      var total = rail.offsetHeight - innerHeight;
+      tgt = clamp(-r.top / total, 0, 1);
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', onScroll);
+    onScroll();
+    (function loop(){
+      last = cur;
+      cur = lerp(cur, tgt, 0.085);
+      var dist = track.scrollWidth - innerWidth;
+      apply(cur, (cur - last) * dist * 0.08);
+      requestAnimationFrame(loop);
+    })();
+  }
+})();
+</script>
+</body>
+</html>

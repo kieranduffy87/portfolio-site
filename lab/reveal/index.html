@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reveal — KD Lab</title>
+<meta name="description" content="A hover-reveal index: cursor-tracked previews with inertia and velocity skew. An experiment by Kieran Duffy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#0339f8;--ink:#0a0b0e;--paper:#f2f1ed}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--ink);color:var(--paper);font-family:"Instrument Sans",-apple-system,Helvetica,Arial,sans-serif;
+ min-height:100vh;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1240px;margin:0 auto;padding:clamp(4.5rem,9vh,7rem) clamp(1.25rem,4vw,3rem) 7rem;position:relative;z-index:2}
+.top{display:flex;justify-content:space-between;align-items:center;font-size:.68rem;letter-spacing:.18em;
+ text-transform:uppercase;color:rgba(242,241,237,.5)}
+.back{border:1px solid rgba(242,241,237,.22);padding:.5rem 1rem;border-radius:100px}
+.back:hover{border-color:var(--blue);color:#fff}
+h1{font-size:clamp(2.4rem,7vw,5.4rem);font-weight:600;letter-spacing:-.035em;line-height:1;margin:3rem 0 .8rem}
+h1 em{font-style:normal;color:var(--blue)}
+.lede{color:rgba(242,241,237,.55);max-width:44ch}
+.index{margin-top:4rem;border-top:1px solid rgba(242,241,237,.14)}
+.item{display:flex;align-items:baseline;justify-content:space-between;gap:2rem;
+ padding:clamp(1.1rem,2.6vw,1.9rem) .4rem;border-bottom:1px solid rgba(242,241,237,.14);
+ position:relative;cursor:pointer;will-change:transform}
+.item .nm{font-size:clamp(1.5rem,4.2vw,3.1rem);font-weight:500;letter-spacing:-.03em;
+ display:flex;align-items:center;gap:1rem;will-change:transform}
+.item .dot{width:8px;height:8px;border-radius:50%;background:var(--blue);opacity:0;transform:scale(.2);
+ transition:opacity .4s,transform .4s cubic-bezier(.22,.7,.2,1)}
+.item.on .dot{opacity:1;transform:scale(1)}
+.item .meta{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,241,237,.4);white-space:nowrap}
+.item .nm,.item .meta{transition:color .4s}
+.item.on .nm{color:#fff}
+.item.dim{opacity:.32}
+.item{transition:opacity .45s}
+.stage{position:fixed;top:0;left:0;width:clamp(220px,22vw,320px);aspect-ratio:4/5;pointer-events:none;z-index:1;
+ border-radius:16px;overflow:hidden;opacity:0;will-change:transform,opacity}
+.stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;
+ transition:opacity .45s ease;will-change:opacity}
+.stage img.on{opacity:1}
+.stage .edge{position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);border-radius:16px}
+.foot{margin-top:4rem;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,241,237,.35)}
+@media(max-width:760px){.stage{display:none}.item .meta{display:none}}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <img src="../assets/r1.jpg" alt="">
+  <img src="../assets/r2.jpg" alt="">
+  <img src="../assets/r3.jpg" alt="">
+  <img src="../assets/r4.jpg" alt="">
+  <img src="../assets/r5.jpg" alt="">
+  <div class="edge"></div>
+</div>
+<div class="wrap">
+  <div class="top">
+    <a class="back" href="../../playground.html">← Playground</a>
+    <span>KD Lab / 04</span>
+  </div>
+  <h1>An index that<br><em>shows its hand.</em></h1>
+  <p class="lede">A list is faster to scan than a grid, but it hides the work. This keeps the speed and gives the image back, tracked to the cursor with inertia and velocity skew.</p>
+  <div class="index" id="index">
+    <div class="item" data-i="0"><span class="nm"><i class="dot"></i>Packaging</span><span class="meta">Brand / Print</span></div>
+    <div class="item" data-i="1"><span class="nm"><i class="dot"></i>Environments</span><span class="meta">Spatial / Identity</span></div>
+    <div class="item" data-i="2"><span class="nm"><i class="dot"></i>Out of home</span><span class="meta">Campaign</span></div>
+    <div class="item" data-i="3"><span class="nm"><i class="dot"></i>Editorial</span><span class="meta">Art direction</span></div>
+    <div class="item" data-i="4"><span class="nm"><i class="dot"></i>Industrial</span><span class="meta">Digital / Motion</span></div>
+  </div>
+  <p class="foot">Hover the index. The preview leads, the frame follows, the skew reads the speed.</p>
+</div>
+<script>
+(function(){
+  var params = new URLSearchParams(location.search);
+  var capture = params.has('t');
+  var stage = document.getElementById('stage');
+  var imgs = [].slice.call(stage.querySelectorAll('img'));
+  var items = [].slice.call(document.querySelectorAll('.item'));
+  var index = document.getElementById('index');
+
+  var mouse = {x: innerWidth * .5, y: innerHeight * .5};
+  var pos = {x: mouse.x, y: mouse.y}, prev = {x: pos.x, y: pos.y};
+  var target = {op: 0}, cur = {op: 0}, active = -1;
+
+  function lerp(a,b,n){ return a + (b-a) * n; }
+
+  function setActive(i){
+    if (i === active) return;
+    active = i;
+    imgs.forEach(function(im, k){ im.classList.toggle('on', k === i); });
+    items.forEach(function(it, k){
+      it.classList.toggle('on', k === i);
+      it.classList.toggle('dim', i !== -1 && k !== i);
+    });
+    target.op = i === -1 ? 0 : 1;
+  }
+
+  if (!capture) {
+    window.addEventListener('mousemove', function(e){ mouse.x = e.clientX; mouse.y = e.clientY; });
+    items.forEach(function(it){
+      it.addEventListener('mouseenter', function(){ setActive(+it.dataset.i); });
+    });
+    index.addEventListener('mouseleave', function(){ setActive(-1); });
+  }
+
+  function frame(){
+    prev.x = pos.x; prev.y = pos.y;
+    pos.x = lerp(pos.x, mouse.x, 0.12);
+    pos.y = lerp(pos.y, mouse.y, 0.12);
+    cur.op = lerp(cur.op, target.op, 0.12);
+    var vx = pos.x - prev.x, vy = pos.y - prev.y;
+    var skew = Math.max(-14, Math.min(14, vx * 0.45));
+    var w = stage.offsetWidth, h = stage.offsetHeight;
+    stage.style.opacity = cur.op.toFixed(3);
+    stage.style.transform =
+      'translate3d(' + (pos.x - w/2).toFixed(2) + 'px,' + (pos.y - h/2).toFixed(2) + 'px,0)' +
+      ' rotate(' + (skew * 0.35).toFixed(2) + 'deg)' +
+      ' skewX(' + (-skew * 0.5).toFixed(2) + 'deg)' +
+      ' scale(' + (0.86 + cur.op * 0.14 + Math.min(0.06, Math.abs(vy) * 0.002)).toFixed(3) + ')';
+    requestAnimationFrame(frame);
+  }
+  frame();
+
+  if (capture) {
+    var t = parseFloat(params.get('t')) || 0;
+    // walk down the index while the preview trails behind
+    var n = items.length;
+    var f = t * n;
+    var i = Math.min(n - 1, Math.floor(f));
+    setActive(i);
+    var r = items[i].getBoundingClientRect();
+    mouse.x = innerWidth * (0.30 + 0.16 * Math.sin(t * Math.PI * 2.2));
+    mouse.y = r.top + r.height * 0.5;
+    // trail behind the cursor, as it would mid-move
+    pos.x = mouse.x - 46; pos.y = mouse.y - 26;
+    for (var k = 0; k < 40; k++) { cur.op = lerp(cur.op, target.op, 0.12); }
+  }
+})();
+</script>
+</body>
+</html>

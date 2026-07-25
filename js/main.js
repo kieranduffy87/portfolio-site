@@ -90,6 +90,30 @@
     cardVids.forEach(function (v) { if (v.dataset.src) { v.src = v.dataset.src; v.play().catch(function () {}); } });
   }
 
+  // --- lab previews: load on view, play on hover (tap plays on touch) ---
+  var labVids = document.querySelectorAll('.lab-media video, .pgt-media video');
+  if (labVids.length) {
+    var touch = window.matchMedia('(hover: none)').matches;
+    var load = function (v) { if (!v.src && v.dataset.src) v.src = v.dataset.src; };
+    if ('IntersectionObserver' in window) {
+      var lio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (!en.isIntersecting) { en.target.pause(); return; }
+          load(en.target);
+          if (touch) en.target.play().catch(function () {});
+        });
+      }, { rootMargin: '200px 0px' });
+      labVids.forEach(function (v) { lio.observe(v); });
+    } else {
+      labVids.forEach(load);
+    }
+    labVids.forEach(function (v) {
+      var host = v.closest('.lab-card') || v.closest('.pg-tile') || v.parentNode;
+      host.addEventListener('mouseenter', function () { load(v); v.play().catch(function () {}); });
+      host.addEventListener('mouseleave', function () { v.pause(); });
+    });
+  }
+
   // --- homepage scroll scrub: case studies ease in as you scroll ---
   var scrubGrid = document.getElementById('scrubGrid');
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

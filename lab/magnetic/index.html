@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Magnetic — KD Lab</title>
+<meta name="description" content="Cursor physics: magnetic buttons, elastic hover states and a blend-mode cursor. An experiment by Kieran Duffy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#0339f8;--ink:#0d0e11;--paper:#f4f3ef;--line:rgba(13,14,17,.14)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:"Instrument Sans",-apple-system,Helvetica,Arial,sans-serif;
+ min-height:100vh;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.cursor{position:fixed;top:0;left:0;width:18px;height:18px;border-radius:50%;background:var(--blue);
+ pointer-events:none;z-index:99;mix-blend-mode:multiply;will-change:transform}
+.cursor-ring{position:fixed;top:0;left:0;width:52px;height:52px;border:1px solid rgba(3,57,248,.55);
+ border-radius:50%;pointer-events:none;z-index:98;will-change:transform,opacity}
+.wrap{max-width:1180px;margin:0 auto;padding:clamp(5rem,10vh,8rem) clamp(1.25rem,4vw,3rem) 6rem}
+.top{display:flex;justify-content:space-between;align-items:center;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(13,14,17,.5)}
+.back{border:1px solid var(--line);padding:.5rem 1rem;border-radius:100px}
+.back:hover{border-color:var(--blue);color:var(--blue)}
+h1{font-size:clamp(2.6rem,8vw,6.4rem);font-weight:600;letter-spacing:-.035em;line-height:.98;margin:3.5rem 0 1.2rem}
+h1 em{font-style:normal;color:var(--blue)}
+.lede{color:rgba(13,14,17,.6);max-width:46ch;font-size:1.05rem}
+.row{display:flex;flex-wrap:wrap;gap:1rem;margin-top:3rem}
+.mag{position:relative;display:inline-flex;align-items:center;justify-content:center;will-change:transform}
+.btn{background:var(--blue);color:#fff;font-weight:600;font-size:.95rem;padding:1.15rem 2.4rem;border-radius:100px;
+ border:none;cursor:pointer;font-family:inherit}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.mag .inner{display:inline-block;will-change:transform;pointer-events:none}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:1rem;margin-top:4.5rem}
+.card{position:relative;background:#fff;border-radius:18px;padding:2rem;min-height:230px;
+ display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;
+ transform-style:preserve-3d;will-change:transform;box-shadow:0 1px 2px rgba(13,14,17,.05)}
+.card .sheen{position:absolute;inset:0;opacity:0;pointer-events:none;
+ background:radial-gradient(320px circle at var(--mx,50%) var(--my,50%), rgba(3,57,248,.16), transparent 65%)}
+.card h3{font-size:1.3rem;font-weight:600;letter-spacing:-.02em}
+.card p{color:rgba(13,14,17,.55);font-size:.92rem;margin-top:.4rem}
+.card .num{font-size:.68rem;letter-spacing:.16em;color:var(--blue);font-weight:600}
+.links{margin-top:4.5rem;border-top:1px solid var(--line)}
+.lk{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 0;border-bottom:1px solid var(--line);
+ font-size:clamp(1.3rem,3vw,2.2rem);font-weight:500;letter-spacing:-.02em;position:relative;overflow:hidden}
+.lk span{display:block;will-change:transform}
+.lk .fill{position:absolute;left:0;right:0;bottom:0;height:0;background:var(--blue);z-index:0;will-change:height}
+.lk .t,.lk .arw{position:relative;z-index:1;transition:color .35s}
+.note{margin-top:4rem;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(13,14,17,.4)}
+@media(hover:none){.cursor,.cursor-ring{display:none}}
+</style>
+</head>
+<body>
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="ring"></div>
+<div class="wrap">
+  <div class="top">
+    <a class="back" href="../../playground.html">← Playground</a>
+    <span>KD Lab / 02</span>
+  </div>
+  <h1>Interfaces that<br><em>pull back.</em></h1>
+  <p class="lede">Every element here runs its own spring. The cursor leads, the interface answers, and nothing snaps to a hard stop.</p>
+
+  <div class="row">
+    <div class="mag" data-strength="0.45"><button class="btn"><span class="inner">Magnetic button</span></button></div>
+    <div class="mag" data-strength="0.32"><button class="btn ghost"><span class="inner">Elastic ghost</span></button></div>
+    <div class="mag" data-strength="0.6"><button class="btn ghost"><span class="inner">Strong pull</span></button></div>
+  </div>
+
+  <div class="grid" id="cards">
+    <article class="card" data-tilt><div class="sheen"></div><span class="num">01</span><div><h3>Spring, not snap</h3><p>Positions are integrated every frame toward a target, so movement always has weight.</p></div></article>
+    <article class="card" data-tilt><div class="sheen"></div><span class="num">02</span><div><h3>Proximity aware</h3><p>Pull strength falls off with distance, so elements wake before the cursor arrives.</p></div></article>
+    <article class="card" data-tilt><div class="sheen"></div><span class="num">03</span><div><h3>Light follows</h3><p>A soft specular follows the pointer across each surface for depth without shadow.</p></div></article>
+  </div>
+
+  <div class="links" id="links">
+    <a class="lk" href="#"><span class="t">Hover fills upward</span><span class="fill"></span><span class="arw">→</span></a>
+    <a class="lk" href="#"><span class="t">Text rides the fill</span><span class="fill"></span><span class="arw">→</span></a>
+    <a class="lk" href="#"><span class="t">Everything eases out</span><span class="fill"></span><span class="arw">→</span></a>
+  </div>
+  <p class="note">Move the cursor. Nothing here is a CSS transition.</p>
+</div>
+<script>
+(function(){
+  var params = new URLSearchParams(location.search);
+  var capture = params.has('t');
+  var cur = document.getElementById('cur'), ring = document.getElementById('ring');
+  var mouse = {x: innerWidth/2, y: innerHeight/2};
+  var dot = {x: mouse.x, y: mouse.y}, rg = {x: mouse.x, y: mouse.y, s: 1};
+
+  if (!capture) {
+    window.addEventListener('mousemove', function(e){ mouse.x = e.clientX; mouse.y = e.clientY; });
+  }
+
+  var mags = [].slice.call(document.querySelectorAll('.mag')).map(function(el){
+    return {el: el, inner: el.querySelector('.inner'), x:0, y:0, tx:0, ty:0, s: parseFloat(el.dataset.strength) || 0.4};
+  });
+  var cards = [].slice.call(document.querySelectorAll('[data-tilt]')).map(function(el){
+    return {el: el, sheen: el.querySelector('.sheen'), rx:0, ry:0, trx:0, try_:0, o:0, to:0};
+  });
+  var links = [].slice.call(document.querySelectorAll('.lk')).map(function(el){
+    return {el: el, fill: el.querySelector('.fill'), t: el.querySelector('.t'), arw: el.querySelector('.arw'), h:0, th:0};
+  });
+
+  function lerp(a,b,n){ return a + (b - a) * n; }
+
+  function frame(){
+    // cursor springs
+    dot.x = lerp(dot.x, mouse.x, 0.35); dot.y = lerp(dot.y, mouse.y, 0.35);
+    rg.x = lerp(rg.x, mouse.x, 0.14); rg.y = lerp(rg.y, mouse.y, 0.14);
+    cur.style.transform = 'translate3d(' + (dot.x - 9) + 'px,' + (dot.y - 9) + 'px,0)';
+    ring.style.transform = 'translate3d(' + (rg.x - 26) + 'px,' + (rg.y - 26) + 'px,0) scale(' + rg.s.toFixed(3) + ')';
+
+    var near = false;
+    mags.forEach(function(m){
+      var r = m.el.getBoundingClientRect();
+      var cx = r.left + r.width/2, cy = r.top + r.height/2;
+      var dx = mouse.x - cx, dy = mouse.y - cy;
+      var dist = Math.hypot(dx, dy);
+      var radius = Math.max(r.width, r.height) * 1.15;
+      if (dist < radius) {
+        var f = 1 - dist / radius;
+        m.tx = dx * m.s * f; m.ty = dy * m.s * f;
+        near = true;
+      } else { m.tx = 0; m.ty = 0; }
+      m.x = lerp(m.x, m.tx, 0.18); m.y = lerp(m.y, m.ty, 0.18);
+      m.el.style.transform = 'translate3d(' + m.x.toFixed(2) + 'px,' + m.y.toFixed(2) + 'px,0)';
+      if (m.inner) m.inner.style.transform = 'translate3d(' + (m.x * 0.32).toFixed(2) + 'px,' + (m.y * 0.32).toFixed(2) + 'px,0)';
+    });
+    rg.s = lerp(rg.s, near ? 1.7 : 1, 0.12);
+
+    cards.forEach(function(c){
+      var r = c.el.getBoundingClientRect();
+      var inside = mouse.x > r.left && mouse.x < r.right && mouse.y > r.top && mouse.y < r.bottom;
+      if (inside) {
+        var px = (mouse.x - r.left) / r.width, py = (mouse.y - r.top) / r.height;
+        c.try_ = (px - 0.5) * 13; c.trx = (0.5 - py) * 13; c.to = 1;
+        c.sheen.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
+        c.sheen.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+      } else { c.try_ = 0; c.trx = 0; c.to = 0; }
+      c.rx = lerp(c.rx, c.trx, 0.12); c.ry = lerp(c.ry, c.try_, 0.12); c.o = lerp(c.o, c.to, 0.12);
+      c.el.style.transform = 'perspective(800px) rotateX(' + c.rx.toFixed(2) + 'deg) rotateY(' + c.ry.toFixed(2) + 'deg) translateZ(' + (c.o * 14).toFixed(2) + 'px)';
+      c.sheen.style.opacity = c.o.toFixed(3);
+    });
+
+    links.forEach(function(l){
+      var r = l.el.getBoundingClientRect();
+      var inside = mouse.x > r.left && mouse.x < r.right && mouse.y > r.top && mouse.y < r.bottom;
+      l.th = inside ? 100 : 0;
+      l.h = lerp(l.h, l.th, 0.16);
+      l.fill.style.height = l.h.toFixed(2) + '%';
+      var c = l.h > 55 ? '#fff' : '';
+      l.t.style.color = c; l.arw.style.color = c;
+      l.t.style.transform = 'translate3d(' + (l.h * 0.14).toFixed(2) + 'px,0,0)';
+      l.arw.style.transform = 'translate3d(' + (l.h * 0.1).toFixed(2) + 'px,0,0)';
+    });
+
+    requestAnimationFrame(frame);
+  }
+  frame();
+
+  if (capture) {
+    // deterministic cursor path for preview capture
+    var t = parseFloat(params.get('t')) || 0;
+    var path = [ [0.18,0.46],[0.34,0.47],[0.52,0.62],[0.72,0.63],[0.5,0.82],[0.24,0.83] ];
+    var seg = t * (path.length - 1);
+    var i = Math.min(path.length - 2, Math.floor(seg));
+    var f = seg - i;
+    mouse.x = (path[i][0] + (path[i+1][0] - path[i][0]) * f) * innerWidth;
+    mouse.y = (path[i][1] + (path[i+1][1] - path[i][1]) * f) * innerHeight;
+    dot.x = mouse.x; dot.y = mouse.y; rg.x = mouse.x; rg.y = mouse.y;
+    // settle the springs so the frame is stable
+    for (var k = 0; k < 90; k++) {
+      mags.forEach(function(m){ m.x = lerp(m.x, m.tx, 0.18); m.y = lerp(m.y, m.ty, 0.18); });
+      cards.forEach(function(c){ c.rx = lerp(c.rx, c.trx, 0.12); c.ry = lerp(c.ry, c.try_, 0.12); c.o = lerp(c.o, c.to, 0.12); });
+      links.forEach(function(l){ l.h = lerp(l.h, l.th, 0.16); });
+      rg.s = lerp(rg.s, 1.4, 0.12);
+    }
+  }
+})();
+</script>
+</body>
+</html>

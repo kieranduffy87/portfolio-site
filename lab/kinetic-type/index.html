@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kinetic Type — KD Lab</title>
+<meta name="description" content="A scroll-scrubbed kinetic typography sequence. An experiment by Kieran Duffy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root { --blue:#0339f8; --ink:#07080b; --paper:#f2f1ed; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--ink);color:var(--paper);font-family:"Instrument Sans",-apple-system,Helvetica,Arial,sans-serif;overflow-x:hidden}
+.rail{height:520vh;position:relative}
+.stage{position:sticky;top:0;height:100vh;overflow:hidden;display:grid;place-items:center}
+.grain{position:absolute;inset:0;pointer-events:none;opacity:.4;mix-blend-mode:overlay;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E")}
+.wash{position:absolute;inset:-20%;background:radial-gradient(ellipse 50% 40% at 50% 50%, rgba(3,57,248,.55), transparent 70%);filter:blur(40px);will-change:transform,opacity}
+.lines{position:relative;text-align:center;padding:0 5vw}
+.line{display:block;line-height:.86;letter-spacing:-.045em;font-weight:600;
+ font-size:clamp(3rem,13.5vw,13rem);text-transform:uppercase;white-space:nowrap}
+.ch{display:inline-block;will-change:transform,opacity,filter;transform-origin:50% 100%}
+.line.blue .ch{color:var(--blue)}
+.line.hollow .ch{-webkit-text-stroke:2px var(--paper);color:transparent}
+.bar{position:absolute;left:50%;top:50%;width:120vw;height:0;background:var(--blue);transform:translate(-50%,-50%);mix-blend-mode:difference;will-change:height}
+.meta{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:space-between;
+ padding:1.5rem clamp(1rem,4vw,3rem);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;
+ color:rgba(242,241,237,.55);z-index:5}
+.prog{position:fixed;left:0;top:0;height:2px;background:var(--blue);width:0;z-index:6}
+.back{position:fixed;top:1.4rem;left:clamp(1rem,4vw,3rem);z-index:6;font-size:.7rem;letter-spacing:.16em;
+ text-transform:uppercase;color:rgba(242,241,237,.7);text-decoration:none;border:1px solid rgba(242,241,237,.25);
+ padding:.5rem 1rem;border-radius:100px;backdrop-filter:blur(8px)}
+.back:hover{color:#fff;border-color:var(--blue)}
+.end{height:60vh;display:grid;place-items:center;text-align:center;padding:0 5vw}
+.end h2{font-size:clamp(1.6rem,4vw,3rem);font-weight:500;letter-spacing:-.02em}
+.end p{color:rgba(242,241,237,.55);margin-top:1rem;max-width:46ch}
+@media(prefers-reduced-motion:reduce){.rail{height:auto}.stage{position:static;height:auto;padding:24vh 0}}
+</style>
+</head>
+<body>
+<a class="back" href="../../playground.html">← Playground</a>
+<div class="prog" id="prog"></div>
+<div class="rail" id="rail">
+  <section class="stage">
+    <div class="wash" id="wash"></div>
+    <div class="lines">
+      <span class="line" data-l="0">Design</span>
+      <span class="line blue" data-l="1">in</span>
+      <span class="line hollow" data-l="2">Motion</span>
+    </div>
+    <div class="bar" id="bar"></div>
+    <div class="grain"></div>
+  </section>
+</div>
+<section class="end">
+  <div>
+    <h2>Type as choreography.</h2>
+    <p>Every character is an independent actor on a single scroll-driven timeline: rise, rotate, settle, then hand over to the next line.</p>
+  </div>
+</section>
+<div class="meta"><span>KD Lab / 01</span><span id="pct">Scroll</span></div>
+<script>
+(function(){
+  var params = new URLSearchParams(location.search);
+  var capture = params.has('t');
+  // split lines into characters
+  var lines = [].slice.call(document.querySelectorAll('.line'));
+  lines.forEach(function(line){
+    var txt = line.textContent.trim();
+    line.textContent = '';
+    txt.split('').forEach(function(c){
+      var s = document.createElement('span');
+      s.className = 'ch';
+      s.textContent = c;
+      line.appendChild(s);
+    });
+  });
+  var chars = lines.map(function(l){ return [].slice.call(l.querySelectorAll('.ch')); });
+  var wash = document.getElementById('wash'), bar = document.getElementById('bar'),
+      prog = document.getElementById('prog'), pct = document.getElementById('pct');
+
+  function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+  function ease(t){ return 1 - Math.pow(1 - t, 3); }
+  // sub-timeline helper: map global p into [s,e] window
+  function seg(p, s, e){ return clamp((p - s) / (e - s), 0, 1); }
+
+  function render(p){
+    // three line phases, overlapping
+    var phases = [[0.02,0.34],[0.26,0.60],[0.52,0.88]];
+    chars.forEach(function(set, li){
+      var ph = phases[li];
+      set.forEach(function(ch, ci){
+        var stagger = ci / Math.max(1, set.length - 1);
+        var local = ease(seg(p, ph[0] + stagger * 0.09, ph[1] + stagger * 0.04));
+        var out = ease(seg(p, ph[1] + 0.12, ph[1] + 0.30));
+        var y = (1 - local) * 105 - out * 60;
+        var rot = (1 - local) * -78 + out * 26;
+        var op = local * (1 - out);
+        var blur = (1 - local) * 12 + out * 8;
+        ch.style.transform = 'translate3d(0,' + y.toFixed(2) + '%,0) rotateX(' + rot.toFixed(2) + 'deg)';
+        ch.style.opacity = op.toFixed(3);
+        ch.style.filter = blur > 0.4 ? 'blur(' + blur.toFixed(2) + 'px)' : 'none';
+      });
+    });
+    // wash breathes and drifts
+    var w = 0.35 + Math.sin(p * Math.PI * 2) * 0.3;
+    wash.style.opacity = (0.45 + w * 0.4).toFixed(3);
+    wash.style.transform = 'translate3d(' + ((p - 0.5) * 18).toFixed(2) + 'vw,' + ((0.5 - p) * 10).toFixed(2) + 'vh,0) scale(' + (1 + p * 0.35).toFixed(3) + ')';
+    // difference bar sweeps open at the seams
+    var b1 = seg(p, 0.24, 0.30), b2 = seg(p, 0.30, 0.36);
+    var b3 = seg(p, 0.50, 0.56), b4 = seg(p, 0.56, 0.62);
+    var h = Math.max(ease(b1) - ease(b2), ease(b3) - ease(b4));
+    bar.style.height = (h * 42).toFixed(2) + 'vh';
+    prog.style.width = (p * 100).toFixed(2) + '%';
+    if (pct) pct.textContent = Math.round(p * 100) + '%';
+  }
+
+  if (capture) {
+    document.body.style.overflow = 'hidden';
+    document.querySelector('.rail').style.height = '100vh';
+    render(parseFloat(params.get('t')) || 0);
+  } else {
+    var rail = document.getElementById('rail');
+    var tick = false;
+    function onScroll(){
+      if (tick) return; tick = true;
+      requestAnimationFrame(function(){
+        tick = false;
+        var r = rail.getBoundingClientRect();
+        var total = rail.offsetHeight - window.innerHeight;
+        render(clamp(-r.top / total, 0, 1));
+      });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', onScroll);
+    onScroll();
+  }
+})();
+</script>
+</body>
+</html>
