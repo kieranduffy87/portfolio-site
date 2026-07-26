@@ -63,10 +63,10 @@ EXPERIMENTS = [
  "num": "07",
  "title": "ClubOS",
  "tagline": "One app, every club's colours",
- "desc": "A management app for grassroots football clubs, shown here as Dublin Bus FC. Fixtures, tables, squads, team selection and availability polls, all running on the real Leinster Senior League season. The club is not hard coded: crest, colours, grounds and teams are data, so a club signs up, picks two colours, and the whole app arrives in their identity.",
+ "desc": "A management app for grassroots football clubs, shown here as Firhouse Carmel FC. Fixtures, tables, squads, team selection and availability polls, all running on the club's real Amateur Football League season. The club is not hard coded: crest, colours, grounds and teams are data, so a club signs up, picks two colours, and the whole app arrives in their identity.",
  "tags": ["Product design", "White label", "Real data"],
- "build": "Colour is one pair of CSS variables mixed through every surface with color-mix, and the accent decides its own text colour by luminance, so a club can pick lime or maroon and nothing needs restyling. Standings and results were scraped from the league's own site, and each opponent carries its real crest. Vanilla HTML, CSS and JavaScript, no framework, installable as a PWA.",
- "url": "https://kieranduffy87.github.io/firhouse-carmel-fc/?showcase=dublinbus",
+ "build": "Colour is one pair of CSS variables mixed through every surface with color-mix, and the accent decides its own text colour by luminance, so a club can pick navy and yellow or green and white and nothing needs restyling. Standings and results were scraped from the league's own site, and each opponent carries its real crest. Vanilla HTML, CSS and JavaScript, no framework, installable as a PWA.",
+ "url": "https://kieranduffy87.github.io/firhouse-carmel-fc/?showcase",
  "external": True,
 },
 {
