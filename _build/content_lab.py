@@ -59,8 +59,19 @@ EXPERIMENTS = [
  "build": "The film is a Seedance 2.0 shot from OpenArt, a close tracking shot of a snowboarder at golden hour, looped forward and back so it never cuts. It plays at close to its own exposure: rather than grade the picture flat so white type can survive it, the shading is pulled in from the four edges where the words actually sit and the middle of frame is left as shot. The camera keeps moving, so the type also carries a wide soft shadow that vanishes over the dark and holds the letterforms together when a flare sweeps under them. React, TypeScript and Tailwind, built with Vite.",
 },
 {
- "slug": "dental",
+ "slug": "clubos",
  "num": "07",
+ "title": "ClubOS",
+ "tagline": "One app, every club's colours",
+ "desc": "A management app for grassroots football clubs, shown here as Dublin Bus FC. Fixtures, tables, squads, team selection and availability polls, all running on the real Leinster Senior League season. The club is not hard coded: crest, colours, grounds and teams are data, so a club signs up, picks two colours, and the whole app arrives in their identity.",
+ "tags": ["Product design", "White label", "Real data"],
+ "build": "Colour is one pair of CSS variables mixed through every surface with color-mix, and the accent decides its own text colour by luminance, so a club can pick lime or maroon and nothing needs restyling. Standings and results were scraped from the league's own site, and each opponent carries its real crest. Vanilla HTML, CSS and JavaScript, no framework, installable as a PWA.",
+ "url": "https://kieranduffy87.github.io/firhouse-carmel-fc/?showcase=dublinbus",
+ "external": True,
+},
+{
+ "slug": "dental",
+ "num": "08",
  "title": "Dental Health",
  "tagline": "One photograph, cut across nine cards",
  "desc": "A landing page for a clinic that does not exist. Every card in a section is a window onto the same photograph: each one measures where it sits and shifts the picture by exactly that much, so the image runs unbroken behind the whole mosaic while the cards keep their own rounded corners.",
@@ -69,7 +80,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "imagination-explorer",
- "num": "08",
+ "num": "09",
  "title": "The Imagination Explorer",
  "tagline": "A scroll-film for a children's brand",
  "desc": "A promo site built as one continuous scroll-film: the story scrubs frame by frame as you move down the page, with type and colour cued to the film rather than layered over it.",
@@ -79,7 +90,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "aurora",
- "num": "09",
+ "num": "10",
  "title": "Aurora",
  "tagline": "Colour that breathes",
  "desc": "A live WebGL gradient with no images at all: fractal noise, domain-warped twice, pushed through a brand palette and steered by the pointer. Runs on a single fullscreen triangle.",
@@ -88,7 +99,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "reveal",
- "num": "10",
+ "num": "11",
  "title": "Reveal",
  "tagline": "An index that shows its hand",
  "desc": "The agency-list problem: a list scans faster than a grid but hides the work. Here the preview tracks the cursor with inertia, skewing to its own velocity, while the rest of the index dims away.",
@@ -97,7 +108,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "pillgrid",
- "num": "11",
+ "num": "12",
  "title": "PILLGRID",
  "tagline": "Any video, rebuilt in pills",
  "desc": "A real-time video filter that rebuilds footage as a matrix of pill-shaped dots, like a physical LED display. Load a clip or use your camera, then tune grid density, pill shape, colour and bleed live.",
