@@ -218,7 +218,7 @@ export default function App() {
           type="button"
           onClick={() => setMenuOpen(false)}
           aria-label="Close menu"
-          className="liquid-glass absolute top-6 right-5 rounded-full w-11 h-11 grid place-items-center text-white"
+          className="liquid-glass !absolute top-6 right-5 rounded-full w-11 h-11 grid place-items-center text-white"
         >
           <X size={20} />
         </button>

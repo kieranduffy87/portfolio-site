@@ -5,8 +5,17 @@
 
 EXPERIMENTS = [
 {
- "slug": "aurai",
+ "slug": "lumora",
  "num": "01",
+ "title": "Lumora",
+ "tagline": "A hero you watch from a train",
+ "desc": "A full-screen hero for an invented mindfulness app, framed as a carriage window. Four films run past outside and the interface sits on the glass in front of them, so changing scene crossfades the world rather than the page. The bright scene turns the whole block of copy to ink, because white type has nothing to hold onto against snow.",
+ "tags": ["Generative film", "Glass UI", "React"],
+ "build": "The four films are stacked full-screen and crossfaded on opacity over a second, each one looped forward and back so nothing ever cuts. The carriage is a single transparent PNG laid over the top, bobbing six pixels every three seconds and held at a slight scale so no edge is ever exposed. One CSS variable carries the ink colour, so the switch to the snow moves badge, heading, subtext, field and scene labels together instead of element by element. React, TypeScript and Tailwind, built with Vite.",
+},
+{
+ "slug": "aurai",
+ "num": "02",
  "title": "Aurai",
  "tagline": "A hero section for a brand that does not exist",
  "desc": "A full-screen landing page for an invented always-on wellness companion. One film runs behind everything and the interface sits on top in glass, with no dark overlay anywhere. The shot was directed to leave the left of frame empty so the type has somewhere to live.",
@@ -15,7 +24,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "lithos",
- "num": "02",
+ "num": "03",
  "title": "Lithos",
  "tagline": "A spotlight that x-rays the page",
  "desc": "A hero section for an invented geology brand. Two photographs of the same cliff sit exactly on top of each other, and a soft circular spotlight follows the cursor, cutting a window through the top one so the seams below read like an x-ray of the rock.",
@@ -24,7 +33,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "vaultshield",
- "num": "03",
+ "num": "04",
  "title": "VaultShield",
  "tagline": "A hero for a password manager that does not exist",
  "desc": "A full-screen hero for an invented password manager. The film plays behind everything with no scrim over it, because the shot was directed to keep its left third empty, so dark type sits straight on the picture. The icons live inside the headline as words rather than beside it, so they wrap with the line.",
@@ -33,7 +42,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "drift",
- "num": "04",
+ "num": "05",
  "title": "Drift",
  "tagline": "A landing page that stays quiet",
  "desc": "A single page for an invented ADHD-friendly planner. The hero is one held shot of morning light, the cream section rides up over it by the exact radius of its own corners, and the feature cards slide in one at a time against a fixed backdrop while the index on the left keeps pace with where you are.",
@@ -42,7 +51,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "securify",
- "num": "05",
+ "num": "06",
  "title": "Securify",
  "tagline": "A headline placed rather than typeset",
  "desc": "A full-screen hero for an invented data-security platform. The headline is cut into three words and pinned to different corners of the frame, so the eye steps down the page and the film keeps showing through the gaps between them. Nothing sits on a panel: the type, the stats and the navigation all lie straight on the picture.",
@@ -51,7 +60,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "dental",
- "num": "06",
+ "num": "07",
  "title": "Dental Health",
  "tagline": "One photograph, cut across nine cards",
  "desc": "A landing page for a clinic that does not exist. Every card in a section is a window onto the same photograph: each one measures where it sits and shifts the picture by exactly that much, so the image runs unbroken behind the whole mosaic while the cards keep their own rounded corners.",
@@ -60,7 +69,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "imagination-explorer",
- "num": "07",
+ "num": "08",
  "title": "The Imagination Explorer",
  "tagline": "A scroll-film for a children's brand",
  "desc": "A promo site built as one continuous scroll-film: the story scrubs frame by frame as you move down the page, with type and colour cued to the film rather than layered over it.",
@@ -70,7 +79,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "aurora",
- "num": "08",
+ "num": "09",
  "title": "Aurora",
  "tagline": "Colour that breathes",
  "desc": "A live WebGL gradient with no images at all: fractal noise, domain-warped twice, pushed through a brand palette and steered by the pointer. Runs on a single fullscreen triangle.",
@@ -79,7 +88,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "reveal",
- "num": "09",
+ "num": "10",
  "title": "Reveal",
  "tagline": "An index that shows its hand",
  "desc": "The agency-list problem: a list scans faster than a grid but hides the work. Here the preview tracks the cursor with inertia, skewing to its own velocity, while the rest of the index dims away.",
@@ -88,7 +97,7 @@ EXPERIMENTS = [
 },
 {
  "slug": "pillgrid",
- "num": "10",
+ "num": "11",
  "title": "PILLGRID",
  "tagline": "Any video, rebuilt in pills",
  "desc": "A real-time video filter that rebuilds footage as a matrix of pill-shaped dots, like a physical LED display. Load a clip or use your camera, then tune grid density, pill shape, colour and bleed live.",
