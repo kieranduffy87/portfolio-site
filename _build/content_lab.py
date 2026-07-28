@@ -121,6 +121,14 @@ EXPERIMENTS = [
 
 TOOLS = [
 {
+ "title": "KD Logomotion",
+ "url": "https://kieranduffy87.github.io/kd-logomotion/",
+ "desc": "Drop in a logo and get a vertical brand film back. The mark locks dead centre and never moves while twenty-four worlds cut past behind it on the beat, drawn scenes and graded photography alternating. Swap any background for your own, grade it, and export an MP4 with sound without leaving the browser.",
+ "tags": ["Canvas", "WebCodecs", "Web Tool"],
+ "preview": "video",
+ "slug": "kd-logomotion",
+},
+{
  "title": "KD Design System",
  "url": "https://kieranduffy87.github.io/kd-design-system/",
  "desc": "My own brand as a working system: tokens, type scale, colour, components and usage rules, documented and published so every project I build starts from the same foundation.",
