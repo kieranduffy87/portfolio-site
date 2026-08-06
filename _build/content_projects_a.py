@@ -74,12 +74,16 @@ PROJECTS_A = [
    "Business cards are duplexed, grey and white against a solid blue band, with a QR straight to the site instead of a printed list of services. The only line of copy on the card is a plain statement of what the company does, which is the same restraint the rest of the system runs on.",
    "Staff ID badges run the other way round: a full-bleed glass render, the mark small in the corner, and the engineer's name set in the brand typeface. On site that badge is often the first piece of the identity a client reads up close, so it was designed with the same care as anything that gets printed and posted."
   ]),
+  ("A website made of the same parts", [
+   "The site opens on the 3D work rather than a stock header image, so the first thing a visitor sees is the brand's own geometry moving. The interface is kept dark throughout, which lets the blue carry the structure and leaves the lime free to mark the few things that matter: the enquiry button, an active state, a highlighted figure.",
+   "Underneath that, the content is deliberately plain. Services are broken into named, scannable cards rather than paragraphs of jargon, photography shows real engineers in real server rooms, and the contact action stays pinned within reach on every screen. It reads the way the company describes itself: practical, and available when something breaks."
+  ]),
   ("The people who turn up", [
    "The last mile of this brand is a person in a server room at eight in the morning. Uniform, laptop and on-site presence were treated as part of the identity, so the same mark that appears in the 3D animation is the one on the polo shirt in a data centre.",
    "Photography direction follows the palette: deep blacks, hard blue light and a lime accent, so imagery of real environments still sits inside the brand world."
   ]),
  ],
- "services": ["Brand Strategy", "Brand Identity", "3D & Motion", "Vehicle Livery", "Uniform & Field Kit", "Print & Stationery", "Art Direction"],
+ "services": ["Brand Strategy", "Brand Identity", "3D & Motion", "Vehicle Livery", "Uniform & Field Kit", "Print & Stationery", "Website Design", "Art Direction"],
 },
 {
  "slug": "mistara",

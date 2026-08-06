@@ -2832,6 +2832,18 @@
    "t": "media",
    "items": [
     {
+     "kind": "video",
+     "url": "qi-web.mp4"
+    }
+   ]
+  },
+  {
+   "t": "text"
+  },
+  {
+   "t": "media",
+   "items": [
+    {
      "kind": "image",
      "url": "qi-server.jpg"
     },
