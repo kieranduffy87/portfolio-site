@@ -2518,5 +2518,331 @@
     }
    ]
   }
+ ],
+ "whatsexposed": [
+  {
+   "t": "media",
+   "items": [
+    {
+     "kind": "video",
+     "url": "we-hero.mp4"
+    }
+   ]
+  },
+  {
+   "t": "media",
+   "items": [
+    {
+     "kind": "image",
+     "url": "we-overview.jpg"
+    }
+   ]
+  },
+  {
+   "t": "text"
+  },
+  {
+   "t": "media",
+   "items": [
+    {
+     "kind": "image",
+     "url": "we-core.jpg"
+    }
+   ]
+  },
+  {
+   "t": "media",
+   "items": [
+    {
+     "kind": "image",
+     "url": "we-grid-1.jpg"
+    },
+    {
+     "kind": "image",
+     "url": "we-grid-2.jpg"
+    }
+   ]
+  },
+  {
+   "t": "media",
+   "items": [
+    {
+     "kind": "image",
+     "url": "we-type-colour.jpg"
+    }
+   ]
+  },
+  {
+   "t": "media",
+   "items": [
+    {
+     "kind": "video",
+     "url": "we-3dlogo.mp4"
+    },
+    {
+     "kind": "image",
+     "url": "we-appicon-phone.jpg"
+    }
+   ]
+  },
+  {
+   "t": "text"
+  },
+  {
+   "t": "media",
+   "items": [
+    {
+     "kind": "image",
+     "url": "we-billboard.jpg"
+    },
+    {
+     "kind": "image",
+     "url": "we-poster.jpg"
+    }
+   ]
+  },
+  {
+   "t": "text"
+  },
+  {
+   "t": "media",
+   "items": [
+    {
+     "kind": "image",
+     "url": "we-conference.jpg"
+    }
+   ]
+  },
+  {
+   "t": "text"
+  },
+  {
+   "t": "media",
+   "items": [
+    {
+     "kind": "image",
+     "url": "we-stationery-1.jpg"
+    },
+    {
+     "kind": "image",
+     "url": "we-stationery-2.jpg"
+    },
+    {
+     "kind": "image",
+     "url": "we-folder.jpg"
+    }
+   ]
+  },
+  {
+   "t": "text"
+  },
+  {
+   "t": "media",
+   "items": [
+    {
+     "kind": "image",
+     "url": "we-appicon.jpg"
+    },
+    {
+     "kind": "image",
+     "url": "we-social.jpg"
+    }
+   ]
+  },
+  {
+   "t": "text"
+  },
+  {
+   "t": "media",
+   "items": [
+    {
+     "kind": "video",
+     "url": "we-social-motion.mp4"
+    }
+   ]
+  },
+  {
+   "t": "text"
+  },
+  {
+   "t": "media",
+   "items": [
+    {
+     "kind": "video",
+     "url": "we-web-motion.mp4"
+    }
+   ]
+  },
+  {
+   "t": "text"
+  },
+  {
+   "t": "media",
+   "items": [
+    {
+     "kind": "image",
+     "url": "we-web-1.jpg"
+    },
+    {
+     "kind": "image",
+     "url": "we-web-2.jpg"
+    }
+   ]
+  },
+  {
+   "t": "media",
+   "items": [
+    {
+     "kind": "image",
+     "url": "we-banner.jpg"
+    },
+    {
+     "kind": "image",
+     "url": "we-lanyard.jpg"
+    }
+   ]
+  }
+ ],
+ "quinnit": [
+  {
+   "t": "media",
+   "items": [
+    {
+     "kind": "video",
+     "url": "qi-3dlayers-logo.mp4",
+     "poster": "qi-3dlayers.jpg"
+    }
+   ]
+  },
+  {
+   "t": "text"
+  },
+  {
+   "t": "media",
+   "items": [
+    {
+     "kind": "image",
+     "url": "qi-widescreen.jpg"
+    }
+   ]
+  },
+  {
+   "t": "media",
+   "items": [
+    {
+     "kind": "image",
+     "url": "qi-grid-1.jpg"
+    },
+    {
+     "kind": "image",
+     "url": "qi-grid-2.jpg"
+    }
+   ]
+  },
+  {
+   "t": "text"
+  },
+  {
+   "t": "media",
+   "items": [
+    {
+     "kind": "image",
+     "url": "qi-colours.jpg"
+    },
+    {
+     "kind": "image",
+     "url": "qi-type.jpg"
+    }
+   ]
+  },
+  {
+   "t": "text"
+  },
+  {
+   "t": "media",
+   "items": [
+    {
+     "kind": "video",
+     "url": "qi-animation.mp4"
+    },
+    {
+     "kind": "image",
+     "url": "qi-blocks.jpg"
+    }
+   ]
+  },
+  {
+   "t": "text"
+  },
+  {
+   "t": "media",
+   "items": [
+    {
+     "kind": "image",
+     "url": "qi-van-1.jpg"
+    },
+    {
+     "kind": "image",
+     "url": "qi-van-2.jpg"
+    }
+   ]
+  },
+  {
+   "t": "media",
+   "items": [
+    {
+     "kind": "image",
+     "url": "qi-wallsign.jpg"
+    },
+    {
+     "kind": "image",
+     "url": "qi-office.jpg"
+    }
+   ]
+  },
+  {
+   "t": "text"
+  },
+  {
+   "t": "media",
+   "items": [
+    {
+     "kind": "image",
+     "url": "qi-brochure.jpg"
+    },
+    {
+     "kind": "image",
+     "url": "qi-cards.jpg"
+    }
+   ]
+  },
+  {
+   "t": "media",
+   "items": [
+    {
+     "kind": "image",
+     "url": "qi-idcard.jpg"
+    }
+   ]
+  },
+  {
+   "t": "text"
+  },
+  {
+   "t": "media",
+   "items": [
+    {
+     "kind": "image",
+     "url": "qi-server.jpg"
+    },
+    {
+     "kind": "image",
+     "url": "qi-tshirt.jpg"
+    }
+   ]
+  },
+  {
+   "t": "text"
+  }
  ]
 }

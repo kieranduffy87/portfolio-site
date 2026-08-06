@@ -4,6 +4,84 @@
 
 PROJECTS_A = [
 {
+ "slug": "whatsexposed",
+ "name": "WhatsExposed",
+ "tagline": "From Exposure to Resolution",
+ "tags": ["Brand Identity", "Digital Design", "Campaign"],
+ "industry": "Technology",
+ "intro": "WhatsExposed is a cybersecurity company built on a simple promise: find what is exposed, then help fix it. I created the brand from the ground up, the mark and wordmark, the full identity toolkit and guidelines, the website, the campaign platform, and every piece of print, event and social material the company goes to market with.",
+ "sections": [
+  ("A W that moves", [
+   "The brandmark is a W built from flowing forms rather than drawn letters, because the subject is data in motion. It reads as a monogram at a glance and as a current when you look closer, which gives a security company something rare in the category: a mark that suggests movement instead of padlocks and shields.",
+   "The gradient carries the argument. Colour runs from alarm to calm across the mark, so the identity states the proposition before a single word is read: exposure resolved, threat turned into a secure environment."
+  ]),
+  ("Built for the floor", [
+   "Cybersecurity is sold in person, at expos and summits, so the brand had to survive a trade floor. I designed the event system around the same idea as the identity: one strong image, one plain sentence, no clutter.",
+   "The campaign line the stand leads with came from that principle. Real-time findings, not PDFs, with the supporting line explaining that clients see criticals as they are discovered and start fixing before the engagement ends. It is a positioning argument compressed into a sentence a passer-by can read in three seconds, and it works at stage scale, on a billboard, and cropped into a social post."
+  ]),
+  ("Print, stationery and the physical estate", [
+   "The identity extends into a full print estate: stationery, presentation folders, data sheets, posters, exhibition graphics and large-format outdoor. Each format uses the same three ingredients in different proportions, the gradient field, one portrait, and one line of plain speech.",
+   "Working across so many pieces is where a guideline earns its keep. Because construction, clearspace, colour roles and typography are all fixed, new collateral gets produced quickly and still looks like it came from the same company."
+  ]),
+  ("One brand, four lockups", [
+   "Security brands live in awkward spaces: a square avatar, a sponsor wall, an event backdrop, a partner footer. Rather than force one lockup everywhere, I built four. A core horizontal lockup for general use, a stacked version for square and small formats, a variant that carries the industry descriptor for moments when the logo appears with no supporting context, and a mono set for single-colour print.",
+   "Every variant is drawn on the same construction grid with clearspace measured in multiples of the mark itself, so the system scales without anyone needing to redraw it. The guidelines set minimum sizes for screen and print, and show the misuse cases explicitly, because that is where brands usually come apart once they leave the designer."
+  ]),
+  ("Colour that argues the case", [
+   "The palette is a graduated core of red, teal, yellow and purple, anchored by a deep navy and white. The gradient is the brand's primary expression and the solids do the structural work: navy for ground and confidence, white for clarity, the core colours for emphasis and calls to action.",
+   "That split keeps a wide, energetic palette from turning noisy. Gradients carry emotion and movement, solids carry hierarchy, and the pattern and secondary graphic system stays deliberately supporting. The rule I wrote into the guidelines is that decoration never competes with the message."
+  ]),
+  ("Social, product and the digital estate", [
+   "Social is where the tone is tested most often, so the templates are built to be filled fast without drifting. Motion carries the gradient across post formats, and the brandmark frames imagery the same way it does on the website.",
+   "The system also covers the product end: app iconography, Teams backgrounds, presentation decks and sales collateral. From an avatar to an exhibition wall, it is recognisably one company."
+  ]),
+  ("A website that speaks plainly", [
+   "The brand voice is defined as clear, confident and informative, with technical jargon avoided on purpose. That is easy to write into a guideline and hard to hold to in cybersecurity, so I designed the website to make plain speech the path of least resistance: short declarative headlines, generous space, and the brandmark used as a viewfinder framing imagery rather than decoration sitting beside it.",
+   "The result is a site that explains a technical service to a business audience without the usual wall of acronyms, while still looking like it belongs in a serious security category."
+  ]),
+ ],
+ "services": ["Brand Strategy", "Brand Identity", "Brand Guidelines", "Brand Toolkit", "Web Design & Development", "Motion", "Campaign", "Print & Exhibition", "Social Media"],
+},
+{
+ "slug": "quinnit",
+ "name": "Quinn IT",
+ "tagline": "Technology that keeps working",
+ "tags": ["Brand Identity", "3D & Motion", "Livery"],
+ "industry": "Technology",
+ "intro": "Quinn IT is a technology and digital services company: managed IT, managed security, and compliance work for businesses that cannot afford downtime. I built the brand from the mark up, a geometric identity in vibrant blue that holds together across 3D, motion, vehicle livery and the uniform the engineers actually turn up in.",
+ "sections": [
+  ("A mark you can turn", [
+   "The mark is a Q built from interlocking planes rather than drawn as a letter. Read flat it is a monogram; read in three dimensions it becomes an object with depth, edges and a light source, which is what lets it live as a rotating 3D form without ever being redrawn.",
+   "Construction is geometric throughout. The mark and the wordmark are both set out on the same grid, so proportions, angles and optical spacing hold at any size, from a browser tab to the side of a van."
+  ]),
+  ("Vibrant blue, cut with lime", [
+   "The palette runs on one dominant colour: a vibrant blue that is deliberately more saturated than the corporate blues the IT sector defaults to. Black and grey do the structural work, and a vibrant lime provides the accent that stops the whole thing reading as another blue technology brand.",
+   "Lime is rationed on purpose. It appears as an edge, a highlight or a single call to action rather than a second brand colour, which keeps the blue dominant and makes the accent mean something when it does appear.",
+   "Typography follows the same rule as the mark. Bifftron is squared and technical, drawn from straight cuts and right angles rather than curves, so headline type sits on the same geometry as the logo instead of arguing with it."
+  ]),
+  ("Motion as proof of depth", [
+   "Because the mark was constructed as an object rather than a flat shape, it could be rendered as glass and turned in light. Refraction picks up the blue and throws the lime through it, so the animation demonstrates the brand's own palette rather than decorating with it.",
+   "The same asset covers a lot of ground: a loading state, a screen-filling moment on a stand, a social sting, or the last frame of a video. One build, used everywhere motion is needed.",
+   "Pulled in close, the same forms stop reading as a logo and start reading as material: blue glass with lime caught in the bevels. That gives the brand an abstract layer it can use as background and art direction, drawn from its own geometry rather than a stock gradient."
+  ]),
+  ("A brand that arrives in a van", [
+   "For a field IT company the fleet is the most-seen piece of the identity, so the livery was designed as a considered application rather than a logo stuck on a door. The mark is used large and cropped, letting the geometry read as pattern at distance while the wordmark and web address stay legible up close.",
+   "It is drawn to work across vehicle sizes, from a full transit panel to a small van, without redrawing the artwork each time.",
+   "Signage takes the mark the other way. Lit from within and built with real depth, it turns the same geometry into an object on a wall: outside as a solid glass block catching daylight, inside as a blue-lit form that sets the tone of the room. The brand reads as permanent at the front door and on the road alike."
+  ]),
+  ("Print you can hand over", [
+   "The brochure ships in a flocked blue presentation box, so the first thing a prospect handles is the brand colour at full strength before a single word is read. The cover carries the same glass render used in the 3D and motion work, which keeps the identity consistent whether it arrives on a screen or across a table.",
+   "Business cards are duplexed, grey and white against a solid blue band, with a QR straight to the site instead of a printed list of services. The only line of copy on the card is a plain statement of what the company does, which is the same restraint the rest of the system runs on.",
+   "Staff ID badges run the other way round: a full-bleed glass render, the mark small in the corner, and the engineer's name set in the brand typeface. On site that badge is often the first piece of the identity a client reads up close, so it was designed with the same care as anything that gets printed and posted."
+  ]),
+  ("The people who turn up", [
+   "The last mile of this brand is a person in a server room at eight in the morning. Uniform, laptop and on-site presence were treated as part of the identity, so the same mark that appears in the 3D animation is the one on the polo shirt in a data centre.",
+   "Photography direction follows the palette: deep blacks, hard blue light and a lime accent, so imagery of real environments still sits inside the brand world."
+  ]),
+ ],
+ "services": ["Brand Strategy", "Brand Identity", "3D & Motion", "Vehicle Livery", "Uniform & Field Kit", "Print & Stationery", "Art Direction"],
+},
+{
  "slug": "mistara",
  "name": "Mistara",
  "tagline": "Ritual in Every Cup",

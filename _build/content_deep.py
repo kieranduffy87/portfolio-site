@@ -3,9 +3,59 @@
 # Everything here is drawn from the real project facts; exhibits are rendered live in HTML
 # so they read as design documentation, not decoration.
 
-FLAGSHIP = ["mistara", "mjflood", "asl", "raycooke", "engineers-ireland"]
+FLAGSHIP = ["whatsexposed", "quinnit", "mistara", "mjflood", "asl", "raycooke", "engineers-ireland"]
 
 DEEP = {
+"quinnit": {
+ "phases": [
+  ("Positioning", "An IT partner judged on uptime and response, not on jargon: what the business needs to keep running."),
+  ("Mark & wordmark", "A Q built from interlocking planes, constructed on a geometric grid alongside a bespoke wordmark."),
+  ("Colour & system", "One dominant vibrant blue, structured with black and grey, sharpened by a rationed lime accent."),
+  ("3D & motion", "The mark rendered as glass and turned in light, giving the brand a motion asset built from its own geometry."),
+  ("Applied estate", "Vehicle livery across two van sizes, uniform, field kit, print and photography direction."),
+ ],
+ "decisions": [
+  ("Build the mark as an object, not a shape",
+   "Most IT logos are flat and stay flat. Constructing the Q from interlocking planes meant it could be rendered in three dimensions later without redrawing anything, which is where the 3D and motion work came from. The trade-off is a mark that demands care at small sizes, so the geometry was tuned until it still reads at favicon scale."),
+  ("One loud blue, one rationed accent",
+   "The category is full of safe corporate blues. I pushed the blue well past that and then held the lime back to an edge or a single call to action. A second full colour would have diluted both; used sparingly, the lime does more work and the blue stays the thing people remember."),
+  ("Treat the van as a primary touchpoint",
+   "For a field service business, more people see the fleet than the website. So the livery was designed first as a large-scale graphic application, with the mark cropped to read as pattern at distance and the details kept legible up close, rather than being a logo applied to a door at the end of the project."),
+ ],
+ "exhibit": {
+  "type": "brandworld",
+  "title": "The brand system, distilled",
+  "note": "Core palette and principles from the delivered identity.",
+  "accent": "#3200e8",
+  "swatches": [("Vibrant Blue", "#3200e8"), ("Black", "#111111"), ("Grey", "#d3d3d3"), ("Vibrant Lime", "#cbf41c")],
+  "principles": [("Geometry", "planes, not drawn letters"), ("Depth", "a mark built to be turned"), ("Restraint", "one loud blue, one sharp accent")],
+ },
+},
+"whatsexposed": {
+ "phases": [
+  ("Positioning", "Defining a security brand around resolution rather than fear: what is exposed, and how it gets fixed."),
+  ("Brandmark & wordmark", "A W drawn as flowing data, paired with a bespoke wordmark and built on one construction grid."),
+  ("Identity toolkit", "Four lockups, clearspace and sizing rules, colour roles, typography and a secondary graphic system."),
+  ("Digital platform", "A website written in plain speech, with the mark used as a viewfinder for imagery."),
+  ("Go to market", "Campaign platform, exhibition and event graphics, print estate, social templates and sales collateral."),
+ ],
+ "decisions": [
+  ("Movement instead of padlocks",
+   "The category defaults to shields, locks and warning red. I built the mark from flowing forms instead, because the product is about data in motion and about resolution, not alarm. It is a harder sell in a first presentation and a much stronger position to own over time, since almost nothing else in the sector looks like it."),
+  ("The gradient carries the proposition",
+   "Rather than treat colour as decoration, I made the gradient do the arguing: it travels from alarm to calm across the mark, so the transition from exposure to secure environment is stated visually before anyone reads a word. The trade-off is a demanding palette, which is why the guidelines give gradients the emotional work and solid navy and white the structural work."),
+  ("Plain speech as a design constraint",
+   "The brand voice bans jargon, so the layouts had to make that easy to obey. Short headline slots, generous space and one image per message mean there is nowhere for a wall of acronyms to hide. The campaign line, real-time findings rather than PDFs, is the clearest test of it: a technical differentiator stated in a sentence a stranger can read from across a trade floor."),
+ ],
+ "exhibit": {
+  "type": "brandworld",
+  "title": "The brand system, distilled",
+  "note": "Core palette and principles from the delivered identity and guidelines.",
+  "accent": "#1a1048",
+  "swatches": [("Navy", "#1a1048"), ("Teal", "#53c3c3"), ("Purple", "#6b3e98"), ("Red", "#ee242a"), ("Yellow", "#f2e901"), ("White", "#ffffff")],
+  "principles": [("Flow", "data in motion, not padlocks"), ("Transition", "exposure resolved, alarm to calm"), ("Plain speech", "clarity over jargon")],
+ },
+},
 "mistara": {
  "phases": [
   ("Strategy sprint", "Positioning workshops with the MJ Flood team to find space between cafe quality and workplace practicality."),

@@ -15,6 +15,7 @@ from content_deep import DEEP, FLAGSHIP
 from content_lab import EXPERIMENTS, TOOLS
 
 PROJECTS = PROJECTS_A + PROJECTS_B
+LIVE_PROJECTS = [p for p in PROJECTS if not p.get("draft")]
 
 SITE_NAME = "Kieran Duffy"
 BRAND = "KD"
@@ -24,7 +25,7 @@ YEARS = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 
 import datetime as _dt
 LAST_UPDATED = _dt.date.today().strftime("%B %Y")
 
-FEATURED = ["mistara", "mjflood", "asl", "celsius", "engineers-ireland", "liffey-meats"]
+FEATURED = ["whatsexposed", "quinnit", "mistara", "mjflood", "asl", "celsius", "engineers-ireland", "liffey-meats"]
 
 SERVICES = [
  ("Brand Strategy", "brand-strategy",
@@ -90,7 +91,7 @@ def e(s): return html.escape(s, quote=True)
 
 KD_MARK = """<svg class="kd-mark" viewBox="0 0 18.62 11.73" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polygon fill="#0339f8" points="18.62 0 12 0 6 5.86 12 11.73 18.62 11.73 12.62 5.86 18.62 0"/><polygon class="kd-mark-ink" points="0 0 0 11.72 6 5.86 0 0"/></svg>"""
 
-def head(title, depth=0, desc="", path="", og_image=None):
+def head(title, depth=0, desc="", path="", og_image=None, noindex=False):
     p = "../" * depth
     url = f"{SITE_URL}/{path}" if path else f"{SITE_URL}/"
     ogimg = og_image or f"{SITE_URL}/assets/site/og.png"
@@ -102,7 +103,7 @@ def head(title, depth=0, desc="", path="", og_image=None):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{e(title)}</title>
 <meta name="description" content="{e(d)}">
-<link rel="canonical" href="{url}">
+<link rel="canonical" href="{url}">{'<meta name="robots" content="noindex, nofollow">' if noindex else ''}
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Kieran Duffy">
 <meta property="og:title" content="{e(title)}">
@@ -244,7 +245,7 @@ def local_asset(slug, url):
     return None
 
 def layout_media(slug):
-    """Ordered media rows from the CDG layout: list of lists of (kind, localpath)."""
+    """Ordered media rows from the CDG layout: list of lists of (kind, localpath, poster)."""
     rows = []
     for b in LAYOUTS.get(slug, []):
         if b["t"] != "media":
@@ -254,22 +255,27 @@ def layout_media(slug):
             p = local_asset(slug, it["url"])
             if p:
                 kind = "video" if p.lower().endswith(VIDEO_EXTS) else "image"
-                row.append((kind, p))
+                row.append((kind, p, local_asset(slug, it["poster"]) if it.get("poster") else None))
         if row:
             rows.append(row)
     return rows
 
 def layout_first_image(slug):
+    rows = layout_media(slug)
+    if rows and rows[0] and rows[0][0][0] == "video" and rows[0][0][2]:
+        return rows[0][0][2]  # hero poster is the intended share image
+
     for row in layout_media(slug):
-        for kind, p in row:
+        for kind, p, _po in row:
             if kind == "image":
                 return p
     return None
 
-def media_item(name, depth, kind, path):
+def media_item(name, depth, kind, path, poster=None):
     if kind == "video":
+        pa = f' poster="{rel(poster, depth)}"' if poster else ""
         return f"""<figure class="m-item">
-  <video autoplay muted loop playsinline preload="metadata" src="{rel(path, depth)}"></video>
+  <video autoplay muted loop playsinline preload="metadata"{pa} src="{rel(path, depth)}"></video>
 </figure>"""
     return f"""<figure class="m-item">
   <img src="{rel(path, depth)}" alt="{e(name)} project imagery" loading="lazy">
@@ -277,7 +283,7 @@ def media_item(name, depth, kind, path):
 
 def media_row(name, depth, row, hero=False):
     n = min(len(row), 3)
-    items = "\n".join(media_item(name, depth, k, p) for k, p in row)
+    items = "\n".join(media_item(name, depth, k, p, po) for k, p, po in row)
     return f'<div class="media-row cols-{n}{" media-hero" if hero else ""}">\n{items}\n</div>'
 
 def media(name, depth, src=None, video=None, poster=None, tall=False, note=""):
@@ -302,6 +308,12 @@ def media(name, depth, src=None, video=None, poster=None, tall=False, note=""):
 
 MOSAIC_CYCLE = ["sz-s", "sz-l", "sz-t", "sz-t", "sz-t", "sz-l", "sz-s", "sz-t", "sz-t", "sz-t"]
 
+# card thumbnails that should differ from the case-study hero
+CARD_MEDIA = {
+    # Quinn IT: cards and slides carry their own title, so they use the no-logo cut
+    "quinnit": ("assets/scraped/quinnit/qi-3dlayers.mp4", "assets/scraped/quinnit/qi-3dlayers-card.jpg"),
+}
+
 def project_card(pr, depth=0, num=None, size=""):
     p = "../" * depth
     tags = " ".join(f"<span>{e(t)}</span>" for t in pr["tags"][:3])
@@ -312,6 +324,10 @@ def project_card(pr, depth=0, num=None, size=""):
         imgs, _ = project_assets(pr["slug"])
         thumb = imgs[0] if imgs else None
     vid = layout_first_video(pr["slug"])
+    if pr["slug"] in CARD_MEDIA:
+        cv, cp = (os.path.join(ROOT, x) for x in CARD_MEDIA[pr["slug"]])
+        if os.path.exists(cv): vid = cv
+        if os.path.exists(cp): thumb = cp
     if vid:
         poster = f' poster="{rel(thumb, depth)}"' if thumb else ""
         media_inner = f'<video class="card-vid" muted loop playsinline preload="none"{poster} data-src="{rel(vid, depth)}"></video>'
@@ -335,16 +351,20 @@ def project_card(pr, depth=0, num=None, size=""):
 # ---------------- HOME ----------------
 # explicit homepage slide videos (site/sliders are Kieran's custom cuts)
 HOME_SLIDE_VIDEOS = {
+    "whatsexposed": "assets/scraped/whatsexposed/we-hero.mp4",
     "mistara": "assets/site/sliders/mistara-slider.mp4",
     "liffey-meats": "assets/site/sliders/liffey-slider.mp4",
     "celsius": "assets/site/sliders/celsius-slider.mp4",
     "mjflood": "assets/scraped/mjflood/Mjflood-M.mp4",
     "asl": "assets/scraped/asl/ASL-2.mp4",
+    # Quinn IT: the project page hero carries the logo lockup; the homepage slider
+    # overlays its own title, so it uses the clean no-logo cut of the same film.
+    "quinnit": "assets/scraped/quinnit/qi-3dlayers.mp4",
 }
 
 def layout_first_video(slug):
     for row in layout_media(slug):
-        for kind, p in row:
+        for kind, p, _po in row:
             if kind == "video":
                 return p
     return None
@@ -363,16 +383,18 @@ def hero_slide_media(slug, depth=0):
     return f'<img src="{rel(img, depth)}" alt="" loading="lazy">' if img else ""
 
 SLIDE_STATEMENTS = {
+    "whatsexposed": "Brand Identity for Cybersecurity",
     "mistara": "Brand Identity for Consumers",
     "mjflood": "Brand Identity for Professional Services",
     "asl": "Digital Experiences for Aviation",
     "celsius": "Digital Campaigns for Consumers",
     "engineers-ireland": "Digital Experiences for Civil & Public",
     "liffey-meats": "Brand Identity for the Food Industry",
+    "quinnit": "Brand Identity for Technology",
 }
 
 def build_home():
-    feats = [p for s in FEATURED for p in PROJECTS if p["slug"] == s]
+    feats = [p for s in FEATURED for p in LIVE_PROJECTS if p["slug"] == s]
     slides = []
     for i, p in enumerate(feats):
         statement = SLIDE_STATEMENTS.get(p["slug"], p["tagline"])
@@ -449,7 +471,7 @@ def build_home():
 </section>
 
 <section class="home-projects">
-  <div class="sec-head reveal"><h2>Selected <em>Work</em></h2><a class="btn ghost" href="work.html">All {len(PROJECTS)} projects</a></div>
+  <div class="sec-head reveal"><h2>Selected <em>Work</em></h2><a class="btn ghost" href="work.html">All {len(LIVE_PROJECTS)} projects</a></div>
   <div class="proj-grid mosaic" id="scrubGrid">{cards}</div>
 </section>
 
@@ -466,7 +488,7 @@ def build_home():
   <p class="reveal">The difference between being noticed and being chosen is how clearly you are understood.</p>
   <div class="under-links">
     <a class="under-card reveal" href="about.html"><span class="mono">About</span><p>Design thinking and digital innovation, fifteen years of it.</p><i>&rarr;</i></a>
-    <a class="under-card reveal" href="work.html"><span class="mono">Work</span><p>{len(PROJECTS)} projects across four continents.</p><i>&rarr;</i></a>
+    <a class="under-card reveal" href="work.html"><span class="mono">Work</span><p>{len(LIVE_PROJECTS)} projects across four continents.</p><i>&rarr;</i></a>
     <a class="under-card reveal" href="about.html#responsible"><span class="mono">Responsible design</span><p>Low-carbon platforms. Efficiency without compromise.</p><i>&rarr;</i></a>
   </div>
 </section>
@@ -519,7 +541,7 @@ def build_about():
 <section class="stats">
   <div class="stat reveal"><span class="stat-big">15</span><p>years of design practice across brand and digital</p></div>
   <div class="stat reveal"><span class="stat-big">4</span><p>continents of clients, from Dublin to Boston to Courchevel</p></div>
-  <div class="stat reveal"><span class="stat-big">{len(PROJECTS)}</span><p>selected case studies in this portfolio, and counting</p></div>
+  <div class="stat reveal"><span class="stat-big">{len(LIVE_PROJECTS)}</span><p>selected case studies in this portfolio, and counting</p></div>
 </section>
 
 <section class="prose-block" id="responsible">
@@ -572,8 +594,8 @@ def build_work():
     inds = sorted({p["industry"] for p in PROJECTS})
     chips = '<button class="chip active" data-filter="all">All</button>' + "".join(
         f'<button class="chip" data-filter="{e(i)}">{e(i)}</button>' for i in inds)
-    flags = [p for s2 in FLAGSHIP for p in PROJECTS if p["slug"] == s2]
-    rest = [p for p in PROJECTS if p["slug"] not in FLAGSHIP]
+    flags = [p for s2 in FLAGSHIP for p in LIVE_PROJECTS if p["slug"] == s2]
+    rest = [p for p in LIVE_PROJECTS if p["slug"] not in FLAGSHIP]
     cards = "\n".join(project_card(p, 0, size=MOSAIC_CYCLE[i % len(MOSAIC_CYCLE)]) for i, p in enumerate(flags))
     archive = "\n".join(project_card(p, 0, size="sz-a") for p in rest)
     body = f"""
@@ -583,7 +605,7 @@ def build_work():
   <h1 class="page-title">Built for impact.<br>Designed to <em>last.</em></h1>
   <p class="hero-sub">I&rsquo;ve partnered with respected organisations in Ireland and internationally, and the work I&rsquo;m proudest of continues to perform years after delivery.</p>
 </section>
-<div class="filter-bar reveal"><span class="mono filter-label">Filter&nbsp;/</span>{chips}<span class="mono" id="projCount">{len(PROJECTS)} projects</span></div>
+<div class="filter-bar reveal"><span class="mono filter-label">Filter&nbsp;/</span>{chips}<span class="mono" id="projCount">{len(LIVE_PROJECTS)} projects</span></div>
 <section class="work-featured">
   <h2 class="work-sub reveal">Featured case studies</h2>
   <div class="proj-grid mosaic" id="workGrid">{cards}</div>
@@ -727,16 +749,16 @@ def build_project(pr, idx):
     # deeper in the layout, promote it to the hero and drop it from its row
     first_vid = None
     for ri, row in enumerate(rows):
-        for ii, (kind, path) in enumerate(row):
+        for ii, (kind, path, po) in enumerate(row):
             if kind == "video":
-                first_vid = (ri, ii, path)
+                first_vid = (ri, ii, path, po)
                 break
         if first_vid:
             break
     if first_vid and not (first_vid[0] == 0 and first_vid[1] == 0):
-        ri, ii, path = first_vid
+        ri, ii, path, po = first_vid
         rows[ri] = [it for j, it in enumerate(rows[ri]) if j != ii]
-        rows = [[("video", path)]] + [r for r in rows if r]
+        rows = [[("video", path, po)]] + [r for r in rows if r]
 
     # Follow the CDG page structure block-by-block:
     # first media block = feature/hero (same media as CDG), text blocks pull my copy in order.
@@ -776,8 +798,10 @@ def build_project(pr, idx):
         cells = "".join(f'<div class="stat"><span class="stat-big">{e(a)}</span><p>{e(b)}</p></div>' for a, b in pr["stats"])
         stats = f'<section class="stats cs-stats">{cells}</section>'
     svcs = "".join(f"<li>{e(s)}</li>" for s in pr["services"])
-    prev = PROJECTS[(idx - 1) % len(PROJECTS)]
-    nxt = PROJECTS[(idx + 1) % len(PROJECTS)]
+    ring = LIVE_PROJECTS if not pr.get("draft") else LIVE_PROJECTS
+    ri = ring.index(pr) if pr in ring else 0
+    prev = ring[(ri - 1) % len(ring)]
+    nxt = ring[(ri + 1) % len(ring)]
     body = f"""
 <main class="page case-study">
 <section class="cs-hero">
@@ -803,7 +827,7 @@ def build_project(pr, idx):
     title = f"{pr['name']} | {pr['tagline']} | Kieran Duffy"
     ogi = layout_first_image(slug)
     og_abs = f"{SITE_URL}/{q(os.path.relpath(ogi, ROOT))}" if ogi else None
-    return head(title, depth=1, desc=pr["intro"][:150], path=f"projects/{slug}.html", og_image=og_abs) + nav(1, "work") + body + footer(1)
+    return head(title, depth=1, desc=pr["intro"][:150], path=f"projects/{slug}.html", og_image=og_abs, noindex=pr.get("draft", False)) + nav(1, "work") + body + footer(1)
 
 def build_playground():
     cards = []
@@ -894,7 +918,7 @@ def build_404():
     return head("Page not found | Kieran Duffy", path="404.html") + nav(0, "") + body + footer(0)
 
 def build_sitemap():
-    urls = ["", "about.html", "services.html", "work.html", "playground.html", "contact.html"] + [x.get("url", f"lab/{x['slug']}/index.html") for x in EXPERIMENTS if not str(x.get("url", "")).startswith("http")] + [f"projects/{p['slug']}.html" for p in PROJECTS]
+    urls = ["", "about.html", "services.html", "work.html", "playground.html", "contact.html"] + [x.get("url", f"lab/{x['slug']}/index.html") for x in EXPERIMENTS if not str(x.get("url", "")).startswith("http")] + [f"projects/{p['slug']}.html" for p in LIVE_PROJECTS]
     today = _dt.date.today().isoformat()
     items = "".join(f"<url><loc>{SITE_URL}/{u}</loc><lastmod>{today}</lastmod></url>" for u in urls)
     return f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{items}</urlset>'
@@ -915,9 +939,13 @@ def main():
         open(os.path.join(ROOT, fn), "w").write(content)
     os.makedirs(os.path.join(ROOT, "projects"), exist_ok=True)
     for i, pr in enumerate(PROJECTS):
-        open(os.path.join(ROOT, "projects", pr["slug"] + ".html"), "w").write(build_project(pr, i))
+        # drafts render to drafts/ so they are viewable locally but never picked up by a deploy of projects/
+        outdir = "drafts" if pr.get("draft") else "projects"
+        os.makedirs(os.path.join(ROOT, outdir), exist_ok=True)
+        open(os.path.join(ROOT, outdir, pr["slug"] + ".html"), "w").write(build_project(pr, i))
         os.makedirs(os.path.join(ROOT, "assets", "projects", pr["slug"]), exist_ok=True)
-    print(f"Built {len(pages)} pages + {len(PROJECTS)} case studies.")
+    drafts = [p["slug"] for p in PROJECTS if p.get("draft")]
+    print(f"Built {len(pages)} pages + {len(PROJECTS)} case studies" + (f" (drafts, not linked publicly: {', '.join(drafts)})" if drafts else "") + ".")
 
 if __name__ == "__main__":
     main()
