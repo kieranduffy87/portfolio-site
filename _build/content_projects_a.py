@@ -76,7 +76,8 @@ PROJECTS_A = [
   ]),
   ("A website made of the same parts", [
    "The site opens on the 3D work rather than a stock header image, so the first thing a visitor sees is the brand's own geometry moving. The interface is kept dark throughout, which lets the blue carry the structure and leaves the lime free to mark the few things that matter: the enquiry button, an active state, a highlighted figure.",
-   "Underneath that, the content is deliberately plain. Services are broken into named, scannable cards rather than paragraphs of jargon, photography shows real engineers in real server rooms, and the contact action stays pinned within reach on every screen. It reads the way the company describes itself: practical, and available when something breaks."
+   "Underneath that, the content is deliberately plain. Services are broken into named, scannable cards rather than paragraphs of jargon, photography shows real engineers in real server rooms, and the contact action stays pinned within reach on every screen. It reads the way the company describes itself: practical, and available when something breaks.",
+   "The layout holds together down to tablet and phone, where the mark crops in rather than shrinking away, and the same system carries onto social. Profile artwork uses the glass renders as the banner and the mark alone as the avatar, so the account is recognisable at the size people actually see it: a 40 pixel circle in a feed."
   ]),
   ("The people who turn up", [
    "The last mile of this brand is a person in a server room at eight in the morning. Uniform, laptop and on-site presence were treated as part of the identity, so the same mark that appears in the 3D animation is the one on the polo shirt in a data centre.",

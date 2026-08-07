@@ -2838,6 +2838,19 @@
    ]
   },
   {
+   "t": "media",
+   "items": [
+    {
+     "kind": "image",
+     "url": "qi-tablet.jpg"
+    },
+    {
+     "kind": "image",
+     "url": "qi-social.jpg"
+    }
+   ]
+  },
+  {
    "t": "text"
   },
   {
