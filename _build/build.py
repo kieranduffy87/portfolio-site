@@ -369,16 +369,28 @@ def layout_first_video(slug):
                 return p
     return None
 
-def hero_slide_media(slug, depth=0):
-    """Video-first feature media; explicit slide cuts win, then the project's feature video."""
+def hero_slide_media(slug, depth=0, first=False):
+    """Video-first feature media; explicit slide cuts win, then the project's feature video.
+
+    Only the opening slide ships a real src. iOS caps how many media elements a page
+    may hold open and silently refuses the rest, so the other slides carry data-src
+    and are attached by the slider as they come round.
+    """
     path = None
     if slug in HOME_SLIDE_VIDEOS:
         cand = os.path.join(ROOT, HOME_SLIDE_VIDEOS[slug])
         if os.path.exists(cand):
             path = cand
     path = path or layout_first_video(slug)
+    poster = layout_first_image(slug)
+    if slug in CARD_MEDIA:                      # homepage slots use the no-logo cut and its still
+        cv, cp = (os.path.join(ROOT, x) for x in CARD_MEDIA[slug])
+        if os.path.exists(cp): poster = cp
     if path:
-        return f'<video muted loop playsinline preload="metadata" src="{rel(path, depth)}"></video>'
+        pa = f' poster="{rel(poster, depth)}"' if poster else ""
+        attr = f'src="{rel(path, depth)}"' if first else f'data-src="{rel(path, depth)}"'
+        pre = "metadata" if first else "none"
+        return f'<video muted loop playsinline preload="{pre}"{pa} {attr}></video>'
     img = layout_first_image(slug)
     return f'<img src="{rel(img, depth)}" alt="" loading="lazy">' if img else ""
 
@@ -399,7 +411,7 @@ def build_home():
     for i, p in enumerate(feats):
         statement = SLIDE_STATEMENTS.get(p["slug"], p["tagline"])
         slides.append(f"""<a class="slide{' active' if i == 0 else ''}" href="projects/{p['slug']}.html" data-slide="{i}">
-      <div class="slide-media">{hero_slide_media(p['slug'])}</div>
+      <div class="slide-media">{hero_slide_media(p['slug'], first=(i == 0))}</div>
       <div class="slide-scrim"></div>
       <div class="slide-statement">
         <span class="st-lead">I design</span>

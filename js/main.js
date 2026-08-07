@@ -151,10 +151,36 @@
     var slides = slider.querySelectorAll('.slide');
     var dots = slider.querySelectorAll('.dot');
     var cur = 0, timer;
+    // iOS allows only a handful of media elements to stay open at once and silently
+    // drops the rest, so hold a source on the current slide and its neighbours only.
+    function attach(slide) {
+      var v = slide && slide.querySelector('video');
+      if (v && !v.getAttribute('src') && v.dataset.src) { v.src = v.dataset.src; }
+      return v;
+    }
+    function release(slide) {
+      var v = slide && slide.querySelector('video');
+      if (v && v.dataset.src && v.getAttribute('src')) {
+        v.pause(); v.removeAttribute('src'); v.load();
+      }
+    }
+    function keepWindow() {
+      var keep = [cur, (cur + 1) % slides.length, (cur - 1 + slides.length) % slides.length];
+      for (var i = 0; i < slides.length; i++) {
+        if (keep.indexOf(i) === -1) release(slides[i]); else attach(slides[i]);
+      }
+    }
     function playVid(slide, on) {
       var v = slide.querySelector('video');
       if (!v) return;
-      if (on) { v.play().catch(function () {}); } else { v.pause(); }
+      if (!on) { v.pause(); return; }
+      attach(slide);
+      var go = function () { var p = v.play(); if (p && p.catch) p.catch(function () {}); };
+      // a freshly attached source is not ready yet, so try now and again once it can play
+      go();
+      if (v.readyState < 2) {
+        v.addEventListener('canplay', function h() { v.removeEventListener('canplay', h); go(); });
+      }
     }
     function goTo(n) {
       n = (n + slides.length) % slides.length;
@@ -166,12 +192,14 @@
       slides[cur].classList.add('active');
       dots[cur].classList.add('active');
       playVid(slides[cur], true);
+      keepWindow();
     }
     function arm() {
       clearInterval(timer);
       timer = setInterval(function () { goTo(cur + 1); }, 6000);
     }
     playVid(slides[0], true);
+    keepWindow();
     dots.forEach(function (d) {
       d.addEventListener('click', function () { goTo(+d.getAttribute('data-goto')); arm(); });
     });
