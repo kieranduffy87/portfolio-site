@@ -121,6 +121,14 @@ EXPERIMENTS = [
 
 TOOLS = [
 {
+ "title": "KD Visual Configurator",
+ "url": "https://kieranduffy87.github.io/kd-visual-configurator/",
+ "desc": "3D brand visuals without booking a 3D artist. Pick a landscape, a colourway, a camera and a type layout, then export the same scene as a hero, a cover, a square and a story. Every option is locked to the brand palette, so nothing that comes out of it is off-brand.",
+ "tags": ["Three.js", "Brand system", "Web Tool"],
+ "preview": "video",
+ "slug": "kd-visual-configurator",
+},
+{
  "title": "KD Logomotion",
  "url": "https://kieranduffy87.github.io/kd-logomotion/",
  "desc": "Drop in a logo and get a vertical brand film back. The mark locks dead centre and never moves while twenty-four worlds cut past behind it on the beat, drawn scenes and graded photography alternating. Swap any background for your own, grade it, and export an MP4 with sound without leaving the browser.",
