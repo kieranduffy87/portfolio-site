@@ -123,7 +123,7 @@ TOOLS = [
 {
  "title": "KD Visual Configurator",
  "url": "https://kieranduffy87.github.io/kd-visual-configurator/",
- "desc": "3D brand visuals without booking a 3D artist. Pick a world — open landscape, half-drowned sea, seamless studio cyclorama or polished void — then a colourway, a camera and a type layout, and export the same scene as a hero, a cover, a square and a story. Every option is locked to the brand palette, so nothing that comes out of it is off-brand.",
+ "desc": "3D brand visuals without booking a 3D artist. Pick a world — an open landscape, a seamless studio, or a material study in stacked metal, liquid chrome or refracting glass — then a colourway, a camera and a type layout, and export the same scene as a hero, a cover, a square and a story. Every option is locked to the brand palette, so nothing that comes out of it is off-brand.",
  "tags": ["Three.js", "Brand system", "Web Tool"],
  "preview": "video",
  "slug": "kd-visual-configurator",
