@@ -4,8 +4,11 @@
 /* the stage follows the site's own light/dark switch */
 /* the site pads its sections; the hero must start hard against the top or the
    whole stage, count included, sits low in the screen */
-.hero-chev { position: relative; height: 200vh; background: var(--bg); padding: 0; margin: 0; }
-.chev-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; color: var(--text); }
+.hero-chev { position: relative; height: 200vh; background: var(--bg); padding: 0; margin: 0; overflow-x: clip; }
+.chev-sticky {
+  position: sticky; top: 0; height: 100vh; overflow: hidden; color: var(--text);
+}
+@supports (height: 100svh) { .chev-sticky { height: 100svh; } }
 .chev-stage { position: absolute; inset: 0; perspective: 1600px; }
 .chev-field { position: absolute; left: 50%; top: 50%; transform-style: preserve-3d; }
 
@@ -139,16 +142,17 @@ body.chev-loading .chev-bar { opacity: 1; }
    middle card. No supporting line here; the headline carries it alone. --- */
 .mode-fan .chev-centre {
   top: 68%; bottom: auto; transform: translateX(-50%);
-  /* the arc curves down at both ends, so the clear band is narrow: keep the
-     line inside roughly the width of the middle card */
-  width: min(38vw, 520px);
+  /* Box and type both scale on vmin, the same axis the fan is built on, so the
+     ratio holds at every width and the line always breaks in two. A fixed box
+     with a vw font wrapped to three lines above 1440. */
+  width: min(64vmin, 760px);
 }
-.mode-fan .chev-line { font-size: clamp(24px, 2.8vw, 44px); line-height: 1.12; }
+.mode-fan .chev-line { font-size: clamp(22px, 3.4vmin, 42px); line-height: 1.12; }
 .mode-fan .chev-sub { display: none; }
 .brk-m { display: none; }
 @media (max-width: 720px) {
   /* just under the arc, not parked at the bottom of the screen */
-  .mode-fan .chev-centre { top: 70%; bottom: auto; width: 88vw; }
+  .mode-fan .chev-centre { top: 64%; bottom: auto; width: 88vw; }
   /* needs its own size, or the vw-based desktop clamp bottoms out tiny here */
   .mode-fan .chev-line { font-size: clamp(27px, 7.4vw, 38px); }
   /* three deliberate lines beat two plus an orphaned word */

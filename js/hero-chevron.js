@@ -224,7 +224,7 @@
       var R = c.vh * (c.portrait ? .40 : .80);
       var w = c.mn * (c.portrait ? .44 : .30);
       var ang = k * spread, a = ang * RAD;
-      return { x: Math.sin(a) * R, y: -Math.cos(a) * R + R * .84, rot: ang, z: -Math.abs(k) * 26,
+      return { x: Math.sin(a) * R, y: -Math.cos(a) * R + R * (c.portrait ? .62 : .84), rot: ang, z: -Math.abs(k) * 26,
                w: w, h: w * 1.26, op: clamp(1.9 - Math.abs(k) * .34, 0, 1), foc: Math.abs(k) };
     },
     // flying down a corridor of work
@@ -339,9 +339,12 @@
     t.el.addEventListener('pointerleave', function () { if (hover === t) hover = null; });
   });
 
+  var stage = host.querySelector('.chev-sticky');
   function frame(now) {
     var r = host.getBoundingClientRect();
-    var P = clamp(-r.top / (r.height - window.innerHeight), 0, 1);
+    // measure against the stage, which may be a small viewport height, not the window
+    var stageH = stage.clientHeight || window.innerHeight;
+    var P = clamp(-r.top / (r.height - stageH), 0, 1);
     var onScreen = r.bottom > 0 && r.top < window.innerHeight;
     if (!onScreen) { requestAnimationFrame(frame); return; }          // idle once scrolled past
 
@@ -381,7 +384,7 @@
     hintEl.style.opacity = (open > .98 && P < .04) ? .45 : 0;
     document.body.classList.toggle('chev-dark-nav', r.bottom > window.innerHeight * .35);
 
-    var vw = window.innerWidth, vh = window.innerHeight;
+    var vw = window.innerWidth, vh = stageH;
     var mn = Math.min(vw, vh), portrait = vw < vh;
     var M = Math.min(vw * (portrait ? .86 : .6), vh * .56 * 18.62 / 11.73), k = M / 18.62;
     var cell = grid.s * k * .98;

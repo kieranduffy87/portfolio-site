@@ -31,7 +31,7 @@ HERO_RING = 12
 # The line that lands in the middle of the ring once it has opened. <em> is the blue.
 # Alternates can be previewed live with ?hero=1..4; keep the chosen one first.
 HERO_LINES = [
-    ("Brand and digital<br class='brk-m'>design that<br><em>earns its keep</em>.",
+    ("Brand and digital<br class='brk-m'> design that <br><em>earns its keep</em>.",
      "Kieran Duffy. Fifteen years of it, from Dublin."),
     ("Thirty-seven projects. <em>One way of working</em>.",
      "Strategy first, then identity, then everything it touches."),

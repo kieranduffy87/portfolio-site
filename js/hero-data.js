@@ -1,5 +1,5 @@
 window.HERO_RING = 12;
-window.HERO_LINES = [["Brand and digital<br class='brk-m'>design that<br><em>earns its keep</em>.", "Kieran Duffy. Fifteen years of it, from Dublin."], ["Thirty-seven projects. <em>One way of working</em>.", "Strategy first, then identity, then everything it touches."], ["I design the brand, the interface, <em>and everything it touches</em>.", "Brand, UI and UX, photography, film and motion."], ["Design that makes a business <em>easier to choose</em>.", "Fifteen years of brand and digital work, from Dublin."]];
+window.HERO_LINES = [["Brand and digital<br class='brk-m'> design that <br><em>earns its keep</em>.", "Kieran Duffy. Fifteen years of it, from Dublin."], ["Thirty-seven projects. <em>One way of working</em>.", "Strategy first, then identity, then everything it touches."], ["I design the brand, the interface, <em>and everything it touches</em>.", "Brand, UI and UX, photography, film and motion."], ["Design that makes a business <em>easier to choose</em>.", "Fifteen years of brand and digital work, from Dublin."]];
 window.HERO_PROJECTS = [
 {
 "slug": "whatsexposed",
