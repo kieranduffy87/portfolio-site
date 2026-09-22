@@ -1,0 +1,96 @@
+/* Chevron hero: the work assembles into the KD mark, then opens into a ring of featured projects.
+   Scroll-driven inside a pinned section, so the page below is never held hostage. */
+
+/* the stage follows the site's own light/dark switch */
+/* the site pads its sections; the hero must start hard against the top or the
+   whole stage, count included, sits low in the screen */
+.hero-chev { position: relative; height: 200vh; background: var(--bg); padding: 0; margin: 0; }
+.chev-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; color: var(--text); }
+.chev-stage { position: absolute; inset: 0; perspective: 1600px; }
+.chev-field { position: absolute; left: 50%; top: 50%; transform-style: preserve-3d; }
+
+.chev-tile {
+  position: absolute; left: 0; top: 0; overflow: hidden; border-radius: 2px; background: var(--surface-2);
+  will-change: transform, opacity; text-decoration: none;
+}
+.chev-tile.lead { border-radius: calc(2px + var(--open, 0) * 10px); }
+.chev-tile img {
+  width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none;
+  filter: grayscale(var(--t, 1)) brightness(calc(1 + var(--t, 1) * .25)) contrast(calc(1 + var(--t, 1) * .15));
+}
+/* while they are the mark, tiles wear the mark's colours */
+.chev-tile::after {
+  content: ''; position: absolute; inset: 0; opacity: var(--t, 1);
+  mix-blend-mode: color; background: #0339f8; pointer-events: none;
+}
+/* the ink half of the mark: dark on paper, light on black */
+.chev-tile.ink img { filter: grayscale(var(--t, 1)) brightness(calc(1 - var(--t, 1) * .55)) contrast(calc(1 + var(--t, 1) * .25)); }
+[data-theme="dark"] .chev-tile.ink img { filter: grayscale(var(--t, 1)) brightness(calc(1 + var(--t, 1) * .7)) contrast(calc(1 - var(--t, 1) * .4)); }
+.chev-tile.ink::after { display: none; }
+/* a hairline so a dark still still reads as a tile and the mark keeps its edges */
+.chev-tile { box-shadow: inset 0 0 0 1px rgba(128, 128, 128, .22); }
+.chev-tile.focus { box-shadow: 0 28px 80px rgba(0, 0, 0, .28); }
+[data-theme="dark"] .chev-tile.focus { box-shadow: 0 28px 80px rgba(0, 0, 0, .7); }
+.chev-vid { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .5s; }
+.chev-vid.on { opacity: 1; }
+
+.chev-cap {
+  position: absolute; z-index: 5; font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  font-weight: 500; color: var(--text); text-decoration: none;
+}
+.chev-cap.idx { left: var(--pad, 22px); bottom: 22px; opacity: .6; }
+.chev-cap.name { left: 50%; bottom: 22px; transform: translateX(-50%); white-space: nowrap; }
+.chev-cap.stmt { right: var(--pad, 22px); bottom: 22px; opacity: .6; text-align: right; }
+.chev-hint {
+  position: absolute; left: 50%; bottom: 62px; transform: translateX(-50%); z-index: 5;
+  font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--text); opacity: .45;
+  transition: opacity .5s; display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+.chev-hint i { width: 1px; height: 26px; background: currentColor; transform-origin: top; animation: chevDrip 1.8s ease-in-out infinite; }
+@keyframes chevDrip { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+
+/* the nav pill sits over a dark stage while the hero is in view */
+[data-theme="dark"] body.chev-dark-nav .pill-nav {
+  background: rgba(20, 20, 24, .55); color: #f2f2f2;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, .45);
+}
+[data-theme="dark"] body.chev-dark-nav .pill-nav a, [data-theme="dark"] body.chev-dark-nav .pill-nav button { color: #f2f2f2; }
+[data-theme="dark"] body.chev-dark-nav .pill-nav .kd-mark-ink { fill: #fff; }
+
+@media (max-width: 720px) {
+  .chev-cap.stmt { display: none; }
+  .chev-cap.idx, .chev-cap.name { bottom: 64px; }
+  .chev-cap.name { left: auto; right: 22px; transform: none; }
+  .chev-hint { bottom: 104px; }
+}
+@media (prefers-reduced-motion: reduce) { .chev-hint i { animation: none; } }
+
+/* --- loader: the counter is the mark's first beat, not a separate screen --- */
+body.chev-loading, body.chev-holding { overflow: hidden; }
+.chev-cap.name { font-variant-numeric: tabular-nums; transition: transform .9s cubic-bezier(.22,.7,.2,1); }
+/* the count sits in the middle of the screen while loading, then rides down to
+   the caption slot as the mark lands, so it is one move rather than two elements */
+body.chev-loading .chev-cap.name { transform: translateX(-50%) translateY(calc(-50vh + 28px)); transition: none; }
+body.chev-loading .chev-bar { transform: translateX(-50%) translateY(calc(-50vh + 70px)); transition: none; }
+.chev-bar { transition: opacity .4s, transform .9s cubic-bezier(.22,.7,.2,1); }
+body.chev-loading .chev-cap.idx,
+body.chev-loading .chev-cap.stmt,
+body.chev-loading .chev-hint { opacity: 0 !important; }
+.chev-cap.idx, .chev-cap.stmt { transition: opacity .8s ease .15s; }
+.chev-sticky::after {                     /* a hairline that fills as the work loads */
+  content: ''; position: absolute; left: 50%; bottom: 46px; transform: translateX(-50%);
+  width: 54px; height: 1px; background: currentColor; opacity: 0; transition: opacity .4s;
+}
+body.chev-loading .chev-sticky::after { opacity: .18; }
+.chev-sticky .chev-bar {
+  position: absolute; left: 50%; bottom: 46px; width: 54px; height: 1px; z-index: 6;
+  transform: translateX(-50%); opacity: 0; transition: opacity .4s;
+}
+body.chev-loading .chev-bar { opacity: 1; }
+.chev-bar i { display: block; height: 100%; width: 0%; background: #0339f8; transition: width .25s ease; }
+
+/* the caption sits higher on a phone, so the count needs a shorter lift.
+   This has to come after the loader block above to win on cascade order. */
+@media (max-width: 720px) {
+  body.chev-loading .chev-cap.name { transform: translateX(-50%) translateY(calc(-50vh + 71px)); }
+}

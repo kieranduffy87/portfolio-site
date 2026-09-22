@@ -40,7 +40,7 @@ PROJECTS_A = [
    "The result is a site that explains a technical service to a business audience without the usual wall of acronyms, while still looking like it belongs in a serious security category."
   ]),
  ],
- "services": ["Brand Strategy", "Brand Identity", "Brand Guidelines", "Brand Toolkit", "Web Design & Development", "Motion", "Campaign", "Print & Exhibition", "Social Media"],
+ "services": ["Brand Strategy", "Brand Identity", "Brand Guidelines", "Brand Toolkit", "Web & UI Design", "Motion", "Campaign", "Print & Exhibition", "Social Media"],
 },
 {
  "slug": "quinnit",
@@ -104,13 +104,13 @@ PROJECTS_A = [
    "I developed a wider brand world built on ritual, momentum and the natural phases of the working day. Photography direction, visual assets and messaging frameworks make the brand feel both energising and grounding, and hold the story together across environments, packaging and communications."
   ]),
   ("Launching across digital and social", [
-   "I designed and built the Mistara website as a calm, editorial-led platform that introduces the brand and drives B2B enquiries. The launch social strategy moved in three phases (anticipation, reveal, enquiry) across Instagram, Facebook and LinkedIn, building curiosity through the brand's distinctive visual world before introducing roasts, machines and workplace solutions."
+   "I designed the Mistara website as a calm, editorial-led platform that introduces the brand and drives B2B enquiries. The launch social strategy moved in three phases (anticipation, reveal, enquiry) across Instagram, Facebook and LinkedIn, building curiosity through the brand's distinctive visual world before introducing roasts, machines and workplace solutions."
   ]),
   ("From brand to shelf", [
    "The packaging translates the identity into product: minimal structure with warmth and tactility, strong shelf presence, and a system that extends across roasts and formats without losing recognition. Mistara entered the market with a coherent presence from website to pack to workplace, and a foundation built for growth."
   ]),
  ],
- "services": ["Brand Strategy", "Brand Identity", "Packaging", "Web Design & Development", "Social Media", "Motion", "Digital Marketing"],
+ "services": ["Brand Strategy", "Brand Identity", "Packaging", "Web & UI Design", "Social Media", "Motion", "Digital Marketing"],
 },
 {
  "slug": "mjflood",
@@ -133,7 +133,7 @@ PROJECTS_A = [
    "The rebrand gives MJ Flood a coherent platform for ongoing diversification: stronger consistency across three divisions, improved cross-divisional navigation and referrals, growth in digital enquiries across Coffee and Security, and clearer recognition of MJ Flood as a diversified technology group."
   ]),
  ],
- "services": ["Brand Strategy", "Brand Architecture", "Brand Identity", "Web Design & Development", "UX/UI", "Motion", "Digital Marketing"],
+ "services": ["Brand Strategy", "Brand Architecture", "Brand Identity", "Web & UI Design", "UX/UI", "Motion", "Digital Marketing"],
 },
 {
  "slug": "asl",
@@ -156,7 +156,7 @@ PROJECTS_A = [
    "Workshops ran across countries and stakeholder groups, with designs created live in Figma during each session. The new platform launched on schedule ahead of the investment deadline, with a CMS built for animated headlines, news, slides and forms, giving the group's teams the tools to keep the story moving."
   ]),
  ],
- "services": ["Brand Identity", "UX/UI", "Web Design & Development", "Motion", "Content Direction", "Digital Strategy"],
+ "services": ["Brand Identity", "UX/UI", "Web & UI Design", "Motion", "Content Direction", "Digital Strategy"],
 },
 {
  "slug": "celsius",
@@ -200,7 +200,7 @@ PROJECTS_A = [
    "The result is a clearer, member-first brand presence online with faster paths to high-value actions: joining, renewing, registering for CPD and finding standards and resources."
   ]),
  ],
- "services": ["Brand Strategy", "Digital Brand System", "UX Research & IA", "UI Design System", "Accessibility", "Web Design & Development"],
+ "services": ["Brand Strategy", "Digital Brand System", "UX Research & IA", "UI Design System", "Accessibility", "Web & UI Design"],
 },
 {
  "slug": "liffey-meats",
@@ -220,7 +220,7 @@ PROJECTS_A = [
    "As the company expanded into the Netherlands, I built an export positioning framework and market-ready brand expression tailored to European buyers, refining messaging around provenance, traceability and premium grass-fed quality. A cohesive launch toolkit lets the brand communicate confidently in new markets while staying authentically Irish."
   ]),
  ],
- "services": ["Brand Identity", "Brand Strategy", "Web Design & Development", "UX/UI", "Motion", "Export Positioning"],
+ "services": ["Brand Identity", "Brand Strategy", "Web & UI Design", "UX/UI", "Motion", "Export Positioning"],
 },
 {
  "slug": "turmec",
@@ -240,7 +240,7 @@ PROJECTS_A = [
    "I designed a user-friendly, intuitive website with clear navigation and storytelling at its core, built for easy content management and future growth. The refreshed identity and platform position Turmec as a forward-thinking leader in waste management and engineering, differentiated in a competitive global market."
   ]),
  ],
- "services": ["Brand Identity", "Brand Strategy", "Web Design & Development", "Motion", "Content Direction"],
+ "services": ["Brand Identity", "Brand Strategy", "Web & UI Design", "Motion", "Content Direction"],
 },
 {
  "slug": "blanchardstown-shopping-centre",
@@ -254,13 +254,13 @@ PROJECTS_A = [
    "I studied browser personas and the brand architecture, ran UI/UX studies on the proposed designs, and analysed the previous website alongside competitor destinations. The goal: a distinctive, interactive platform that genuinely empathises with the centre's very broad audience."
   ]),
   ("Bringing the brand to life digitally", [
-   "I developed wireframes and prototypes, generated bespoke imagery, and directed original photography and video for the site. Every section is clearly defined and the user journey was mapped and refined extensively, a modern, elegant interface built on real user research."
+   "I created wireframes and prototypes, generated bespoke imagery, and directed original photography and video for the site. Every section is clearly defined and the user journey was mapped and refined extensively, a modern, elegant interface built on real user research."
   ]),
   ("Results", [
    "Traffic rose 200% within days of launch, bounce rate dropped by half, and social interaction increased 160%, a strong digital birthday present for the centre's 25th year."
   ]),
  ],
- "services": ["Brand Identity", "UX/UI", "Web Design & Development", "Content Production", "Motion"],
+ "services": ["Brand Identity", "UX/UI", "Web & UI Design", "Content Production", "Motion"],
 },
 {
  "slug": "grandes-alpes",
@@ -303,7 +303,7 @@ PROJECTS_A = [
    "From wireframes and interactive prototypes through to build, the process was driven by user research. Every section was carefully structured and the full user journey mapped and refined, resulting in a responsive, agile site with a clean, modern interface that puts KCMG ahead of its competition."
   ]),
  ],
- "services": ["Brand Identity", "Brand Guidelines", "Web Design & Development", "UX/UI", "Motion", "Signage & Livery"],
+ "services": ["Brand Identity", "Brand Guidelines", "Web & UI Design", "UX/UI", "Motion", "Signage & Livery"],
 },
 {
  "slug": "vfi",
@@ -323,7 +323,7 @@ PROJECTS_A = [
    "Faster onboarding and far fewer manual processes for the VFI team; clearer journeys that surface the right help at the right time; and a stronger, more consistent public presence supporting advocacy, with analytics-ready workflows that record member issues to underpin evidence-based campaigning."
   ]),
  ],
- "services": ["Brand Strategy", "UX/UI", "Web Design & Development", "E-commerce", "Security & GDPR", "Content Strategy"],
+ "services": ["Brand Strategy", "UX/UI", "Web & UI Design", "E-commerce Design", "Content Strategy"],
 },
 {
  "slug": "museums",
@@ -343,13 +343,13 @@ PROJECTS_A = [
    "The work extends across digital and print media, including support for touring exhibitions such as Whitewash and Thatch, a fascinating collection of 1930s–40s architectural drawings of Irish thatched cottages shown at the Country Life museum and regional venues. Every design is simple to interact with and friendly on any device."
   ]),
  ],
- "services": ["Digital Strategy", "Web Design & Development", "Graphic Design", "Exhibition Support", "Digital Marketing"],
+ "services": ["Digital Strategy", "Web & UI Design", "Graphic Design", "Exhibition Support", "Digital Marketing"],
 },
 {
  "slug": "chanelle-pet",
  "name": "Chanelle Pet",
  "tagline": "Ensuring Future Brand Success",
- "tags": ["E-commerce", "Digital Design", "UX/UI"],
+ "tags": ["E-commerce Design", "Digital Design", "UX/UI"],
  "industry": "Pharma",
  "intro": "Chanelle Pharma is Ireland's largest indigenous manufacturer of veterinary pharmaceuticals, with a presence in over 90 countries. Its Chanelle Pet site, home to more than 2,500 veterinary and pet products, was limited to a flipbook-style catalogue. I designed and delivered a proper e-commerce platform to unlock the range.",
  "sections": [
@@ -363,7 +363,7 @@ PROJECTS_A = [
    "The platform made thousands of printed catalogues, produced and posted to customers every year, obsolete, generating significant savings while letting product updates go live instantly. It's part of a long-term relationship in which I've helped shape Chanelle's brand strategy and manage its family of product websites."
   ]),
  ],
- "services": ["E-commerce", "UX/UI", "Web Design & Development", "Digital Strategy", "Ongoing Support"],
+ "services": ["E-commerce Design", "UX/UI", "Web & UI Design", "Digital Strategy", "Ongoing Design Support"],
 },
 {
  "slug": "chanelle-pharma",
@@ -383,13 +383,13 @@ PROJECTS_A = [
    "Alongside the identity work, I delivered the e-commerce transformation of the Chanelle Pet catalogue and ongoing management of six core and ancillary product websites, a long-term collaboration where design continues to play an integral part in the company's success story."
   ]),
  ],
- "services": ["Brand Strategy", "Brand Identity", "Web Design & Development", "E-commerce", "Digital Marketing", "Ongoing Support"],
+ "services": ["Brand Strategy", "Brand Identity", "Web & UI Design", "E-commerce Design", "Digital Marketing", "Ongoing Design Support"],
 },
 {
  "slug": "dawn-meats-group",
  "name": "Dawn Meats Group",
  "tagline": "Premium Meats, Delivered Digitally",
- "tags": ["E-commerce", "Digital Design", "Brand"],
+ "tags": ["E-commerce Design", "Digital Design", "Brand"],
  "industry": "Food & Drink",
  "intro": "Dawn Meats Group are market leaders in food processing with over 40 years of heritage, supplying customers in more than 50 countries. When Covid closed the hospitality sector, their retail brand The Premium Butcher needed to bring restaurant-quality meat direct to Irish households. Fast. I redesigned the brand's online presence and e-commerce platform.",
  "sections": [
@@ -403,13 +403,13 @@ PROJECTS_A = [
    "Website traffic increased 300% over the following two years with a 40% lower bounce rate, and online orders grew by over 500% in the six months after launch. The client put it simply: the new identity and website look great, and the effect on the online business has been massive."
   ]),
  ],
- "services": ["E-commerce", "Brand Refresh", "Web Design & Development", "Digital Advertising", "SEO & PPC", "Content Production"],
+ "services": ["E-commerce Design", "Brand Refresh", "Web & UI Design", "Digital Advertising", "SEO & PPC", "Content Production"],
 },
 {
  "slug": "des-kelly",
  "name": "Des Kelly Interiors",
  "tagline": "Where Quality Costs Less",
- "tags": ["E-commerce", "Digital Design", "UX/UI"],
+ "tags": ["E-commerce Design", "Digital Design", "UX/UI"],
  "industry": "Retail",
  "intro": "Des Kelly Interiors is an iconic Irish family retailer, 50 years in beds, flooring and home furnishings, ten Leinster showrooms and a nationwide delivery operation. The brand was loved, but the online experience lagged. I designed a modern web and e-commerce platform for a catalogue of more than 2,500 products.",
  "sections": [
@@ -423,7 +423,7 @@ PROJECTS_A = [
    "A contemporary palette that complements the existing brand, bespoke photography in appealing graphic templates, and clearly defined categories make the site fresh and easy to use. After launch, traffic rose 200% with a 40% lower bounce rate, and online orders grew by over 50% in the first three months."
   ]),
  ],
- "services": ["E-commerce", "UX/UI", "Web Design & Development", "Digital Advertising", "SEO & PPC", "Ongoing Support"],
+ "services": ["E-commerce Design", "UX/UI", "Web & UI Design", "Digital Advertising", "SEO & PPC", "Ongoing Design Support"],
 },
 {
  "slug": "harvey",
@@ -446,7 +446,7 @@ PROJECTS_A = [
    "A review after a year told the story: the firm grew from two directors to four, launched a new management-services division, and grew turnover by 30%. Time on site went from 30 seconds to over a minute, with bounce rate falling below 20%, strong returns on a brand investment."
   ]),
  ],
- "services": ["Brand Strategy", "Brand Identity", "Web Design & Development", "Signage", "Print & Stationery", "Digital Marketing"],
+ "services": ["Brand Strategy", "Brand Identity", "Web & UI Design", "Signage", "Print & Stationery", "Digital Marketing"],
 },
 {
  "slug": "oconnor-shannon",
@@ -466,6 +466,6 @@ PROJECTS_A = [
    "The online presence launched with complete digital marketing support behind it, ensuring the refreshed brand reached both its established audience and a new generation of property clients."
   ]),
  ],
- "services": ["Brand Identity", "Brand Strategy", "Web Design & Development", "Digital Advertising", "SEO & PPC"],
+ "services": ["Brand Identity", "Brand Strategy", "Web & UI Design", "Digital Advertising", "SEO & PPC"],
 },
 ]

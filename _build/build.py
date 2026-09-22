@@ -26,6 +26,8 @@ import datetime as _dt
 LAST_UPDATED = _dt.date.today().strftime("%B %Y")
 
 FEATURED = ["whatsexposed", "quinnit", "mistara", "mjflood", "asl", "celsius", "engineers-ireland", "liffey-meats"]
+# the chevron hero: every project builds the mark, the first HERO_RING of them open into the ring
+HERO_RING = 12
 
 SERVICES = [
  ("Brand Strategy", "brand-strategy",
@@ -60,13 +62,13 @@ SERVICES = [
    ("One brand system, every platform",
     "The approach is built on audience insight, content planning and platform understanding. Tone of voice, visual identity and messaging align with your wider brand system, so every post reinforces recognition, from B2B lead generation on LinkedIn to visual storytelling on consumer platforms."),
   ]),
- ("Web & Digital Development", "web-development",
-  "I design and build digital platforms that are reliable, scalable and made for long-term use.",
+ ("Web & Digital Design", "web-development",
+  "I design digital products end to end, then work alongside the developers who build them.",
   [
-   ("Platforms built to perform",
-    "Your website should do more than exist. It should support how your business is understood, engaged with and converted. I design and build websites and applications that combine structure, usability and performance, with a consistent, intuitive experience across desktop, tablet and mobile."),
+   ("Designed to perform",
+    "Your website should do more than exist. It should support how your business is understood, engaged with and converted. I design the structure and the interface: user journeys, information architecture, wireframes, prototypes, a UI kit and the motion that brings it to life, held consistent across desktop, tablet and mobile."),
    ("From brochure sites to platforms",
-    "The work spans brochure websites, complex e-commerce and custom web applications, choosing the most appropriate technology for each business. Design, development and user experience run as a single process, so visual identity, functionality and performance stay aligned, with custom integrations connecting to your existing tools where needed."),
+    "The work spans brochure websites, complex e-commerce and custom web applications. I set the design specification with the development team, stay across the build, review staging and art-direct the content, so what launches matches what was designed. The code is written by specialist developers, either your team or people I have worked with for years."),
   ]),
  ("Content Production", "content-production",
   "Photography, video, copywriting and motion that support your broader strategy.",
@@ -91,7 +93,7 @@ def e(s): return html.escape(s, quote=True)
 
 KD_MARK = """<svg class="kd-mark" viewBox="0 0 18.62 11.73" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polygon fill="#0339f8" points="18.62 0 12 0 6 5.86 12 11.73 18.62 11.73 12.62 5.86 18.62 0"/><polygon class="kd-mark-ink" points="0 0 0 11.72 6 5.86 0 0"/></svg>"""
 
-def head(title, depth=0, desc="", path="", og_image=None, noindex=False):
+def head(title, depth=0, desc="", path="", og_image=None, noindex=False, extra_head=""):
     p = "../" * depth
     url = f"{SITE_URL}/{path}" if path else f"{SITE_URL}/"
     ogimg = og_image or f"{SITE_URL}/assets/site/og.png"
@@ -119,7 +121,7 @@ def head(title, depth=0, desc="", path="", og_image=None, noindex=False):
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{p}css/style.css">
 <link rel="icon" type="image/svg+xml" href="{p}assets/site/brand/kd-icon-dark.svg">
-</head>
+{extra_head}</head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 """
@@ -407,22 +409,6 @@ SLIDE_STATEMENTS = {
 
 def build_home():
     feats = [p for s in FEATURED for p in LIVE_PROJECTS if p["slug"] == s]
-    slides = []
-    for i, p in enumerate(feats):
-        statement = SLIDE_STATEMENTS.get(p["slug"], p["tagline"])
-        slides.append(f"""<a class="slide{' active' if i == 0 else ''}" href="projects/{p['slug']}.html" data-slide="{i}">
-      <div class="slide-media">{hero_slide_media(p['slug'], first=(i == 0))}</div>
-      <div class="slide-scrim"></div>
-      <div class="slide-statement">
-        <span class="st-lead">I design</span>
-        <span class="st-line">{e(statement)}</span>
-      </div>
-      <div class="slide-copy">
-        <h2 class="slide-name">{e(p['name'])}</h2>
-        <p class="slide-tagline">{e(p['tagline'])}</p>
-      </div>
-    </a>""")
-    dots = "".join(f'<button class="dot{" active" if i == 0 else ""}" data-goto="{i}" aria-label="Slide {i+1}"></button>' for i in range(len(feats)))
     cards = "\n".join(project_card(p, 0, size=MOSAIC_CYCLE[i % len(MOSAIC_CYCLE)]) for i, p in enumerate(feats))
     pg_strip = "\n    ".join(
         '<a class="pg-tile reveal" href="%s"%s><span class="pgt-media">'
@@ -441,28 +427,17 @@ def build_home():
     svc = "\n".join(
         f'<a class="svc-row reveal" href="services.html#{sid}"><span class="svc-num">{i+1:02d}</span><h3>{e(name)}</h3><span class="svc-arrow">&rarr;</span></a>'
         for i, (name, sid, _, _) in enumerate(SERVICES))
-    preloader = """
-<div id="preloader" aria-hidden="true">
-  <div class="pre-mark">
-    <svg viewBox="0 0 18.62 11.73" xmlns="http://www.w3.org/2000/svg">
-      <polygon class="pre-blue" fill="#0339f8" points="18.62 0 12 0 6 5.86 12 11.73 18.62 11.73 12.62 5.86 18.62 0"/>
-      <polygon class="pre-ink" points="0 0 0 11.72 6 5.86 0 0"/>
-    </svg>
-  </div>
-</div>
-"""
-    body = preloader + f"""
+    # The chevron hero is its own preloader: the count runs on the real tiles
+    # loading, the work assembles into the KD mark, then opens into the ring.
+    body = f"""
 <main>
-<section class="hero hero-slider" id="heroSlider">
-  <div class="slides">
-    {''.join(slides)}
-  </div>
-  <div class="slider-ui">
-    <div class="dots">{dots}</div>
-    <div class="arrows">
-      <button class="arrow" id="slidePrev" aria-label="Previous project">&larr;</button>
-      <button class="arrow" id="slideNext" aria-label="Next project">&rarr;</button>
-    </div>
+<section class="hero-chev" id="chevHero">
+  <div class="chev-sticky">
+    <div class="chev-stage"><div class="chev-field" id="chevField"></div></div>
+    <div class="chev-hint" id="chevHint">Scroll<i></i></div>
+    <div class="chev-cap idx" id="chevIdx"></div>
+    <a class="chev-cap name" id="chevName"></a>
+    <div class="chev-cap stmt" id="chevStmt"></div>
   </div>
 </section>
 
@@ -511,7 +486,13 @@ def build_home():
 </section>
 </main>
 """
-    return head("Kieran Duffy | Brand & Digital Designer, Dublin", path="") + nav(0, "home") + body + footer(0)
+    body += """
+<script src="js/hero-data.js"></script>
+<script src="js/hero-chevron.js"></script>
+"""
+    return (head("Kieran Duffy | Brand & Digital Designer, Dublin", path="",
+                 extra_head='<link rel="stylesheet" href="css/hero-chevron.css">\n')
+            + nav(0, "home") + body + footer(0))
 
 # ---------------- ABOUT ----------------
 def build_about():
@@ -544,7 +525,8 @@ def build_about():
   <h2 class="reveal">Design solutions<br>with purpose</h2>
   <div class="prose reveal">
     <p>I&rsquo;m Kieran Duffy, a creative director and designer based in Dublin. Over 15 years of practice I&rsquo;ve worked across a wide range of market sectors, which has given me a deep understanding of how different businesses operate and grow. I&rsquo;ve helped organisations from the world&rsquo;s largest cargo airline to Ireland&rsquo;s largest indigenous print management company improve their brand equity, positioning and performance.</p>
-    <p>My work makes businesses clearer, more consistent, and easier for their customers to relate to, so each company&rsquo;s uniqueness stands out and builds stronger connections with its audience. I combine research, design thinking and hands-on making: strategy, design and technology brought together into practical solutions that improve how a business is perceived at every touchpoint.</p>
+    <p>My work makes businesses clearer, more consistent, and easier for their customers to relate to, so each company&rsquo;s uniqueness stands out and builds stronger connections with its audience. I combine research, design thinking and hands-on craft: strategy, brand and digital design brought together into practical work that improves how a business is perceived at every touchpoint.</p>
+    <p>My own hands are on the design: brand strategy and identity, art direction, UI and UX, photography, film, motion and 3D, campaign, print and packaging. I don&rsquo;t write production code. On digital projects I design and specify the whole product, then work alongside the developers who build it.</p>
     <p>I take the time to understand how people interact with a business, where confusion exists, and what can be improved. That lets me design experiences that are practical, intuitive, and aligned with real business goals. The result is simple: clearer communication, better user experiences, and stronger performance overall.</p>
   </div>
   <a class="btn reveal" href="contact.html">Start a project</a>
@@ -559,7 +541,7 @@ def build_about():
 <section class="prose-block" id="responsible">
   <h2 class="reveal">Low-carbon websites.<br><em>Efficiency without compromise.</em></h2>
   <div class="prose reveal">
-    <p>I design and build low-carbon websites that prioritise efficiency without compromising quality. By optimising code, simplifying design systems and choosing energy-efficient hosting, the platforms I make are faster, more stable and more resource-efficient.</p>
+    <p>I design low-carbon websites that prioritise efficiency without compromising quality. Simplifying design systems, keeping page weight down and specifying efficient hosting makes the sites I design faster, more stable and lighter to run.</p>
     <p>This reduces environmental impact while improving the numbers that matter: load speed, usability, search visibility. Sustainability becomes a practical advantage: better user experiences, more effective platforms, and solutions resilient enough to perform long-term in a changing digital environment.</p>
   </div>
 </section>
@@ -568,7 +550,7 @@ def build_about():
   <h2 class="reveal">How I <em>work</em></h2>
   <div class="prose reveal">
     <p>Every engagement starts with understanding: your market, your audience, and how value actually moves through your business. Strategy comes before style: positioning and structure first, then identity, then the digital platforms and content that carry it into the world.</p>
-    <p>I work directly with founders, marketing teams and boards, and I stay hands-on from the first workshop to the final deployment. When a project needs specialist depth in development, film or photography, I direct trusted collaborators while keeping one design vision across everything.</p>
+    <p>I work directly with founders, marketing teams and boards, and I stay hands-on from the first workshop to the final round of amends. Development is where I hand over: I design every part of what you see, specify it, then work with the developers who build it and review the build as it goes, so the live thing matches the design. On film and photography I direct the shoot rather than step back from it.</p>
     <p>Accessibility is part of the craft, not an afterthought. This site, like my client work, is built WCAG-minded: keyboard navigable, respectful of reduced-motion preferences, readable in light and dark. The same Universal Design thinking earned award recognition on projects like Monaghan Institute and ASL.</p>
   </div>
 </section>
@@ -827,7 +809,7 @@ def build_project(pr, idx):
 {render_deep(slug)}
 {stats}
 <aside class="cs-services reveal">
-  <h2 class="mono">Services provided</h2>
+  <h2 class="mono">My role</h2>
   <ul>{svcs}</ul>
 </aside>
 <nav class="cs-pagenav">
@@ -929,6 +911,30 @@ def build_404():
 """
     return head("Page not found | Kieran Duffy", path="404.html") + nav(0, "") + body + footer(0)
 
+def build_hero_data():
+    """Projects for the chevron hero, featured first so the ring takes the front slice."""
+    order = [p for slug in FEATURED for p in LIVE_PROJECTS if p["slug"] == slug]
+    order += [p for p in LIVE_PROJECTS if p not in order]
+    out = []
+    for pr in order:
+        slug = pr["slug"]
+        sm = f"assets/hero-thumbs-sm/{slug}.jpg"
+        big = f"assets/hero-thumbs/{slug}.jpg"
+        if not os.path.exists(os.path.join(ROOT, sm)):
+            continue                      # run _build/make_hero_thumbs.py after adding a project
+        vid = layout_first_video(slug)
+        if slug in CARD_MEDIA and os.path.exists(os.path.join(ROOT, CARD_MEDIA[slug][0])):
+            vid = os.path.join(ROOT, CARD_MEDIA[slug][0])
+        out.append({
+            "slug": slug, "name": pr["name"], "tagline": pr["tagline"],
+            "href": f"projects/{slug}.html", "thumb": big, "thumbSm": sm,
+            "video": q(os.path.relpath(vid, ROOT)) if vid else None,
+            "statement": SLIDE_STATEMENTS.get(slug, pr["tagline"]),
+        })
+    return ("window.HERO_RING = %d;\n" % HERO_RING) + \
+           "window.HERO_PROJECTS = " + json.dumps(out, indent=0) + ";\n"
+
+
 def build_sitemap():
     urls = ["", "about.html", "services.html", "work.html", "playground.html", "contact.html"] + [x.get("url", f"lab/{x['slug']}/index.html") for x in EXPERIMENTS if not str(x.get("url", "")).startswith("http")] + [f"projects/{p['slug']}.html" for p in LIVE_PROJECTS]
     today = _dt.date.today().isoformat()
@@ -945,6 +951,7 @@ def main():
         "playground.html": build_playground(),
         "404.html": build_404(),
     }
+    open(os.path.join(ROOT, "js", "hero-data.js"), "w").write(build_hero_data())
     open(os.path.join(ROOT, "sitemap.xml"), "w").write(build_sitemap())
     open(os.path.join(ROOT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}/sitemap.xml\n")
     for fn, content in pages.items():

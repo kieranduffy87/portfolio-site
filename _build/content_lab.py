@@ -139,7 +139,7 @@ TOOLS = [
 {
  "title": "KD Design System",
  "url": "https://kieranduffy87.github.io/kd-design-system/",
- "desc": "My own brand as a working system: tokens, type scale, colour, components and usage rules, documented and published so every project I build starts from the same foundation.",
+ "desc": "My own brand as a working system: tokens, type scale, colour, components and usage rules, documented and published so every project I design starts from the same foundation.",
  "tags": ["Design system", "Tokens", "Documentation"],
  "preview": "video",
  "slug": "kd-design-system",

@@ -20,7 +20,7 @@ PROJECTS_B = [
    "Traffic rose more than 150% within days of launch, bounce rate dropped 60%, and social engagement doubled. A strong start for a new destination brand."
   ]),
  ],
- "services": ["Brand Identity", "Web Design & Development", "Copywriting", "Photography & Video", "Print Collateral"],
+ "services": ["Brand Identity", "Web & UI Design", "Copywriting", "Photography & Video", "Print Collateral"],
 },
 {
  "slug": "ormond-avenue",
@@ -37,7 +37,7 @@ PROJECTS_B = [
    "I delivered the full brand experience: a modern, responsive website with original photography and video, plus printed media, outdoor signage and stationery. Every touchpoint communicates the same market positioning with simple, confident design."
   ]),
  ],
- "services": ["Brand Identity", "Web Design & Development", "Digital Strategy", "Signage", "Print Collateral"],
+ "services": ["Brand Identity", "Web & UI Design", "Digital Strategy", "Signage", "Print Collateral"],
 },
 {
  "slug": "motorsport-ireland",
@@ -83,7 +83,7 @@ PROJECTS_B = [
    "Enquiries and sales rose in the period after launch, average time on site went from 3 to 20 seconds, and bounce rate fell below 30% within twelve months. A 40-year-old brand, made fit for a new century."
   ]),
  ],
- "services": ["Brand Identity", "Brand Strategy", "Web Design & Development", "App Branding", "Digital Advertising", "Print & Signage"],
+ "services": ["Brand Identity", "Brand Strategy", "Web & UI Design", "App Branding", "Digital Advertising", "Print & Signage"],
 },
 {
  "slug": "balance-for-better-business",
@@ -91,7 +91,7 @@ PROJECTS_B = [
  "tagline": "Improving Gender Balance",
  "tags": ["Brand Identity", "Digital Design", "Public Sector"],
  "industry": "Public & Civic",
- "intro": "Balance for Better Business is the independent, business-led Review Group established by the Irish government to improve gender balance in senior leadership. Selected by the Department of Justice, I developed the public identity, website and communications for an organisation with genuinely important social and business objectives.",
+ "intro": "Balance for Better Business is the independent, business-led Review Group established by the Irish government to improve gender balance in senior leadership. Selected by the Department of Justice, I designed the public identity, website and communications for an organisation with genuinely important social and business objectives.",
  "sections": [
   ("A challenging brief", [
    "The brand had to reflect the status of a government-established review group while representing everyone working toward the same goal: a level playing field, and companies reaping the benefits of diverse boards and leadership teams. I spoke with large organisations about their approach to gender balance in recruitment and promotion, research that pointed clearly to an inclusive, informative tone."
@@ -106,7 +106,7 @@ PROJECTS_B = [
    "Since the group's launch, 41% of appointments to listed-company boards have been female (31% at large private companies), female representation on ISEQ 20 boards rose 13 points, and Ireland's gap to the EU average narrowed from 8.1% to 0.9%, climbing from 17th to 12th among EU countries. I'm proud this work played its part in that awareness."
   ]),
  ],
- "services": ["Brand Identity", "Brand Strategy", "Web Design & Development", "Social Strategy", "Brand Guidelines", "Print Collateral"],
+ "services": ["Brand Identity", "Brand Strategy", "Web & UI Design", "Social Strategy", "Brand Guidelines", "Print Collateral"],
 },
 {
  "slug": "irish-school-of-motoring",
@@ -126,7 +126,7 @@ PROJECTS_B = [
    "Intakes grew 52% within a year of the new brand. Web-driven leads rose to 70% of production, from zero qualified leads before the redesign to 40 in the first month and a record 60 within eleven months."
   ]),
  ],
- "services": ["Brand Identity", "Brand Strategy", "Web Design & Development", "Digital Marketing", "Print & Event Collateral"],
+ "services": ["Brand Identity", "Brand Strategy", "Web & UI Design", "Digital Marketing", "Print & Event Collateral"],
 },
 {
  "slug": "sentient",
@@ -146,7 +146,7 @@ PROJECTS_B = [
    "The transformations were memorable because they were simple: a website that's easy to interact with on any device, and an identity system that scales cleanly across the group, including Scorebuddy, voted Best New Technology 2021 by Call Centre Helper."
   ]),
  ],
- "services": ["Brand Positioning", "Brand Identity", "Web Design & Development", "Digital Marketing", "Print Collateral"],
+ "services": ["Brand Positioning", "Brand Identity", "Web & UI Design", "Digital Marketing", "Print Collateral"],
 },
 {
  "slug": "murcom-group",
@@ -166,7 +166,7 @@ PROJECTS_B = [
    "Online traffic increased 200% within six months at a bounce rate under 10%, and contract enquiries grew 180% in the six months that followed, a brand and platform that communicate expertise, excellence and service."
   ]),
  ],
- "services": ["Brand Identity", "Brand Strategy", "Web Design & Development", "Photography Direction", "Digital Marketing"],
+ "services": ["Brand Identity", "Brand Strategy", "Web & UI Design", "Photography Direction", "Digital Marketing"],
 },
 {
  "slug": "mccrae-consulting-engineers",
@@ -180,13 +180,13 @@ PROJECTS_B = [
    "I studied the audience, values and mission, then rejuvenated the brand by distilling word and iconography to their essence, a strong, bold contraction to MCE. The old icon became a minimalist solid form, purposeful across all media, set beside a commanding contemporary typeface in energetic engineering colours."
   ]),
   ("The full brand experience", [
-   "I developed a modern, responsive dashboard-style website and worked across printed media, external signage and stationery, a complete brand story that carries fifteen years of success into a new digital marketing era."
+   "I designed a modern, responsive dashboard-style website and worked across printed media, external signage and stationery, a complete brand story that carries fifteen years of success into a new digital marketing era."
   ]),
   ("Twelve months on", [
    "The firm grew from two directors to four, launched a new management-services division and grew turnover 30% within the year. Average time on site rose from 30 seconds to over a minute, with bounce rate falling below 20%, a well-known practice made more memorable through simplicity."
   ]),
  ],
- "services": ["Brand Strategy", "Brand Identity", "Web Design & Development", "Signage", "Print Collateral", "Digital Marketing"],
+ "services": ["Brand Strategy", "Brand Identity", "Web & UI Design", "Signage", "Print Collateral", "Digital Marketing"],
 },
 {
  "slug": "gallagher-kitchens",
@@ -206,7 +206,7 @@ PROJECTS_B = [
    "To embed the new look, I adapted the branding into eye-catching signage for the van fleet, building exteriors and showrooms, a comprehensive, uniform identity wherever the company appears. The client's verdict: tradition linked to the modern customer, and busier than ever."
   ]),
  ],
- "services": ["Brand Identity", "Web Design & Development", "Vehicle & Building Signage", "Digital Marketing", "Print Collateral"],
+ "services": ["Brand Identity", "Web & UI Design", "Vehicle & Building Signage", "Digital Marketing", "Print Collateral"],
 },
 {
  "slug": "monaghan-institute",
@@ -226,7 +226,7 @@ PROJECTS_B = [
    "Traffic rose 250% in the first four weeks after launch, and the work won Best in Universal Design at the IIA Net Visionary Awards and the Spider Awards, a modern platform that lifts the Institute's reputation regionally and nationally."
   ]),
  ],
- "services": ["Digital Brand", "UX Research & IA", "UI Design System", "Accessibility", "Web Design & Development", "SEO & PPC"],
+ "services": ["Digital Brand", "UX Research & IA", "UI Design System", "Accessibility", "Web & UI Design", "SEO & PPC"],
 },
 {
  "slug": "toptip",
@@ -280,10 +280,10 @@ PROJECTS_B = [
    "The logotype is simple and elegant, set against a bold palette for maximum impact. The secondary graphics are drawn from the physical shape of County Carlow itself, shifting in colour and scale for an ever-changing, dynamic expression."
   ]),
   ("Telling the success stories", [
-   "I created bespoke video content featuring Carlow-based businesses and the county's advantages from a business perspective, then developed the website and social presence to reach prospective investors, connecting the brand with the audiences that matter."
+   "I created bespoke video content featuring Carlow-based businesses and the county's advantages from a business perspective, then designed the website and shaped the social presence to reach prospective investors, connecting the brand with the audiences that matter."
   ]),
  ],
- "services": ["Brand Identity", "Brand Strategy", "Video Content", "Web Design & Development", "SEO & PPC"],
+ "services": ["Brand Identity", "Brand Strategy", "Video Content", "Web & UI Design", "SEO & PPC"],
 },
 {
  "slug": "emo-court",
@@ -303,7 +303,7 @@ PROJECTS_B = [
    "Web traffic rose 150% in the six months after launch with a significantly lower bounce rate, and visitor numbers grew appreciably even through Covid closures, a historic home finding its place as a contemporary leisure destination and venue."
   ]),
  ],
- "services": ["Brand Identity", "Brand Guidelines", "Web Design & Development", "Photography Direction", "Print Collateral"],
+ "services": ["Brand Identity", "Brand Guidelines", "Web & UI Design", "Photography Direction", "Print Collateral"],
 },
 {
  "slug": "empower",
@@ -323,7 +323,7 @@ PROJECTS_B = [
    "A new website replaced the old platform with a clean, accessible framework for initiatives, programmes and supports, backed by commissioned photography and video. At the public launch in April 2018, the Taoiseach's keynote singled out the name itself as summing up exactly what the organisation does. Awareness across Fingal has grown ever since."
   ]),
  ],
- "services": ["Naming", "Brand Identity", "Brand Guidelines", "Web Design & Development", "Photography & Video", "Print Collateral"],
+ "services": ["Naming", "Brand Identity", "Brand Guidelines", "Web & UI Design", "Photography & Video", "Print Collateral"],
 },
 {
  "slug": "raycooke",
@@ -340,7 +340,7 @@ PROJECTS_B = [
    "The platform's heart is an API that takes property data entered once by an agent, on an iPad or laptop, including video captured on location, and publishes it in real time to the website, Daft, MyHome and even the window display units in each office, with future IoT devices in scope. At launch it was the first website in Ireland to do this, with map-based search that filters results instantly."
   ]),
   ("Enterprise thinking on a tight budget", [
-   "The build used an open-source platform with a WordPress CMS to avoid heavy licensing, hardened with strict security protocols and hosted on enterprise infrastructure for zero downtime. Third parties offered no testing environment for data hand-offs, so I had a dedicated testing zone built to debug the data flows and guarantee a smooth launch."
+   "I specified an open-source platform with a WordPress CMS to avoid heavy licensing, with strict security protocols and enterprise hosting for zero downtime, and stayed across delivery with the development team. Third parties offered no testing environment for the data hand-offs, so I pushed for a dedicated testing zone to prove the flows before launch."
   ]),
   ("An interface that disappears", [
    "The UI is light so the properties shine: consistent patterns in language, layout and design; careful hierarchy and spacing; and navigation that carries the visitor from first interaction to enquiry in one seamless flow. Staff publish new pages and content code-free, and the marketing team automates timely, branded messaging with purpose."
