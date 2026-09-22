@@ -143,8 +143,14 @@ body.chev-loading .chev-bar { opacity: 1; }
      line inside roughly the width of the middle card */
   width: min(38vw, 520px);
 }
-.mode-fan .chev-line { font-size: clamp(20px, 2.3vw, 36px); line-height: 1.14; }
+.mode-fan .chev-line { font-size: clamp(24px, 2.8vw, 44px); line-height: 1.12; }
 .mode-fan .chev-sub { display: none; }
+.brk-m { display: none; }
 @media (max-width: 720px) {
-  .mode-fan .chev-centre { top: auto; bottom: 108px; width: 86vw; }
+  /* just under the arc, not parked at the bottom of the screen */
+  .mode-fan .chev-centre { top: 70%; bottom: auto; width: 88vw; }
+  /* needs its own size, or the vw-based desktop clamp bottoms out tiny here */
+  .mode-fan .chev-line { font-size: clamp(27px, 7.4vw, 38px); }
+  /* three deliberate lines beat two plus an orphaned word */
+  .brk-m { display: inline; }
 }

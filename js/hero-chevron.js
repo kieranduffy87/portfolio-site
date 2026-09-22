@@ -216,10 +216,14 @@
                rotY: th * DEG, w: cw, h: ch,
                op: clamp(2.4 - Math.abs(u) / (c.vw * .5), 0, 1), foc: Math.abs(u) / 120 };
     },
-    // a hand of cards fanned from below the fold
+    // a hand of cards fanned from below the fold. A phone gets a tighter arc and
+    // bigger cards, or the fan swings its shoulders off both edges of the screen.
     fan: function (t, c) {
       var k = wrap(t.slot - c.turn * c.n, -c.n / 2, c.n / 2);
-      var ang = k * 9, R = c.vh * .80, w = c.mn * .30, a = ang * RAD;
+      var spread = c.portrait ? 6 : 9;
+      var R = c.vh * (c.portrait ? .40 : .80);
+      var w = c.mn * (c.portrait ? .44 : .30);
+      var ang = k * spread, a = ang * RAD;
       return { x: Math.sin(a) * R, y: -Math.cos(a) * R + R * .84, rot: ang, z: -Math.abs(k) * 26,
                w: w, h: w * 1.26, op: clamp(1.9 - Math.abs(k) * .34, 0, 1), foc: Math.abs(k) };
     },
