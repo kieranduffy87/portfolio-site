@@ -94,3 +94,57 @@ body.chev-loading .chev-bar { opacity: 1; }
 @media (max-width: 720px) {
   body.chev-loading .chev-cap.name { transform: translateX(-50%) translateY(calc(-50vh + 71px)); }
 }
+
+/* --- the line that lands in the middle of the ring ------------------------
+   It occupies the hole the ring leaves, so it is held narrow enough to clear
+   the tiles and only appears once the ring has finished opening. */
+.chev-centre {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  z-index: 4; width: min(44vw, 620px); text-align: center; pointer-events: none;
+  opacity: 0; transition: opacity .9s ease, transform .9s cubic-bezier(.22,.7,.2,1);
+}
+.chev-centre.in { opacity: 1; }
+.chev-line {
+  margin: 0; font-size: clamp(22px, 2.9vw, 46px); font-weight: 500; line-height: 1.1;
+  letter-spacing: -.03em; color: var(--text);
+  transform: translateY(14px); opacity: 0;
+  transition: opacity .8s ease, transform .8s cubic-bezier(.22,.7,.2,1);
+}
+.chev-line em { font-style: normal; color: var(--accent); }
+.chev-sub {
+  margin: .85em 0 0; font-size: clamp(12px, 1.05vw, 15px); line-height: 1.5; opacity: 0;
+  color: var(--text); transform: translateY(12px);
+  transition: opacity .8s ease .16s, transform .8s cubic-bezier(.22,.7,.2,1) .16s;
+}
+.chev-centre.in .chev-line, .chev-centre.in .chev-sub { opacity: 1; transform: none; }
+.chev-centre.in .chev-sub { opacity: .62; }
+@media (max-width: 720px) {
+  /* a phone's ring leaves no usable hole, so the line sits below it instead */
+  .chev-centre { width: 84vw; top: auto; bottom: 104px; transform: translateX(-50%); }
+  .chev-line { font-size: clamp(19px, 5.6vw, 26px); }
+  .chev-sub { margin-top: .6em; }
+  /* the line takes the space the hint was using, and says the same thing better */
+  .chev-centre.in ~ .chev-hint { opacity: 0 !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .chev-centre, .chev-line, .chev-sub { transition: none; }
+}
+
+/* --- stack mode: the deck fills the frame on its own, no line needed --- */
+.mode-stack .chev-centre { display: none; }
+.mode-stack .chev-tile.lead { box-shadow: 0 30px 90px rgba(0, 0, 0, .35); }
+
+
+/* --- fan mode: the arc sits high, so the line drops into the gap beneath the
+   middle card. No supporting line here; the headline carries it alone. --- */
+.mode-fan .chev-centre {
+  top: 68%; bottom: auto; transform: translateX(-50%);
+  /* the arc curves down at both ends, so the clear band is narrow: keep the
+     line inside roughly the width of the middle card */
+  width: min(38vw, 520px);
+}
+.mode-fan .chev-line { font-size: clamp(20px, 2.3vw, 36px); line-height: 1.14; }
+.mode-fan .chev-sub { display: none; }
+@media (max-width: 720px) {
+  .mode-fan .chev-centre { top: auto; bottom: 108px; width: 86vw; }
+}

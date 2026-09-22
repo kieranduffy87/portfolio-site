@@ -28,6 +28,18 @@ LAST_UPDATED = _dt.date.today().strftime("%B %Y")
 FEATURED = ["whatsexposed", "quinnit", "mistara", "mjflood", "asl", "celsius", "engineers-ireland", "liffey-meats"]
 # the chevron hero: every project builds the mark, the first HERO_RING of them open into the ring
 HERO_RING = 12
+# The line that lands in the middle of the ring once it has opened. <em> is the blue.
+# Alternates can be previewed live with ?hero=1..4; keep the chosen one first.
+HERO_LINES = [
+    ("Brand and digital design that <em>earns its keep</em>.",
+     "Kieran Duffy. Fifteen years of it, from Dublin."),
+    ("Thirty-seven projects. <em>One way of working</em>.",
+     "Strategy first, then identity, then everything it touches."),
+    ("I design the brand, the interface, <em>and everything it touches</em>.",
+     "Brand, UI and UX, photography, film and motion."),
+    ("Design that makes a business <em>easier to choose</em>.",
+     "Fifteen years of brand and digital work, from Dublin."),
+]
 
 SERVICES = [
  ("Brand Strategy", "brand-strategy",
@@ -351,50 +363,12 @@ def project_card(pr, depth=0, num=None, size=""):
 </a>"""
 
 # ---------------- HOME ----------------
-# explicit homepage slide videos (site/sliders are Kieran's custom cuts)
-HOME_SLIDE_VIDEOS = {
-    "whatsexposed": "assets/scraped/whatsexposed/we-hero.mp4",
-    "mistara": "assets/site/sliders/mistara-slider.mp4",
-    "liffey-meats": "assets/site/sliders/liffey-slider.mp4",
-    "celsius": "assets/site/sliders/celsius-slider.mp4",
-    "mjflood": "assets/scraped/mjflood/Mjflood-M.mp4",
-    "asl": "assets/scraped/asl/ASL-2.mp4",
-    # Quinn IT: the project page hero carries the logo lockup; the homepage slider
-    # overlays its own title, so it uses the clean no-logo cut of the same film.
-    "quinnit": "assets/scraped/quinnit/qi-3dlayers.mp4",
-}
-
 def layout_first_video(slug):
     for row in layout_media(slug):
         for kind, p, _po in row:
             if kind == "video":
                 return p
     return None
-
-def hero_slide_media(slug, depth=0, first=False):
-    """Video-first feature media; explicit slide cuts win, then the project's feature video.
-
-    Only the opening slide ships a real src. iOS caps how many media elements a page
-    may hold open and silently refuses the rest, so the other slides carry data-src
-    and are attached by the slider as they come round.
-    """
-    path = None
-    if slug in HOME_SLIDE_VIDEOS:
-        cand = os.path.join(ROOT, HOME_SLIDE_VIDEOS[slug])
-        if os.path.exists(cand):
-            path = cand
-    path = path or layout_first_video(slug)
-    poster = layout_first_image(slug)
-    if slug in CARD_MEDIA:                      # homepage slots use the no-logo cut and its still
-        cv, cp = (os.path.join(ROOT, x) for x in CARD_MEDIA[slug])
-        if os.path.exists(cp): poster = cp
-    if path:
-        pa = f' poster="{rel(poster, depth)}"' if poster else ""
-        attr = f'src="{rel(path, depth)}"' if first else f'data-src="{rel(path, depth)}"'
-        pre = "metadata" if first else "none"
-        return f'<video muted loop playsinline preload="{pre}"{pa} {attr}></video>'
-    img = layout_first_image(slug)
-    return f'<img src="{rel(img, depth)}" alt="" loading="lazy">' if img else ""
 
 SLIDE_STATEMENTS = {
     "whatsexposed": "Brand Identity for Cybersecurity",
@@ -434,6 +408,10 @@ def build_home():
 <section class="hero-chev" id="chevHero">
   <div class="chev-sticky">
     <div class="chev-stage"><div class="chev-field" id="chevField"></div></div>
+    <div class="chev-centre" id="chevCentre" aria-live="polite">
+      <h1 class="chev-line" id="chevLine"></h1>
+      <p class="chev-sub" id="chevSub"></p>
+    </div>
     <div class="chev-hint" id="chevHint">Scroll<i></i></div>
     <div class="chev-cap idx" id="chevIdx"></div>
     <a class="chev-cap name" id="chevName"></a>
@@ -932,6 +910,7 @@ def build_hero_data():
             "statement": SLIDE_STATEMENTS.get(slug, pr["tagline"]),
         })
     return ("window.HERO_RING = %d;\n" % HERO_RING) + \
+           ("window.HERO_LINES = %s;\n" % json.dumps(HERO_LINES)) + \
            "window.HERO_PROJECTS = " + json.dumps(out, indent=0) + ";\n"
 
 
